@@ -1,0 +1,637 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4B884EEB14BB5DEB00209EBF /* SMLCommandResult.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B884EE514BB5DEB00209EBF /* SMLCommandResult.xib */; };
+		4B884EEC14BB5DEB00209EBF /* SMLDetab.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B884EE614BB5DEB00209EBF /* SMLDetab.xib */; };
+		4B884EED14BB5DEB00209EBF /* SMLEntab.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B884EE714BB5DEB00209EBF /* SMLEntab.xib */; };
+		4B884EEE14BB5DEB00209EBF /* SMLGoToLine.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B884EE814BB5DEB00209EBF /* SMLGoToLine.xib */; };
+		4B884EEF14BB5DEB00209EBF /* SMLOpenPanelAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B884EE914BB5DEB00209EBF /* SMLOpenPanelAccessoryView.xib */; };
+		4B884EF014BB5DEB00209EBF /* SMLRegularExpressionHelp.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B884EEA14BB5DEB00209EBF /* SMLRegularExpressionHelp.xib */; };
+		4B884EF214BB5E0200209EBF /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4B884EF114BB5E0200209EBF /* LICENSE.txt */; };
+		4B884F1614BB5E4300209EBF /* ICUMatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F1314BB5E4300209EBF /* ICUMatcher.h */; };
+		4B884F1714BB5E4300209EBF /* ICUPattern.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F1414BB5E4300209EBF /* ICUPattern.h */; };
+		4B884F1814BB5E4300209EBF /* NSStringICUAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F1514BB5E4300209EBF /* NSStringICUAdditions.h */; };
+		4B884F1C14BB5E5800209EBF /* ICUMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B884F1914BB5E5800209EBF /* ICUMatcher.m */; };
+		4B884F1D14BB5E5800209EBF /* ICUPattern.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B884F1A14BB5E5800209EBF /* ICUPattern.m */; };
+		4B884F1E14BB5E5800209EBF /* NSStringICUAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B884F1B14BB5E5800209EBF /* NSStringICUAdditions.m */; };
+		4B884F2F14BB5E6A00209EBF /* parseerr.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F1F14BB5E6A00209EBF /* parseerr.h */; };
+		4B884F3014BB5E6A00209EBF /* platform.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F2014BB5E6A00209EBF /* platform.h */; };
+		4B884F3114BB5E6A00209EBF /* putil.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F2114BB5E6A00209EBF /* putil.h */; };
+		4B884F3214BB5E6A00209EBF /* uconfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F2214BB5E6A00209EBF /* uconfig.h */; };
+		4B884F3314BB5E6A00209EBF /* udraft.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F2314BB5E6A00209EBF /* udraft.h */; };
+		4B884F3414BB5E6A00209EBF /* uiter.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F2414BB5E6A00209EBF /* uiter.h */; };
+		4B884F3514BB5E6A00209EBF /* umachine.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F2514BB5E6A00209EBF /* umachine.h */; };
+		4B884F3614BB5E6A00209EBF /* uregex.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F2614BB5E6A00209EBF /* uregex.h */; };
+		4B884F3714BB5E6A00209EBF /* urename.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F2714BB5E6A00209EBF /* urename.h */; };
+		4B884F3814BB5E6A00209EBF /* ustring.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F2814BB5E6A00209EBF /* ustring.h */; };
+		4B884F3914BB5E6A00209EBF /* utf_old.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F2914BB5E6A00209EBF /* utf_old.h */; };
+		4B884F3A14BB5E6A00209EBF /* utf.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F2A14BB5E6A00209EBF /* utf.h */; };
+		4B884F3B14BB5E6A00209EBF /* utf8.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F2B14BB5E6A00209EBF /* utf8.h */; };
+		4B884F3C14BB5E6A00209EBF /* utf16.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F2C14BB5E6A00209EBF /* utf16.h */; };
+		4B884F3D14BB5E6A00209EBF /* utypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F2D14BB5E6A00209EBF /* utypes.h */; };
+		4B884F3E14BB5E6A00209EBF /* uversion.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F2E14BB5E6A00209EBF /* uversion.h */; };
+		4B884F4614BB5E8E00209EBF /* SMLSyntaxColouring.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B884F3F14BB5E8E00209EBF /* SMLSyntaxColouring.m */; };
+		4B884F4714BB5E8E00209EBF /* SMLTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B884F4014BB5E8E00209EBF /* SMLTextView.m */; };
+		4B884F4814BB5E8E00209EBF /* SMLLineNumbers.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B884F4114BB5E8E00209EBF /* SMLLineNumbers.m */; };
+		4B884F4914BB5E8E00209EBF /* SMLTextPerformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B884F4214BB5E8E00209EBF /* SMLTextPerformer.m */; };
+		4B884F4A14BB5E8E00209EBF /* SMLLayoutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B884F4314BB5E8E00209EBF /* SMLLayoutManager.m */; };
+		4B884F4B14BB5E8E00209EBF /* SMLBasicPerformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B884F4414BB5E8E00209EBF /* SMLBasicPerformer.m */; };
+		4B884F4C14BB5E8E00209EBF /* SMLGutterTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B884F4514BB5E8E00209EBF /* SMLGutterTextView.m */; };
+		4B884F5514BB5EA500209EBF /* SMLStandardHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F4D14BB5EA500209EBF /* SMLStandardHeader.h */; };
+		4B884F5614BB5EA500209EBF /* SMLSyntaxColouring.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F4E14BB5EA500209EBF /* SMLSyntaxColouring.h */; };
+		4B884F5714BB5EA500209EBF /* SMLTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F4F14BB5EA500209EBF /* SMLTextView.h */; };
+		4B884F5814BB5EA500209EBF /* SMLTextPerformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F5014BB5EA500209EBF /* SMLTextPerformer.h */; };
+		4B884F5914BB5EA500209EBF /* SMLBasicPerformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F5114BB5EA500209EBF /* SMLBasicPerformer.h */; };
+		4B884F5A14BB5EA500209EBF /* SMLLineNumbers.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F5214BB5EA500209EBF /* SMLLineNumbers.h */; };
+		4B884F5B14BB5EA500209EBF /* SMLLayoutManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F5314BB5EA500209EBF /* SMLLayoutManager.h */; };
+		4B884F5C14BB5EA500209EBF /* SMLGutterTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F5414BB5EA500209EBF /* SMLGutterTextView.h */; };
+		4B884F6314BB5EC200209EBF /* MGSTextMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B884F5D14BB5EC200209EBF /* MGSTextMenuController.m */; };
+		4B884F6414BB5EC200209EBF /* MGSFragaria.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B884F5E14BB5EC200209EBF /* MGSFragaria.m */; };
+		4B884F6514BB5EC200209EBF /* MGSPreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B884F5F14BB5EC200209EBF /* MGSPreferencesController.m */; };
+		4B884F6614BB5EC200209EBF /* MGSSyntaxController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B884F6014BB5EC200209EBF /* MGSSyntaxController.m */; };
+		4B884F6714BB5EC200209EBF /* MGSExtraInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B884F6114BB5EC200209EBF /* MGSExtraInterfaceController.m */; };
+		4B884F6814BB5EC200209EBF /* MGSScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B884F6214BB5EC200209EBF /* MGSScanner.m */; };
+		4B884F7114BB5EDF00209EBF /* MGSFragariaPreferences.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F6914BB5EDF00209EBF /* MGSFragariaPreferences.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4B884F7214BB5EDF00209EBF /* MGSExtraInterfaceController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F6A14BB5EDF00209EBF /* MGSExtraInterfaceController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4B884F7314BB5EDF00209EBF /* MGSFragaria.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F6B14BB5EDF00209EBF /* MGSFragaria.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4B884F7414BB5EDF00209EBF /* MGSTextMenuController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F6C14BB5EDF00209EBF /* MGSTextMenuController.h */; };
+		4B884F7514BB5EDF00209EBF /* MGSSyntaxController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F6D14BB5EDF00209EBF /* MGSSyntaxController.h */; };
+		4B884F7614BB5EDF00209EBF /* MGSFragariaFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F6E14BB5EDF00209EBF /* MGSFragariaFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4B884F7714BB5EDF00209EBF /* MGSPreferencesController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F6F14BB5EDF00209EBF /* MGSPreferencesController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4B884F7814BB5EDF00209EBF /* MGSScanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F7014BB5EDF00209EBF /* MGSScanner.h */; };
+		AB39723A118C27E700AEF388 /* SyntaxDefinitions.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB3971E6118C27E700AEF388 /* SyntaxDefinitions.plist */; };
+		AB3972E5118C28E700AEF388 /* Syntax Definitions in Resources */ = {isa = PBXBuildFile; fileRef = AB397291118C28E700AEF388 /* Syntax Definitions */; };
+		AB69B6CA118B7D2100903D1D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		AB69B6CC118B7D3E00903D1D /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AB69B6CB118B7D3E00903D1D /* libicucore.dylib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		4B884EE514BB5DEB00209EBF /* SMLCommandResult.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SMLCommandResult.xib; path = interface/SMLCommandResult.xib; sourceTree = "<group>"; };
+		4B884EE614BB5DEB00209EBF /* SMLDetab.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SMLDetab.xib; path = interface/SMLDetab.xib; sourceTree = "<group>"; };
+		4B884EE714BB5DEB00209EBF /* SMLEntab.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SMLEntab.xib; path = interface/SMLEntab.xib; sourceTree = "<group>"; };
+		4B884EE814BB5DEB00209EBF /* SMLGoToLine.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SMLGoToLine.xib; path = interface/SMLGoToLine.xib; sourceTree = "<group>"; };
+		4B884EE914BB5DEB00209EBF /* SMLOpenPanelAccessoryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SMLOpenPanelAccessoryView.xib; path = interface/SMLOpenPanelAccessoryView.xib; sourceTree = "<group>"; };
+		4B884EEA14BB5DEB00209EBF /* SMLRegularExpressionHelp.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SMLRegularExpressionHelp.xib; path = interface/SMLRegularExpressionHelp.xib; sourceTree = "<group>"; };
+		4B884EF114BB5E0200209EBF /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		4B884F1314BB5E4300209EBF /* ICUMatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ICUMatcher.h; path = source/ICUMatcher.h; sourceTree = "<group>"; };
+		4B884F1414BB5E4300209EBF /* ICUPattern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ICUPattern.h; path = source/ICUPattern.h; sourceTree = "<group>"; };
+		4B884F1514BB5E4300209EBF /* NSStringICUAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSStringICUAdditions.h; path = source/NSStringICUAdditions.h; sourceTree = "<group>"; };
+		4B884F1914BB5E5800209EBF /* ICUMatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ICUMatcher.m; path = source/ICUMatcher.m; sourceTree = "<group>"; };
+		4B884F1A14BB5E5800209EBF /* ICUPattern.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ICUPattern.m; path = source/ICUPattern.m; sourceTree = "<group>"; };
+		4B884F1B14BB5E5800209EBF /* NSStringICUAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSStringICUAdditions.m; path = source/NSStringICUAdditions.m; sourceTree = "<group>"; };
+		4B884F1F14BB5E6A00209EBF /* parseerr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = parseerr.h; sourceTree = "<group>"; };
+		4B884F2014BB5E6A00209EBF /* platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform.h; sourceTree = "<group>"; };
+		4B884F2114BB5E6A00209EBF /* putil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = putil.h; sourceTree = "<group>"; };
+		4B884F2214BB5E6A00209EBF /* uconfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uconfig.h; sourceTree = "<group>"; };
+		4B884F2314BB5E6A00209EBF /* udraft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = udraft.h; sourceTree = "<group>"; };
+		4B884F2414BB5E6A00209EBF /* uiter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uiter.h; sourceTree = "<group>"; };
+		4B884F2514BB5E6A00209EBF /* umachine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = umachine.h; sourceTree = "<group>"; };
+		4B884F2614BB5E6A00209EBF /* uregex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uregex.h; sourceTree = "<group>"; };
+		4B884F2714BB5E6A00209EBF /* urename.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = urename.h; sourceTree = "<group>"; };
+		4B884F2814BB5E6A00209EBF /* ustring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ustring.h; sourceTree = "<group>"; };
+		4B884F2914BB5E6A00209EBF /* utf_old.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utf_old.h; sourceTree = "<group>"; };
+		4B884F2A14BB5E6A00209EBF /* utf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utf.h; sourceTree = "<group>"; };
+		4B884F2B14BB5E6A00209EBF /* utf8.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utf8.h; sourceTree = "<group>"; };
+		4B884F2C14BB5E6A00209EBF /* utf16.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utf16.h; sourceTree = "<group>"; };
+		4B884F2D14BB5E6A00209EBF /* utypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utypes.h; sourceTree = "<group>"; };
+		4B884F2E14BB5E6A00209EBF /* uversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uversion.h; sourceTree = "<group>"; };
+		4B884F3F14BB5E8E00209EBF /* SMLSyntaxColouring.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SMLSyntaxColouring.m; path = source/SMLSyntaxColouring.m; sourceTree = "<group>"; };
+		4B884F4014BB5E8E00209EBF /* SMLTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SMLTextView.m; path = source/SMLTextView.m; sourceTree = "<group>"; };
+		4B884F4114BB5E8E00209EBF /* SMLLineNumbers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SMLLineNumbers.m; path = source/SMLLineNumbers.m; sourceTree = "<group>"; };
+		4B884F4214BB5E8E00209EBF /* SMLTextPerformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SMLTextPerformer.m; path = source/SMLTextPerformer.m; sourceTree = "<group>"; };
+		4B884F4314BB5E8E00209EBF /* SMLLayoutManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SMLLayoutManager.m; path = source/SMLLayoutManager.m; sourceTree = "<group>"; };
+		4B884F4414BB5E8E00209EBF /* SMLBasicPerformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SMLBasicPerformer.m; path = source/SMLBasicPerformer.m; sourceTree = "<group>"; };
+		4B884F4514BB5E8E00209EBF /* SMLGutterTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SMLGutterTextView.m; path = source/SMLGutterTextView.m; sourceTree = "<group>"; };
+		4B884F4D14BB5EA500209EBF /* SMLStandardHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SMLStandardHeader.h; path = source/SMLStandardHeader.h; sourceTree = "<group>"; };
+		4B884F4E14BB5EA500209EBF /* SMLSyntaxColouring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SMLSyntaxColouring.h; path = source/SMLSyntaxColouring.h; sourceTree = "<group>"; };
+		4B884F4F14BB5EA500209EBF /* SMLTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SMLTextView.h; path = source/SMLTextView.h; sourceTree = "<group>"; };
+		4B884F5014BB5EA500209EBF /* SMLTextPerformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SMLTextPerformer.h; path = source/SMLTextPerformer.h; sourceTree = "<group>"; };
+		4B884F5114BB5EA500209EBF /* SMLBasicPerformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SMLBasicPerformer.h; path = source/SMLBasicPerformer.h; sourceTree = "<group>"; };
+		4B884F5214BB5EA500209EBF /* SMLLineNumbers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SMLLineNumbers.h; path = source/SMLLineNumbers.h; sourceTree = "<group>"; };
+		4B884F5314BB5EA500209EBF /* SMLLayoutManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SMLLayoutManager.h; path = source/SMLLayoutManager.h; sourceTree = "<group>"; };
+		4B884F5414BB5EA500209EBF /* SMLGutterTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SMLGutterTextView.h; path = source/SMLGutterTextView.h; sourceTree = "<group>"; };
+		4B884F5D14BB5EC200209EBF /* MGSTextMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGSTextMenuController.m; path = source/MGSTextMenuController.m; sourceTree = "<group>"; };
+		4B884F5E14BB5EC200209EBF /* MGSFragaria.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGSFragaria.m; path = source/MGSFragaria.m; sourceTree = "<group>"; };
+		4B884F5F14BB5EC200209EBF /* MGSPreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGSPreferencesController.m; path = source/MGSPreferencesController.m; sourceTree = "<group>"; };
+		4B884F6014BB5EC200209EBF /* MGSSyntaxController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGSSyntaxController.m; path = source/MGSSyntaxController.m; sourceTree = "<group>"; };
+		4B884F6114BB5EC200209EBF /* MGSExtraInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGSExtraInterfaceController.m; path = source/MGSExtraInterfaceController.m; sourceTree = "<group>"; };
+		4B884F6214BB5EC200209EBF /* MGSScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGSScanner.m; path = source/MGSScanner.m; sourceTree = "<group>"; };
+		4B884F6914BB5EDF00209EBF /* MGSFragariaPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGSFragariaPreferences.h; path = source/MGSFragariaPreferences.h; sourceTree = "<group>"; };
+		4B884F6A14BB5EDF00209EBF /* MGSExtraInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGSExtraInterfaceController.h; path = source/MGSExtraInterfaceController.h; sourceTree = "<group>"; };
+		4B884F6B14BB5EDF00209EBF /* MGSFragaria.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGSFragaria.h; path = source/MGSFragaria.h; sourceTree = "<group>"; };
+		4B884F6C14BB5EDF00209EBF /* MGSTextMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGSTextMenuController.h; path = source/MGSTextMenuController.h; sourceTree = "<group>"; };
+		4B884F6D14BB5EDF00209EBF /* MGSSyntaxController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGSSyntaxController.h; path = source/MGSSyntaxController.h; sourceTree = "<group>"; };
+		4B884F6E14BB5EDF00209EBF /* MGSFragariaFramework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGSFragariaFramework.h; path = source/MGSFragariaFramework.h; sourceTree = "<group>"; };
+		4B884F6F14BB5EDF00209EBF /* MGSPreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGSPreferencesController.h; path = source/MGSPreferencesController.h; sourceTree = "<group>"; };
+		4B884F7014BB5EDF00209EBF /* MGSScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGSScanner.h; path = source/MGSScanner.h; sourceTree = "<group>"; };
+		AB3971E6118C27E700AEF388 /* SyntaxDefinitions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SyntaxDefinitions.plist; sourceTree = "<group>"; };
+		AB397291118C28E700AEF388 /* Syntax Definitions */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Syntax Definitions"; sourceTree = "<group>"; };
+		AB69B62B118B745700903D1D /* MGSFragaria.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MGSFragaria.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AB69B62C118B745700903D1D /* MGSFragaria-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MGSFragaria-Info.plist"; sourceTree = "<group>"; };
+		AB69B6CB118B7D3E00903D1D /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = /usr/lib/libicucore.dylib; sourceTree = "<absolute>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AB69B629118B745700903D1D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AB69B6CA118B7D2100903D1D /* Cocoa.framework in Frameworks */,
+				AB69B6CC118B7D3E00903D1D /* libicucore.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AB69B6CB118B7D3E00903D1D /* libicucore.dylib */,
+				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
+				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AB69B62B118B745700903D1D /* MGSFragaria.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* KosmicEditor */ = {
+			isa = PBXGroup;
+			children = (
+				AB69B752118B82DF00903D1D /* Source */,
+				AB3972FC118C2A5D00AEF388 /* Resources */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+			);
+			name = KosmicEditor;
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CEA /* User Interface */ = {
+			isa = PBXGroup;
+			children = (
+				4B884EE514BB5DEB00209EBF /* SMLCommandResult.xib */,
+				4B884EE614BB5DEB00209EBF /* SMLDetab.xib */,
+				4B884EE714BB5DEB00209EBF /* SMLEntab.xib */,
+				4B884EE814BB5DEB00209EBF /* SMLGoToLine.xib */,
+				4B884EE914BB5DEB00209EBF /* SMLOpenPanelAccessoryView.xib */,
+				4B884EEA14BB5DEB00209EBF /* SMLRegularExpressionHelp.xib */,
+			);
+			name = "User Interface";
+			sourceTree = "<group>";
+		};
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
+				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AB3972FC118C2A5D00AEF388 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4B884EF114BB5E0200209EBF /* LICENSE.txt */,
+				AB69B62C118B745700903D1D /* MGSFragaria-Info.plist */,
+				AB3971E6118C27E700AEF388 /* SyntaxDefinitions.plist */,
+				AB397291118C28E700AEF388 /* Syntax Definitions */,
+				29B97317FDCFA39411CA2CEA /* User Interface */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		AB3972FD118C2A8200AEF388 /* headers */ = {
+			isa = PBXGroup;
+			children = (
+				4B884F4D14BB5EA500209EBF /* SMLStandardHeader.h */,
+				4B884F4E14BB5EA500209EBF /* SMLSyntaxColouring.h */,
+				4B884F4F14BB5EA500209EBF /* SMLTextView.h */,
+				4B884F5014BB5EA500209EBF /* SMLTextPerformer.h */,
+				4B884F5114BB5EA500209EBF /* SMLBasicPerformer.h */,
+				4B884F5214BB5EA500209EBF /* SMLLineNumbers.h */,
+				4B884F5314BB5EA500209EBF /* SMLLayoutManager.h */,
+				4B884F5414BB5EA500209EBF /* SMLGutterTextView.h */,
+			);
+			name = headers;
+			sourceTree = "<group>";
+		};
+		AB69B659118B75E100903D1D /* Smultron */ = {
+			isa = PBXGroup;
+			children = (
+				AB3972FD118C2A8200AEF388 /* headers */,
+				4B884F3F14BB5E8E00209EBF /* SMLSyntaxColouring.m */,
+				4B884F4014BB5E8E00209EBF /* SMLTextView.m */,
+				4B884F4114BB5E8E00209EBF /* SMLLineNumbers.m */,
+				4B884F4214BB5E8E00209EBF /* SMLTextPerformer.m */,
+				4B884F4314BB5E8E00209EBF /* SMLLayoutManager.m */,
+				4B884F4414BB5E8E00209EBF /* SMLBasicPerformer.m */,
+				4B884F4514BB5E8E00209EBF /* SMLGutterTextView.m */,
+			);
+			name = Smultron;
+			sourceTree = "<group>";
+		};
+		AB69B69D118B7A9600903D1D /* icu */ = {
+			isa = PBXGroup;
+			children = (
+				4B884F1F14BB5E6A00209EBF /* parseerr.h */,
+				4B884F2014BB5E6A00209EBF /* platform.h */,
+				4B884F2114BB5E6A00209EBF /* putil.h */,
+				4B884F2214BB5E6A00209EBF /* uconfig.h */,
+				4B884F2314BB5E6A00209EBF /* udraft.h */,
+				4B884F2414BB5E6A00209EBF /* uiter.h */,
+				4B884F2514BB5E6A00209EBF /* umachine.h */,
+				4B884F2614BB5E6A00209EBF /* uregex.h */,
+				4B884F2714BB5E6A00209EBF /* urename.h */,
+				4B884F2814BB5E6A00209EBF /* ustring.h */,
+				4B884F2914BB5E6A00209EBF /* utf_old.h */,
+				4B884F2A14BB5E6A00209EBF /* utf.h */,
+				4B884F2B14BB5E6A00209EBF /* utf8.h */,
+				4B884F2C14BB5E6A00209EBF /* utf16.h */,
+				4B884F2D14BB5E6A00209EBF /* utypes.h */,
+				4B884F2E14BB5E6A00209EBF /* uversion.h */,
+			);
+			path = icu;
+			sourceTree = "<group>";
+		};
+		AB69B752118B82DF00903D1D /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				ABDED9B6128AB144002EE039 /* Fragaria */,
+				ABDED9A9128AAEB6002EE039 /* ICU */,
+				AB69B659118B75E100903D1D /* Smultron */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		ABDED9A9128AAEB6002EE039 /* ICU */ = {
+			isa = PBXGroup;
+			children = (
+				AB69B69D118B7A9600903D1D /* icu */,
+				ABDED9BE128AB492002EE039 /* Headers */,
+				4B884F1914BB5E5800209EBF /* ICUMatcher.m */,
+				4B884F1A14BB5E5800209EBF /* ICUPattern.m */,
+				4B884F1B14BB5E5800209EBF /* NSStringICUAdditions.m */,
+			);
+			name = ICU;
+			sourceTree = "<group>";
+		};
+		ABDED9B6128AB144002EE039 /* Fragaria */ = {
+			isa = PBXGroup;
+			children = (
+				ABFBCC58119217F700F55626 /* Headers */,
+				4B884F5D14BB5EC200209EBF /* MGSTextMenuController.m */,
+				4B884F5E14BB5EC200209EBF /* MGSFragaria.m */,
+				4B884F5F14BB5EC200209EBF /* MGSPreferencesController.m */,
+				4B884F6014BB5EC200209EBF /* MGSSyntaxController.m */,
+				4B884F6114BB5EC200209EBF /* MGSExtraInterfaceController.m */,
+				4B884F6214BB5EC200209EBF /* MGSScanner.m */,
+			);
+			name = Fragaria;
+			sourceTree = "<group>";
+		};
+		ABDED9BE128AB492002EE039 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				4B884F1314BB5E4300209EBF /* ICUMatcher.h */,
+				4B884F1414BB5E4300209EBF /* ICUPattern.h */,
+				4B884F1514BB5E4300209EBF /* NSStringICUAdditions.h */,
+			);
+			name = Headers;
+			sourceTree = "<group>";
+		};
+		ABFBCC58119217F700F55626 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				4B884F6914BB5EDF00209EBF /* MGSFragariaPreferences.h */,
+				4B884F6A14BB5EDF00209EBF /* MGSExtraInterfaceController.h */,
+				4B884F6B14BB5EDF00209EBF /* MGSFragaria.h */,
+				4B884F6C14BB5EDF00209EBF /* MGSTextMenuController.h */,
+				4B884F6D14BB5EDF00209EBF /* MGSSyntaxController.h */,
+				4B884F6E14BB5EDF00209EBF /* MGSFragariaFramework.h */,
+				4B884F6F14BB5EDF00209EBF /* MGSPreferencesController.h */,
+				4B884F7014BB5EDF00209EBF /* MGSScanner.h */,
+			);
+			name = Headers;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		AB69B626118B745700903D1D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B884F7214BB5EDF00209EBF /* MGSExtraInterfaceController.h in Headers */,
+				4B884F7314BB5EDF00209EBF /* MGSFragaria.h in Headers */,
+				4B884F7114BB5EDF00209EBF /* MGSFragariaPreferences.h in Headers */,
+				4B884F7614BB5EDF00209EBF /* MGSFragariaFramework.h in Headers */,
+				4B884F7714BB5EDF00209EBF /* MGSPreferencesController.h in Headers */,
+				4B884F1614BB5E4300209EBF /* ICUMatcher.h in Headers */,
+				4B884F1714BB5E4300209EBF /* ICUPattern.h in Headers */,
+				4B884F1814BB5E4300209EBF /* NSStringICUAdditions.h in Headers */,
+				4B884F2F14BB5E6A00209EBF /* parseerr.h in Headers */,
+				4B884F3014BB5E6A00209EBF /* platform.h in Headers */,
+				4B884F3114BB5E6A00209EBF /* putil.h in Headers */,
+				4B884F3214BB5E6A00209EBF /* uconfig.h in Headers */,
+				4B884F3314BB5E6A00209EBF /* udraft.h in Headers */,
+				4B884F3414BB5E6A00209EBF /* uiter.h in Headers */,
+				4B884F3514BB5E6A00209EBF /* umachine.h in Headers */,
+				4B884F3614BB5E6A00209EBF /* uregex.h in Headers */,
+				4B884F3714BB5E6A00209EBF /* urename.h in Headers */,
+				4B884F3814BB5E6A00209EBF /* ustring.h in Headers */,
+				4B884F3914BB5E6A00209EBF /* utf_old.h in Headers */,
+				4B884F3A14BB5E6A00209EBF /* utf.h in Headers */,
+				4B884F3B14BB5E6A00209EBF /* utf8.h in Headers */,
+				4B884F3C14BB5E6A00209EBF /* utf16.h in Headers */,
+				4B884F3D14BB5E6A00209EBF /* utypes.h in Headers */,
+				4B884F3E14BB5E6A00209EBF /* uversion.h in Headers */,
+				4B884F5514BB5EA500209EBF /* SMLStandardHeader.h in Headers */,
+				4B884F5614BB5EA500209EBF /* SMLSyntaxColouring.h in Headers */,
+				4B884F5714BB5EA500209EBF /* SMLTextView.h in Headers */,
+				4B884F5814BB5EA500209EBF /* SMLTextPerformer.h in Headers */,
+				4B884F5914BB5EA500209EBF /* SMLBasicPerformer.h in Headers */,
+				4B884F5A14BB5EA500209EBF /* SMLLineNumbers.h in Headers */,
+				4B884F5B14BB5EA500209EBF /* SMLLayoutManager.h in Headers */,
+				4B884F5C14BB5EA500209EBF /* SMLGutterTextView.h in Headers */,
+				4B884F7414BB5EDF00209EBF /* MGSTextMenuController.h in Headers */,
+				4B884F7514BB5EDF00209EBF /* MGSSyntaxController.h in Headers */,
+				4B884F7814BB5EDF00209EBF /* MGSScanner.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		AB69B62A118B745700903D1D /* MGSFragaria */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AB69B62F118B745800903D1D /* Build configuration list for PBXNativeTarget "MGSFragaria" */;
+			buildPhases = (
+				AB69B626118B745700903D1D /* Headers */,
+				AB69B627118B745700903D1D /* Resources */,
+				AB69B628118B745700903D1D /* Sources */,
+				AB69B629118B745700903D1D /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MGSFragaria;
+			productName = MGSKosmicEditor;
+			productReference = AB69B62B118B745700903D1D /* MGSFragaria.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Fragaria" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 29B97314FDCFA39411CA2CEA /* KosmicEditor */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AB69B62A118B745700903D1D /* MGSFragaria */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AB69B627118B745700903D1D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AB39723A118C27E700AEF388 /* SyntaxDefinitions.plist in Resources */,
+				AB3972E5118C28E700AEF388 /* Syntax Definitions in Resources */,
+				4B884EEB14BB5DEB00209EBF /* SMLCommandResult.xib in Resources */,
+				4B884EEC14BB5DEB00209EBF /* SMLDetab.xib in Resources */,
+				4B884EED14BB5DEB00209EBF /* SMLEntab.xib in Resources */,
+				4B884EEE14BB5DEB00209EBF /* SMLGoToLine.xib in Resources */,
+				4B884EEF14BB5DEB00209EBF /* SMLOpenPanelAccessoryView.xib in Resources */,
+				4B884EF014BB5DEB00209EBF /* SMLRegularExpressionHelp.xib in Resources */,
+				4B884EF214BB5E0200209EBF /* LICENSE.txt in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AB69B628118B745700903D1D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B884F1C14BB5E5800209EBF /* ICUMatcher.m in Sources */,
+				4B884F1D14BB5E5800209EBF /* ICUPattern.m in Sources */,
+				4B884F1E14BB5E5800209EBF /* NSStringICUAdditions.m in Sources */,
+				4B884F4614BB5E8E00209EBF /* SMLSyntaxColouring.m in Sources */,
+				4B884F4714BB5E8E00209EBF /* SMLTextView.m in Sources */,
+				4B884F4814BB5E8E00209EBF /* SMLLineNumbers.m in Sources */,
+				4B884F4914BB5E8E00209EBF /* SMLTextPerformer.m in Sources */,
+				4B884F4A14BB5E8E00209EBF /* SMLLayoutManager.m in Sources */,
+				4B884F4B14BB5E8E00209EBF /* SMLBasicPerformer.m in Sources */,
+				4B884F4C14BB5E8E00209EBF /* SMLGutterTextView.m in Sources */,
+				4B884F6314BB5EC200209EBF /* MGSTextMenuController.m in Sources */,
+				4B884F6414BB5EC200209EBF /* MGSFragaria.m in Sources */,
+				4B884F6514BB5EC200209EBF /* MGSPreferencesController.m in Sources */,
+				4B884F6614BB5EC200209EBF /* MGSSyntaxController.m in Sources */,
+				4B884F6714BB5EC200209EBF /* MGSExtraInterfaceController.m in Sources */,
+				4B884F6814BB5EC200209EBF /* MGSScanner.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		AB69B62D118B745800903D1D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "MGSFragaria-Info.plist";
+				INSTALL_PATH = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PRODUCT_NAME = MGSFragaria;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		AB69B62E118B745800903D1D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "MGSFragaria-Info.plist";
+				INSTALL_PATH = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PRODUCT_NAME = MGSFragaria;
+				VERSIONING_SYSTEM = "apple-generic";
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		C01FCF4F08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_GC = supported;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_CHECK_SWITCH_STATEMENTS = YES;
+				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
+				GCC_WARN_MISSING_PARENTHESES = YES;
+				GCC_WARN_SHADOW = YES;
+				GCC_WARN_SIGN_COMPARE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = NO;
+				GCC_WARN_UNKNOWN_PRAGMAS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_LABEL = YES;
+				GCC_WARN_UNUSED_PARAMETER = YES;
+				GCC_WARN_UNUSED_VALUE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "icu/**";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				ONLY_ACTIVE_ARCH = NO;
+				RUN_CLANG_STATIC_ANALYZER = NO;
+				SDKROOT = macosx;
+				WARNING_CFLAGS = (
+					"-Wextra",
+					"-Wall",
+					"-Wfloat-equal",
+					"-Wformat",
+				);
+			};
+			name = Debug;
+		};
+		C01FCF5008A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_GC = supported;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_CHECK_SWITCH_STATEMENTS = YES;
+				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
+				GCC_WARN_MISSING_PARENTHESES = YES;
+				GCC_WARN_SHADOW = YES;
+				GCC_WARN_SIGN_COMPARE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNKNOWN_PRAGMAS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_LABEL = YES;
+				GCC_WARN_UNUSED_PARAMETER = YES;
+				GCC_WARN_UNUSED_VALUE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "icu/**";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				RUN_CLANG_STATIC_ANALYZER = NO;
+				SDKROOT = macosx;
+				WARNING_CFLAGS = (
+					"-Wextra",
+					"-Wall",
+					"-Wfloat-equal",
+					"-Wformat",
+				);
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AB69B62F118B745800903D1D /* Build configuration list for PBXNativeTarget "MGSFragaria" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AB69B62D118B745800903D1D /* Debug */,
+				AB69B62E118B745800903D1D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Fragaria" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4F08A954540054247B /* Debug */,
+				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}
