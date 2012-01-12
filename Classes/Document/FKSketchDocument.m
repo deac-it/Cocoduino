@@ -37,7 +37,7 @@
 
 @implementation FKSketchDocument
 @synthesize tabView, bottomTextField, tabBarControl;
-@synthesize addFileSheet, addFileTextField, buildButton, buildAndUploadButton;
+@synthesize addFileSheet, addFileTextField, buildButton, buildAndUploadButton, progressIndicator;
 @synthesize board, serialPort;
 @synthesize files;
 
@@ -430,7 +430,14 @@
     else if (action == @selector(openSerialMonitor:))
         return (self.serialPort != nil);
     else
-        return [super validateMenuItem:item];
+        return YES;
+}
+
+- (BOOL) validateToolbarItem:(NSToolbarItem *)toolbarItem {
+    if (toolbarItem == self.buildButton || toolbarItem == self.buildAndUploadButton)
+        return !_building;
+    else
+        return YES;
 }
 
 - (IBAction) buildSketch:(id)sender {
@@ -444,14 +451,35 @@
     }
     
     if ([FKInoTool buildSketchWithFiles:self.files forBoard:self.board onSerialPort:nil uploadAfterBuild:NO verboseOutput:YES terminationHandler:^(BOOL success, FKInoToolType toolType, NSError *error, NSString *output) {
-        self.buildButton.enabled = YES;
-        self.buildAndUploadButton.enabled = YES;
+        _building = NO;
+        [self.progressIndicator stopAnimation:nil];
         
-        NSLog(@"Error: %@", error);
-        NSLog(@"Output: %@", output);
+        NSAlert *alert = [[NSAlert alloc] init];
+        [alert setMessageText:(error == nil) ? @"Build Successful!" : @"Build Failed!"];
+
+        NSScrollView *scrollview = [[NSScrollView alloc] initWithFrame:[[alert.window contentView] frame]];
+        [scrollview setBorderType:NSBezelBorder];
+        [scrollview setHasVerticalScroller:YES];
+        [scrollview setHasHorizontalScroller:NO];
+        [scrollview setAutoresizingMask:(NSViewWidthSizable | NSViewHeightSizable)];
+        
+        NSTextView *textView = [[NSTextView alloc] initWithFrame:NSMakeRect(0, 0, scrollview.contentSize.width, scrollview.contentSize.height)];
+        [textView setEditable:NO];
+        [textView setVerticallyResizable:YES];
+        [textView setHorizontallyResizable:NO];
+        
+        [[[textView textStorage] mutableString] appendString:output];
+        
+        [scrollview setDocumentView:textView];
+        [alert setAccessoryView:scrollview];
+        [textView release];
+        [scrollview release];
+        
+        [alert beginSheetModalForWindow:[[self.windowControllers objectAtIndex:0] window] modalDelegate:[self class] didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) contextInfo:NULL];
+        [alert release];
     }]) {
-        self.buildButton.enabled = NO;
-        self.buildAndUploadButton.enabled = NO;
+        _building = YES;
+        [self.progressIndicator startAnimation:nil];
     }
 }
 
@@ -470,14 +498,38 @@
     }
     
     if ([FKInoTool buildSketchWithFiles:self.files forBoard:self.board onSerialPort:self.serialPort uploadAfterBuild:YES verboseOutput:YES terminationHandler:^(BOOL success, FKInoToolType toolType, NSError *error, NSString *output) {
-        self.buildButton.enabled = YES;
-        self.buildAndUploadButton.enabled = YES;
+        _building = NO;
+        [self.progressIndicator stopAnimation:nil];
         
-        NSLog(@"Error: %@", error);
-        NSLog(@"Output: %@", output);
+        NSAlert *alert = [[NSAlert alloc] init];
+        if (toolType == FKInoToolTypeBuild)
+            [alert setMessageText:(error == nil) ? @"Build Successful!" : @"Build Failed!"];
+        else
+            [alert setMessageText:(error == nil) ? @"Build & Upload Successful!" : @"Build & Upload Failed!"];
+        
+        NSScrollView *scrollview = [[NSScrollView alloc] initWithFrame:[[alert.window contentView] frame]];
+        [scrollview setBorderType:NSBezelBorder];
+        [scrollview setHasVerticalScroller:YES];
+        [scrollview setHasHorizontalScroller:NO];
+        [scrollview setAutoresizingMask:(NSViewWidthSizable | NSViewHeightSizable)];
+        
+        NSTextView *textView = [[NSTextView alloc] initWithFrame:NSMakeRect(0, 0, scrollview.contentSize.width, scrollview.contentSize.height)];
+        [textView setEditable:NO];
+        [textView setVerticallyResizable:YES];
+        [textView setHorizontallyResizable:NO];
+        
+        [[[textView textStorage] mutableString] appendString:output];
+        
+        [scrollview setDocumentView:textView];
+        [alert setAccessoryView:scrollview];
+        [textView release];
+        [scrollview release];
+        
+        [alert beginSheetModalForWindow:[[self.windowControllers objectAtIndex:0] window] modalDelegate:[self class] didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) contextInfo:NULL];
+        [alert release];
     }]) {
-        self.buildButton.enabled = NO;
-        self.buildAndUploadButton.enabled = NO;
+        _building = YES;
+        [self.progressIndicator startAnimation:nil];
     }
 }
 
@@ -642,6 +694,7 @@
     [addFileTextField release], addFileTextField = nil;
     [buildButton release], buildButton = nil;
     [buildAndUploadButton release], buildAndUploadButton = nil;
+    [progressIndicator release], progressIndicator = nil;
     [board release], board = nil;
     [serialPort release], serialPort = nil;
     [files release], files = nil;

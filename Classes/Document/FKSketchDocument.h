@@ -21,7 +21,8 @@
     NSTextField *addFileTextField;
     NSToolbarItem *buildButton;
     NSToolbarItem *buildAndUploadButton;
-    
+    NSProgressIndicator *progressIndicator;
+
     NSDictionary *board;
     AMSerialPort *serialPort;
 
@@ -32,6 +33,7 @@
      Private ivars only used in some situations.
     */
     
+    BOOL _building;
     NSArray *_dragTabViewItems;
     FKSerialMonitorWindowController *_serialMonitorWindowController;
 }
@@ -70,6 +72,7 @@
 @property (nonatomic, retain) IBOutlet NSTextField *addFileTextField;
 @property (nonatomic, retain) IBOutlet NSToolbarItem *buildButton;
 @property (nonatomic, retain) IBOutlet NSToolbarItem *buildAndUploadButton;
+@property (nonatomic, retain) IBOutlet NSProgressIndicator *progressIndicator;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
