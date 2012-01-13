@@ -252,6 +252,46 @@
 									<reference key="NSOnImage" ref="1033313550"/>
 									<reference key="NSMixedImage" ref="310636482"/>
 								</object>
+								<object class="NSMenuItem" id="102532616">
+									<reference key="NSMenu" ref="720053764"/>
+									<string key="NSTitle">Sketchbook</string>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="1033313550"/>
+									<reference key="NSMixedImage" ref="310636482"/>
+									<string key="NSAction">submenuAction:</string>
+									<object class="NSMenu" key="NSSubmenu" id="803643798">
+										<string key="NSTitle">Sketchbook</string>
+										<object class="NSMutableArray" key="NSMenuItems">
+											<bool key="EncodedWithXMLCoder">YES</bool>
+										</object>
+									</object>
+								</object>
+								<object class="NSMenuItem" id="793541362">
+									<reference key="NSMenu" ref="720053764"/>
+									<string key="NSTitle">Examples</string>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="1033313550"/>
+									<reference key="NSMixedImage" ref="310636482"/>
+									<string key="NSAction">submenuAction:</string>
+									<object class="NSMenu" key="NSSubmenu" id="478288707">
+										<string key="NSTitle">Examples</string>
+										<object class="NSMutableArray" key="NSMenuItems">
+											<bool key="EncodedWithXMLCoder">YES</bool>
+										</object>
+									</object>
+								</object>
+								<object class="NSMenuItem" id="1071429191">
+									<reference key="NSMenu" ref="720053764"/>
+									<bool key="NSIsDisabled">YES</bool>
+									<bool key="NSIsSeparator">YES</bool>
+									<string key="NSTitle"/>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="1033313550"/>
+									<reference key="NSMixedImage" ref="310636482"/>
+								</object>
 								<object class="NSMenuItem" id="776162233">
 									<reference key="NSMenu" ref="720053764"/>
 									<string key="NSTitle">Close</string>
@@ -1216,6 +1256,22 @@
 					<int key="connectionID">619</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">examplesMenu</string>
+						<reference key="source" ref="450571630"/>
+						<reference key="destination" ref="478288707"/>
+					</object>
+					<int key="connectionID">633</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">sketchbookMenu</string>
+						<reference key="source" ref="450571630"/>
+						<reference key="destination" ref="803643798"/>
+					</object>
+					<int key="connectionID">634</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">checkForUpdates:</string>
 						<reference key="source" ref="745114017"/>
@@ -1317,6 +1373,9 @@
 							<reference ref="776162233"/>
 							<reference ref="425164168"/>
 							<reference ref="579971712"/>
+							<reference ref="1071429191"/>
+							<reference ref="102532616"/>
+							<reference ref="793541362"/>
 						</object>
 						<reference key="parent" ref="379814623"/>
 					</object>
@@ -1862,6 +1921,45 @@
 						<reference key="object" ref="520564395"/>
 						<reference key="parent" ref="110575045"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">626</int>
+						<reference key="object" ref="1071429191"/>
+						<reference key="parent" ref="720053764"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">627</int>
+						<reference key="object" ref="102532616"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="803643798"/>
+						</object>
+						<reference key="parent" ref="720053764"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">628</int>
+						<reference key="object" ref="803643798"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+						</object>
+						<reference key="parent" ref="102532616"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">630</int>
+						<reference key="object" ref="793541362"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="478288707"/>
+						</object>
+						<reference key="parent" ref="720053764"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">631</int>
+						<reference key="object" ref="478288707"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+						</object>
+						<reference key="parent" ref="793541362"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -1951,6 +2049,11 @@
 					<string>620.IBPluginDependency</string>
 					<string>623.IBPluginDependency</string>
 					<string>624.IBPluginDependency</string>
+					<string>626.IBPluginDependency</string>
+					<string>627.IBPluginDependency</string>
+					<string>628.IBPluginDependency</string>
+					<string>630.IBPluginDependency</string>
+					<string>631.IBPluginDependency</string>
 					<string>72.IBPluginDependency</string>
 					<string>73.IBPluginDependency</string>
 					<string>75.IBPluginDependency</string>
@@ -1963,6 +2066,11 @@
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -2069,7 +2177,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">625</int>
+			<int key="maxID">634</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2114,11 +2222,15 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>boardMenu</string>
+							<string>examplesMenu</string>
 							<string>importLibraryMenu</string>
 							<string>serialPortMenu</string>
+							<string>sketchbookMenu</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>NSMenu</string>
+							<string>NSMenu</string>
 							<string>NSMenu</string>
 							<string>NSMenu</string>
 							<string>NSMenu</string>
@@ -2129,8 +2241,10 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>boardMenu</string>
+							<string>examplesMenu</string>
 							<string>importLibraryMenu</string>
 							<string>serialPortMenu</string>
+							<string>sketchbookMenu</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -2139,11 +2253,19 @@
 								<string key="candidateClassName">NSMenu</string>
 							</object>
 							<object class="IBToOneOutletInfo">
+								<string key="name">examplesMenu</string>
+								<string key="candidateClassName">NSMenu</string>
+							</object>
+							<object class="IBToOneOutletInfo">
 								<string key="name">importLibraryMenu</string>
 								<string key="candidateClassName">NSMenu</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">serialPortMenu</string>
+								<string key="candidateClassName">NSMenu</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">sketchbookMenu</string>
 								<string key="candidateClassName">NSMenu</string>
 							</object>
 						</object>
@@ -2216,6 +2338,9 @@
 							<string>addFileSheet</string>
 							<string>addFileTextField</string>
 							<string>bottomTextField</string>
+							<string>buildAndUploadButton</string>
+							<string>buildButton</string>
+							<string>progressIndicator</string>
 							<string>tabBarControl</string>
 							<string>tabView</string>
 						</object>
@@ -2224,6 +2349,9 @@
 							<string>NSWindow</string>
 							<string>NSTextField</string>
 							<string>NSTextField</string>
+							<string>NSToolbarItem</string>
+							<string>NSToolbarItem</string>
+							<string>NSProgressIndicator</string>
 							<string>PSMTabBarControl</string>
 							<string>NSTabView</string>
 						</object>
@@ -2235,6 +2363,9 @@
 							<string>addFileSheet</string>
 							<string>addFileTextField</string>
 							<string>bottomTextField</string>
+							<string>buildAndUploadButton</string>
+							<string>buildButton</string>
+							<string>progressIndicator</string>
 							<string>tabBarControl</string>
 							<string>tabView</string>
 						</object>
@@ -2251,6 +2382,18 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">bottomTextField</string>
 								<string key="candidateClassName">NSTextField</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">buildAndUploadButton</string>
+								<string key="candidateClassName">NSToolbarItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">buildButton</string>
+								<string key="candidateClassName">NSToolbarItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">progressIndicator</string>
+								<string key="candidateClassName">NSProgressIndicator</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">tabBarControl</string>

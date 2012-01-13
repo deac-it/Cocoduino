@@ -38,6 +38,8 @@
 		4B90C6B914B714D600826E6D /* AMSerialPortList.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B90C6B614B714D600826E6D /* AMSerialPortList.m */; };
 		4B90C6BB14B7154D00826E6D /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B90C6BA14B7154D00826E6D /* IOKit.framework */; };
 		4BEEDEE114C073E100754579 /* Examples in Resources */ = {isa = PBXBuildFile; fileRef = 4BEEDEE014C073E100754579 /* Examples */; };
+		4BEEDF1014C0B13000754579 /* SCEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BEEDF0C14C0B13000754579 /* SCEvent.m */; };
+		4BEEDF1114C0B13000754579 /* SCEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BEEDF0F14C0B13000754579 /* SCEvents.m */; };
 		4BF041E314BCCD2800A64D1B /* FKInoTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF041E014BCCD2800A64D1B /* FKInoTool.m */; };
 		4BF041E414BCCD2800A64D1B /* FKSketchFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF041E214BCCD2800A64D1B /* FKSketchFile.m */; };
 		4BF041EB14BCCD6600A64D1B /* FKDocumentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF041E614BCCD6600A64D1B /* FKDocumentController.m */; };
@@ -134,6 +136,12 @@
 		4B90C6B614B714D600826E6D /* AMSerialPortList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMSerialPortList.m; sourceTree = "<group>"; };
 		4B90C6BA14B7154D00826E6D /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		4BEEDEE014C073E100754579 /* Examples */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Examples; sourceTree = "<group>"; };
+		4BEEDF0A14C0B13000754579 /* SCConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCConstants.h; sourceTree = "<group>"; };
+		4BEEDF0B14C0B13000754579 /* SCEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCEvent.h; sourceTree = "<group>"; };
+		4BEEDF0C14C0B13000754579 /* SCEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCEvent.m; sourceTree = "<group>"; };
+		4BEEDF0D14C0B13000754579 /* SCEventListenerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCEventListenerProtocol.h; sourceTree = "<group>"; };
+		4BEEDF0E14C0B13000754579 /* SCEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCEvents.h; sourceTree = "<group>"; };
+		4BEEDF0F14C0B13000754579 /* SCEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCEvents.m; sourceTree = "<group>"; };
 		4BF041DF14BCCD2800A64D1B /* FKInoTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FKInoTool.h; sourceTree = "<group>"; };
 		4BF041E014BCCD2800A64D1B /* FKInoTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FKInoTool.m; sourceTree = "<group>"; };
 		4BF041E114BCCD2800A64D1B /* FKSketchFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FKSketchFile.h; sourceTree = "<group>"; };
@@ -336,6 +344,19 @@
 			path = AMSerialPort;
 			sourceTree = "<group>";
 		};
+		4BEEDF0914C0B11700754579 /* SCEvents */ = {
+			isa = PBXGroup;
+			children = (
+				4BEEDF0B14C0B13000754579 /* SCEvent.h */,
+				4BEEDF0C14C0B13000754579 /* SCEvent.m */,
+				4BEEDF0E14C0B13000754579 /* SCEvents.h */,
+				4BEEDF0F14C0B13000754579 /* SCEvents.m */,
+				4BEEDF0A14C0B13000754579 /* SCConstants.h */,
+				4BEEDF0D14C0B13000754579 /* SCEventListenerProtocol.h */,
+			);
+			path = SCEvents;
+			sourceTree = "<group>";
+		};
 		4BF041DE14BCCCF100A64D1B /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -350,8 +371,9 @@
 		AB92A4151192B66A0055A3E7 /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				4B8D9F7E14B776E700C3E002 /* MASPreferences */,
+				4BEEDF0914C0B11700754579 /* SCEvents */,
 				4B90C6AE14B7145700826E6D /* AMSerialPort */,
+				4B8D9F7E14B776E700C3E002 /* MASPreferences */,
 				4B07D81014BC9CDB00D7A32B /* Classes */,
 			);
 			name = Application;
@@ -478,6 +500,8 @@
 				4BF041EB14BCCD6600A64D1B /* FKDocumentController.m in Sources */,
 				4BF041EC14BCCD6600A64D1B /* FKSerialMonitorWindowController.m in Sources */,
 				4BF041ED14BCCD6600A64D1B /* FKSketchDocument.m in Sources */,
+				4BEEDF1014C0B13000754579 /* SCEvent.m in Sources */,
+				4BEEDF1114C0B13000754579 /* SCEvents.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

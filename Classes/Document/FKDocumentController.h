@@ -7,14 +7,14 @@
 //
 
 #import <AppKit/AppKit.h>
-@class AMSerialPort, MASPreferencesWindowController;
+#import "SCEventListenerProtocol.h"
+@class AMSerialPort, SCEvents,  MASPreferencesWindowController;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-@interface FKDocumentController : NSDocumentController {
-    /*
-     TODO: Add Sketchbook and Examples.
-    */
+@interface FKDocumentController : NSDocumentController <SCEventListenerProtocol> {
+    NSMenu *sketchbookMenu;
+    NSMenu *examplesMenu;
     
     NSMenu *boardMenu;
     NSMenu *serialPortMenu;
@@ -25,6 +25,7 @@
      Private ivars only used in some situations.
     */
     
+    SCEvents *_pathWatcher;
     MASPreferencesWindowController *_preferencesWindowController;
 }
 
@@ -39,6 +40,9 @@
 - (IBAction) showGettingStartedPage:(id)sender;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+@property (nonatomic, retain) IBOutlet NSMenu *sketchbookMenu;
+@property (nonatomic, retain) IBOutlet NSMenu *examplesMenu;
 
 @property (nonatomic, retain) IBOutlet NSMenu *boardMenu;
 @property (nonatomic, retain) IBOutlet NSMenu *serialPortMenu;

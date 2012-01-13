@@ -16,6 +16,7 @@
 #import "FKSketchFile.h"
 #import "AMSerialPort.h"
 #import "AMSerialPortList.h"
+#import "SCEvents.h"
 #import "MASPreferencesWindowController.h"
 #import "FKGeneralPreferencesViewController.h"
 #import "FKUpdatePreferencesViewController.h"
@@ -24,12 +25,16 @@
 
 @interface FKDocumentController ()
 
-- (void) reloadBoardPortMenu;
+- (void) reloadSketchbookMenu;
+- (void) reloadExamplesMenu;
+- (void) reloadBoardMenu;
 - (void) reloadSerialPortMenu;
 - (void) reloadImportLibraryMenu;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+- (void) didSelectSketchbookItem:(id)sender;
+- (void) didSelectExamplesItem:(id)sender;
 - (void) didSelectBoard:(id)sender;
 - (void) didSelectSerialPort:(id)sender;
 - (void) didSelectLibrary:(id)sender;
@@ -41,11 +46,17 @@
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+- (NSString *) mainSketchPathInDirectory:(NSString *)directory;
+- (NSArray *) menuItemsForSketchDirectoriesInDirectory:(NSString *)directory action:(SEL)action;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 @end
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 @implementation FKDocumentController
+@synthesize sketchbookMenu, examplesMenu;
 @synthesize boardMenu, serialPortMenu, importLibraryMenu;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -94,13 +105,22 @@
 - (void) awakeFromNib {
     [super awakeFromNib];
 
-    [self reloadBoardPortMenu];
+    [self reloadSketchbookMenu];
+    [self reloadExamplesMenu];
+    [self reloadBoardMenu];
     [self reloadSerialPortMenu];
     [self reloadImportLibraryMenu];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDefaultsDidChange:) name:NSUserDefaultsDidChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(serialPortsDidChange:) name:AMSerialPortListDidAddPortsNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(serialPortsDidChange:) name:AMSerialPortListDidRemovePortsNotification object:nil];
+    
+    _pathWatcher = [[SCEvents alloc] init];
+    _pathWatcher.delegate = self;
+    
+    NSString *sketchbookLocation = [[NSUserDefaults standardUserDefaults] objectForKey:@"Sketchbook Location"];
+    sketchbookLocation = (sketchbookLocation != nil) ? sketchbookLocation : [@"~/Documents/Arduino" stringByExpandingTildeInPath];
+    [_pathWatcher startWatchingPaths:[NSArray arrayWithObject:sketchbookLocation]];
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -145,7 +165,97 @@
 #pragma mark Menu Managing
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-- (void) reloadBoardPortMenu {
+- (void) reloadSketchbookMenu {    
+    /*
+     Search for projects inside the sketchbook.
+    */
+    
+    [self.sketchbookMenu removeAllItems];
+    NSString *sketchbookLocation = [[NSUserDefaults standardUserDefaults] objectForKey:@"Sketchbook Location"];
+    sketchbookLocation = (sketchbookLocation != nil) ? sketchbookLocation : [@"~/Documents/Arduino" stringByExpandingTildeInPath];
+    
+    for (NSMenuItem *item in [self menuItemsForSketchDirectoriesInDirectory:sketchbookLocation action:@selector(didSelectSketchbookItem:)])
+        [self.sketchbookMenu addItem:item];
+    
+    if (self.sketchbookMenu.itemArray.count <= 0)
+        [self.sketchbookMenu addItemWithTitle:@"No Sketches" action:NULL keyEquivalent:@""];
+}
+
+- (void) reloadExamplesMenu {
+    /*
+     Search for examples in the bundled examples folder, the system libraries and the contributed libraries.
+    */
+            
+    [self.examplesMenu removeAllItems];
+    NSString *examplesDirectoryPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"Examples"];
+    for (NSString *path in [[NSFileManager defaultManager] contentsOfDirectoryAtPath:examplesDirectoryPath error:NULL]) {
+        BOOL isDirectory = NO;
+        NSString *fullPath = [examplesDirectoryPath stringByAppendingPathComponent:path];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:fullPath isDirectory:&isDirectory] && isDirectory) {
+            NSArray *menuItems = [self menuItemsForSketchDirectoriesInDirectory:fullPath action:@selector(didSelectExamplesItem:)];
+            if (menuItems.count > 0) {
+                NSMenu *menu = [[NSMenu alloc] initWithTitle:path];
+                NSMenuItem *menuItem = [self.examplesMenu addItemWithTitle:menu.title action:NULL keyEquivalent:@""];
+                [menuItem setSubmenu:menu];
+                [menu release];
+                
+                for (NSMenuItem *item in menuItems)
+                    [menu addItem:item];
+            }
+        }
+    }
+    
+    BOOL didAddDefaultLibrariesSeparator = NO;
+    NSString *defaultLibrariesPath = @"/Applications/Arduino.app/Contents/Resources/Java/libraries/";
+    for (NSString *path in [[NSFileManager defaultManager] contentsOfDirectoryAtPath:defaultLibrariesPath error:NULL]) {
+        BOOL isDirectory = NO;
+        NSString *fullPath = [[defaultLibrariesPath stringByAppendingPathComponent:path] stringByAppendingPathComponent:@"examples"];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:fullPath isDirectory:&isDirectory] && isDirectory) {
+            NSArray *menuItems = [self menuItemsForSketchDirectoriesInDirectory:fullPath action:@selector(didSelectExamplesItem:)];
+            if (menuItems.count > 0) {
+                if (!didAddDefaultLibrariesSeparator) {
+                    [self.examplesMenu addItem:[NSMenuItem separatorItem]];
+                    didAddDefaultLibrariesSeparator = YES;
+                }
+                
+                NSMenu *menu = [[NSMenu alloc] initWithTitle:path];
+                NSMenuItem *menuItem = [self.examplesMenu addItemWithTitle:menu.title action:NULL keyEquivalent:@""];
+                [menuItem setSubmenu:menu];
+                [menu release];
+                
+                for (NSMenuItem *item in menuItems)
+                    [menu addItem:item];
+            }
+        }
+    }
+    
+    BOOL didAddContributedLibrariesSeparator = NO;
+    NSString *sketchbookLocation = [[NSUserDefaults standardUserDefaults] objectForKey:@"Sketchbook Location"];
+    NSString *contributedLibrariesPath = (sketchbookLocation != nil) ? [sketchbookLocation stringByAppendingPathComponent:@"libraries"] : [@"~/Documents/Arduino/libraries" stringByExpandingTildeInPath];
+        for (NSString *path in [[NSFileManager defaultManager] contentsOfDirectoryAtPath:contributedLibrariesPath error:NULL]) {
+        BOOL isDirectory = NO;
+        NSString *fullPath = [[contributedLibrariesPath stringByAppendingPathComponent:path] stringByAppendingPathComponent:@"examples"];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:fullPath isDirectory:&isDirectory] && isDirectory) {
+            NSArray *menuItems = [self menuItemsForSketchDirectoriesInDirectory:fullPath action:@selector(didSelectExamplesItem:)];
+            if (menuItems.count > 0) {
+                if (!didAddContributedLibrariesSeparator) {
+                    [self.examplesMenu addItem:[NSMenuItem separatorItem]];
+                    didAddContributedLibrariesSeparator = YES;
+                }
+                
+                NSMenu *menu = [[NSMenu alloc] initWithTitle:path];
+                NSMenuItem *menuItem = [self.examplesMenu addItemWithTitle:menu.title action:NULL keyEquivalent:@""];
+                [menuItem setSubmenu:menu];
+                [menu release];
+                
+                for (NSMenuItem *item in menuItems)
+                    [menu addItem:item];
+            }
+        }
+    }
+}
+
+- (void) reloadBoardMenu {
     [self.boardMenu removeAllItems];
     NSString *defaultBoardShortName = [[NSUserDefaults standardUserDefaults] objectForKey:@"Default Board"];   
     for (NSDictionary *board in [[NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Boards" ofType:@"plist"]] objectForKey:@"boards"]) {
@@ -165,6 +275,9 @@
         if (defaultSerialPortBSDPath != nil && [serialPort.bsdPath isEqualToString:defaultSerialPortBSDPath])
             [item setState:NSOnState];
     }
+    
+    if (self.serialPortMenu.itemArray.count <= 0)
+        [self.serialPortMenu addItemWithTitle:@"No Serial Ports" action:NULL keyEquivalent:@""];
 }
 
 - (void) reloadImportLibraryMenu {
@@ -176,7 +289,8 @@
     
     [self.importLibraryMenu removeAllItems];
     NSString *defaultLibrariesPath = @"/Applications/Arduino.app/Contents/Resources/Java/libraries/";
-    for (NSString *path in [[NSFileManager defaultManager] contentsOfDirectoryAtPath:defaultLibrariesPath error:NULL]) {
+    NSArray *defaultLibrariesPaths = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:defaultLibrariesPath error:NULL];
+    for (NSString *path in defaultLibrariesPaths) {
         BOOL isDirectory = NO;
         NSString *fullPath = [defaultLibrariesPath stringByAppendingPathComponent:path];
         if ([[NSFileManager defaultManager] fileExistsAtPath:fullPath isDirectory:&isDirectory] && isDirectory) {
@@ -185,12 +299,10 @@
         }
     }
     
-   
     NSString *sketchbookLocation = [[NSUserDefaults standardUserDefaults] objectForKey:@"Sketchbook Location"];
     NSString *contributedLibrariesPath = (sketchbookLocation != nil) ? [sketchbookLocation stringByAppendingPathComponent:@"libraries"] : [@"~/Documents/Arduino/libraries" stringByExpandingTildeInPath];
     NSArray *contributedLibraryPaths = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:contributedLibrariesPath error:NULL];
-    
-    if (contributedLibraryPaths.count > 0)
+    if (defaultLibrariesPaths.count > 0 && contributedLibraryPaths.count > 0)
          [self.importLibraryMenu addItem:[NSMenuItem separatorItem]];
     
     for (NSString *path in contributedLibraryPaths) {
@@ -201,9 +313,22 @@
             [item setRepresentedObject:fullPath];
         }
     }
+    
+    if (self.importLibraryMenu.itemArray.count <= 0)
+        [self.importLibraryMenu addItemWithTitle:@"No Libraries" action:NULL keyEquivalent:@""];
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+- (void) didSelectSketchbookItem:(id)sender {
+    NSString *mainFilePath = [sender representedObject];
+    [self openDocumentWithContentsOfURL:[NSURL fileURLWithPath:mainFilePath] display:YES error:NULL];
+}
+
+- (void) didSelectExamplesItem:(id)sender {
+    NSString *mainFilePath = [sender representedObject];
+    [self openDocumentWithContentsOfURL:[NSURL fileURLWithPath:mainFilePath] display:YES error:NULL];
+}
 
 - (void) didSelectBoard:(id)sender {
     NSDictionary *board = [sender representedObject];
@@ -240,11 +365,74 @@
      Sketchbook Location might have changed.
     */
     
+    NSString *sketchbookLocation = [[NSUserDefaults standardUserDefaults] objectForKey:@"Sketchbook Location"];
+    sketchbookLocation = (sketchbookLocation != nil) ? sketchbookLocation : [@"~/Documents/Arduino" stringByExpandingTildeInPath];
+    
+    if (_pathWatcher.watchedPaths.count > 0 && ![[_pathWatcher.watchedPaths objectAtIndex:0] isEqualToString:sketchbookLocation]) {
+        [_pathWatcher stopWatchingPaths];
+        [_pathWatcher startWatchingPaths:[NSArray arrayWithObject:sketchbookLocation]];
+    }
+    
+    [self reloadSketchbookMenu];
+    [self reloadExamplesMenu];
     [self reloadImportLibraryMenu];
 }
 
 - (void) serialPortsDidChange:(NSNotification *)notification {
     [self reloadSerialPortMenu];
+}
+
+- (void) pathWatcher:(SCEvents *)pathWatcher eventOccurred:(SCEvent *)event {
+    /*
+     Something inside the sketchbook directory changed.
+    */
+    
+    [self reloadSketchbookMenu];
+    [self reloadExamplesMenu];
+    [self reloadImportLibraryMenu];
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+#pragma mark -
+#pragma mark Menu Utilities
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+- (NSString *) mainSketchPathInDirectory:(NSString *)directory {
+    for (NSString *filePath in [[NSFileManager defaultManager] contentsOfDirectoryAtPath:directory error:NULL]) {
+        if ([[filePath stringByDeletingPathExtension] isEqualToString:[directory lastPathComponent]] && ([[filePath pathExtension] isEqualToString:@"ino"] || [[filePath pathExtension] isEqualToString:@"pde"]))
+            return [directory stringByAppendingPathComponent:filePath];
+    }
+    
+    return nil;
+}
+
+- (NSArray *) menuItemsForSketchDirectoriesInDirectory:(NSString *)directory action:(SEL)action {
+    NSMutableArray *menuItems = [[NSMutableArray alloc] init];
+    for (NSString *path in [[NSFileManager defaultManager] contentsOfDirectoryAtPath:directory error:NULL]) {
+        BOOL isDirectory = NO;
+        NSString *fullPath = [directory stringByAppendingPathComponent:path];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:fullPath isDirectory:&isDirectory] && isDirectory) {
+            NSString *sketchPath = [self mainSketchPathInDirectory:fullPath];
+            if (sketchPath != nil) {
+                NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:path action:action keyEquivalent:@""];
+                [item setRepresentedObject:sketchPath];
+                
+                [menuItems addObject:item];
+                [item release];
+            }
+        }
+    }
+    
+    if (menuItems.count > 0) {
+        NSArray *copy = [menuItems copy];
+        [menuItems release];
+        
+        return [copy autorelease];
+    }
+    else {
+        [menuItems release];
+        return nil;
+    }
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -282,9 +470,13 @@
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 - (void) dealloc {
+    [_pathWatcher stopWatchingPaths];
+    [sketchbookMenu release], sketchbookMenu = nil;
+    [examplesMenu release], examplesMenu = nil;
     [boardMenu release], boardMenu = nil;
     [serialPortMenu release], serialPortMenu = nil;
     [importLibraryMenu release], importLibraryMenu = nil;
+    [_pathWatcher release], _pathWatcher = nil;
     [_preferencesWindowController release], _preferencesWindowController = nil;
     [super dealloc];
 }

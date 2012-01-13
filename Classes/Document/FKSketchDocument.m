@@ -321,9 +321,12 @@
      The path extenstion needs to be set to .ino, because Cocoduino uses .ccdar for Autosave. 
     */
     
-    [savePanel setCanCreateDirectories:YES];
-    [savePanel setAllowedFileTypes:[NSArray arrayWithObject:@"ino"]];
+    NSString *sketchbookLocation = [[NSUserDefaults standardUserDefaults] objectForKey:@"Sketchbook Location"];
+    sketchbookLocation = (sketchbookLocation != nil) ? sketchbookLocation : [@"~/Documents/Arduino" stringByExpandingTildeInPath];    
+    [savePanel setDirectoryURL:[NSURL fileURLWithPath:sketchbookLocation]];
+    
     [savePanel setAllowsOtherFileTypes:NO];
+    [savePanel setCanCreateDirectories:YES];
     
     return [super prepareSavePanel:savePanel];
 }
