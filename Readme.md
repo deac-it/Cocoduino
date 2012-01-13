@@ -11,6 +11,7 @@ Cocoduino is an IDE for the Arduino. It's designed to be simple and easy to use.
 
 Cocoduino uses modified versions of the following third party libraries:
 
+* [Sparkle](http://sparkle.andymatuschak.org/)
 * [SCEvents](http://stuconnolly.com/projects/code/)
 * [AMSerialPort](http://www.harmless.de/cocoa-code.php)
 * [MASPreferences](https://github.com/shpakovski/MASPreferences)
