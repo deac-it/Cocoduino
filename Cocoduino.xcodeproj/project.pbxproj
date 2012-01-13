@@ -40,6 +40,7 @@
 		4BEEDEE114C073E100754579 /* Examples in Resources */ = {isa = PBXBuildFile; fileRef = 4BEEDEE014C073E100754579 /* Examples */; };
 		4BEEDF1014C0B13000754579 /* SCEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BEEDF0C14C0B13000754579 /* SCEvent.m */; };
 		4BEEDF1114C0B13000754579 /* SCEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BEEDF0F14C0B13000754579 /* SCEvents.m */; };
+		4BEEDF2E14C0D11800754579 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 4BEEDF2D14C0D11800754579 /* LICENSE */; };
 		4BF041E314BCCD2800A64D1B /* FKInoTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF041E014BCCD2800A64D1B /* FKInoTool.m */; };
 		4BF041E414BCCD2800A64D1B /* FKSketchFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF041E214BCCD2800A64D1B /* FKSketchFile.m */; };
 		4BF041EB14BCCD6600A64D1B /* FKDocumentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF041E614BCCD6600A64D1B /* FKDocumentController.m */; };
@@ -142,6 +143,7 @@
 		4BEEDF0D14C0B13000754579 /* SCEventListenerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCEventListenerProtocol.h; sourceTree = "<group>"; };
 		4BEEDF0E14C0B13000754579 /* SCEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCEvents.h; sourceTree = "<group>"; };
 		4BEEDF0F14C0B13000754579 /* SCEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCEvents.m; sourceTree = "<group>"; };
+		4BEEDF2D14C0D11800754579 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		4BF041DF14BCCD2800A64D1B /* FKInoTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FKInoTool.h; sourceTree = "<group>"; };
 		4BF041E014BCCD2800A64D1B /* FKInoTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FKInoTool.m; sourceTree = "<group>"; };
 		4BF041E114BCCD2800A64D1B /* FKSketchFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FKSketchFile.h; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4BEEDF2D14C0D11800754579 /* LICENSE */,
 				4B07D86E14BCB0C300D7A32B /* ino */,
 				4B07D82F14BC9DA900D7A32B /* dsa_pub.pem */,
 				4B07D82E14BC9DA900D7A32B /* Boards.plist */,
@@ -479,6 +482,7 @@
 				4B07D86014BCA1B600D7A32B /* Terminal.png in Resources */,
 				4B07D86F14BCB0C300D7A32B /* ino in Resources */,
 				4BEEDEE114C073E100754579 /* Examples in Resources */,
+				4BEEDF2E14C0D11800754579 /* LICENSE in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
