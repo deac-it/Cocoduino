@@ -5,8 +5,6 @@ Cocoduino is an IDE for the Arduino. It's designed to be simple and easy to use.
 
 ![Cocoduino](http://fabian-kreiser.com/downloads/cocoduino.png)
 
----------------------------------------
-
 # Acknowledgments
 
 Cocoduino uses modified versions of the following third party libraries:
