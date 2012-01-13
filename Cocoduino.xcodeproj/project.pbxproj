@@ -37,6 +37,7 @@
 		4B90C6B714B714D600826E6D /* AMSerialPort.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B90C6B214B714D600826E6D /* AMSerialPort.m */; };
 		4B90C6B914B714D600826E6D /* AMSerialPortList.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B90C6B614B714D600826E6D /* AMSerialPortList.m */; };
 		4B90C6BB14B7154D00826E6D /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B90C6BA14B7154D00826E6D /* IOKit.framework */; };
+		4BEEDEE114C073E100754579 /* Examples in Resources */ = {isa = PBXBuildFile; fileRef = 4BEEDEE014C073E100754579 /* Examples */; };
 		4BF041E314BCCD2800A64D1B /* FKInoTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF041E014BCCD2800A64D1B /* FKInoTool.m */; };
 		4BF041E414BCCD2800A64D1B /* FKSketchFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF041E214BCCD2800A64D1B /* FKSketchFile.m */; };
 		4BF041EB14BCCD6600A64D1B /* FKDocumentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF041E614BCCD6600A64D1B /* FKDocumentController.m */; };
@@ -132,6 +133,7 @@
 		4B90C6B514B714D600826E6D /* AMSerialPortList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMSerialPortList.h; sourceTree = "<group>"; };
 		4B90C6B614B714D600826E6D /* AMSerialPortList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMSerialPortList.m; sourceTree = "<group>"; };
 		4B90C6BA14B7154D00826E6D /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		4BEEDEE014C073E100754579 /* Examples */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Examples; sourceTree = "<group>"; };
 		4BF041DF14BCCD2800A64D1B /* FKInoTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FKInoTool.h; sourceTree = "<group>"; };
 		4BF041E014BCCD2800A64D1B /* FKInoTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FKInoTool.m; sourceTree = "<group>"; };
 		4BF041E114BCCD2800A64D1B /* FKSketchFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FKSketchFile.h; sourceTree = "<group>"; };
@@ -219,6 +221,7 @@
 				4B07D84214BC9DFF00D7A32B /* Cocoduino-Info.plist */,
 				4B07D85214BCA15B00D7A32B /* Icons */,
 				4B07D83514BC9DB800D7A32B /* Interface */,
+				4BEEDEE014C073E100754579 /* Examples */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -452,6 +455,7 @@
 				4B07D85E14BCA19800D7A32B /* Software Update.icns in Resources */,
 				4B07D86014BCA1B600D7A32B /* Terminal.png in Resources */,
 				4B07D86F14BCB0C300D7A32B /* ino in Resources */,
+				4BEEDEE114C073E100754579 /* Examples in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

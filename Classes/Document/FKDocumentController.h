@@ -12,6 +12,10 @@
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 @interface FKDocumentController : NSDocumentController {
+    /*
+     TODO: Add Sketchbook and Examples.
+    */
+    
     NSMenu *boardMenu;
     NSMenu *serialPortMenu;
     NSMenu *importLibraryMenu;
