@@ -1,4 +1,3 @@
-
 # About
 
 *Cocoduino* is an IDE for the Arduino written in native Cocoa. It's designed to be simple and easy to use and is a replacement for the official IDE.
@@ -49,7 +48,13 @@ Last but not least, there is also:
 
 3. **Upload using Programmers**
 
-    While Cocoduino supports nearly all Arduino boards *theoretically*, the use of *programmers* is neither tested nor "officially supported". 
+    While Cocoduino supports nearly all Arduino boards *theoretically*, the use of *programmers* is neither tested nor "officially supported".
+
+# On the List…
+
+* **Nicer build log output**
+* **Test more complex sketches**
+* **More advanced code completion**
 
 # F.A.Q
 
