@@ -350,6 +350,8 @@
         
         NSArray *pathComponents = [[url path] pathComponents];
         [[self.files objectAtIndex:0] setFilename:[[url path] lastPathComponent]];
+        [[self.tabView tabViewItemAtIndex:0] setLabel:[[url path] lastPathComponent]];
+        
         if ([typeName isEqualToString:@"Arduino Sketch"] && pathComponents.count >= 2) {
             NSString *mainFileLabel = [pathComponents objectAtIndex:pathComponents.count - 1];
             mainFileLabel = [mainFileLabel substringToIndex:[mainFileLabel rangeOfString:@"."].location];
