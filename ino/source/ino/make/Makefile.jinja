@@ -1,0 +1,96 @@
+
+{% from 'Makefile.common.jinja' import transform_sketches with context %}
+{% set src_build_dir = e.build_dir|pjoin(e.src_dir|basename) %}
+
+{#
+ #   Macros to transform *.c and *.cpp -> *.o
+ #}
+{% macro compile(filemap, compiler) %}
+{% for source, target in filemap %}
+{{ target.path }} : {{ source.path }}
+	@echo {{ (source.dirname|basename|pjoin(source.filename))|colorize('yellow') }}
+	@mkdir -p {{ target.path|dirname }}
+	{{v}}{{ compiler }} -o $@ -c $^
+{% endfor %}
+{% endmacro %}
+
+{% macro compile_c(filemap) %}
+{{ compile(filemap, e.cc ~ ' ' ~ e.cflags) }}
+{% endmacro %}
+
+{% macro compile_cpp(filemap) %}
+{{ compile(filemap, e.cxx ~ ' ' ~ e.cflags ~ ' ' ~ e.cxxflags) }}
+{% endmacro %}
+
+
+{#
+ #   Macro to build an AVR library
+ #       source_dir - dir where *.c and *.cpp are
+ #       name       - desired library name without suffix and prefix,
+ #                    e.g. Ethernet
+ #       add_to     - list where result path should be added
+ #}
+{% macro build_library(source_dir, name, add_to) %}
+{% set libdir = e.build_dir|pjoin(name) %}
+{% set c = source_dir|glob('*.c')|filemap(libdir, e.names.obj) %}
+{% set cpp = (source_dir|glob('*.cpp'))|filemap(libdir, e.names.obj) %}
+{% set libpath = libdir|pjoin(name|libname) %}
+{% set libobjs = c.target_paths() + cpp.target_paths() %}
+{{ compile_c(c) }}
+{{ compile_cpp(cpp) }}
+{{ libpath }} : {{ libobjs }}
+	@echo {{ ('Linking ' ~ name|libname) |colorize('green') }}
+	{{v}}{{ e.ar }} rcs $@ $^
+{% do add_to.insert(0, libpath) %}
+{% endmacro %}
+
+{#
+ #   library sources -> *.a
+ #}
+{% set libs = SpaceList() %}
+{{ build_library(e.arduino_core_dir, 'core', add_to=libs) }}
+{% for libdir in e.extra_libs %}
+{{ build_library(libdir, libdir|basename, add_to=libs) }}
+{% endfor %}
+
+{#
+ #   sketches -> *.cpp
+ #}
+{% set sketch_cpps = SpaceList() %}
+{{ transform_sketches(e.src_dir, sketch_cpps) }}
+
+{#
+ #   *.c -> *.o
+ #}
+{% set c = e.src_dir|glob('*.c')|filemap(src_build_dir, e.names.obj) %}
+{{ compile_c(c) }}
+
+{#
+ #   *.cpp -> *.o
+ #}
+{% set cpp = (e.src_dir|glob('*.cpp') + sketch_cpps)|filemap(src_build_dir, e.names.obj) %}
+{{ compile_cpp(cpp) }}
+
+{#
+ #   *.o -> elf
+ #}
+{% set objs = c.target_paths() + cpp.target_paths() + libs %}
+{% set elf = e.build_dir|pjoin('firmware.elf') %}
+{{ elf }} : {{ objs }}
+	@echo {{ 'Linking firmware.elf'|colorize('green') }}
+	{{v}}{{ e.cc }} {{ e.elfflags }} -o $@ $^ -lm
+
+{#
+ #   elf -> hex
+ #}
+{{ e.hex_path }} : {{ elf }}
+	@echo {{ ('Converting to ' ~ e.hex_filename)|colorize('green') }}
+	{{v}}{{ e.objcopy }} -O ihex -R .eeprom $^ $@
+
+include {{ e.deps }}
+
+all : {{ e.hex_path }}
+
+{#
+vim:noexpandtab filetype=jinja
+#}

@@ -17,15 +17,44 @@
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+@interface FKInoTool ()
+
++ (NSString *) inoLaunchPath;
++ (NSString *) cachedBuildDirectoryPath;
+
+@end
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 @implementation FKInoTool
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 #pragma mark -
-#pragma mark Implementation
+#pragma mark Managing
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
++ (NSString *) inoLaunchPath {
+    return [[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"bin"] stringByAppendingPathComponent:@"ino-cocoduino"];
+}
+
++ (NSString *) cachedBuildDirectoryPath {
+    NSString *cachesDirectory = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *cachedBuildPath = [[cachesDirectory stringByAppendingPathComponent:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"]] stringByAppendingPathComponent:@"Latest Build"];
+    
+    if (![[NSFileManager defaultManager] fileExistsAtPath:cachedBuildPath])
+        [[NSFileManager defaultManager] createDirectoryAtPath:cachedBuildPath withIntermediateDirectories:YES attributes:nil error:NULL];
+    
+    return cachedBuildPath;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+#pragma mark -
+#pragma mark Ino-Cocoduino
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 + (BOOL) buildSketchWithFiles:(NSArray *)files forBoard:(NSDictionary *)board onSerialPort:(AMSerialPort *)serialPort uploadAfterBuild:(BOOL)shouldUpload verboseOutput:(BOOL)verbose terminationHandler:(void (^)(BOOL success, FKInoToolType toolType, NSError *error, NSString *output))terminationHandler {
     NSParameterAssert(board != nil && terminationHandler != NULL && (!shouldUpload || serialPort != nil));
+    NSAssert([[NSFileManager defaultManager] fileExistsAtPath:[self inoLaunchPath]], @"Ino binary could not be found!");
     
     /*
      Create a temporary directory where ino can perform the actual build.
@@ -40,6 +69,7 @@
 
     NSString *temporarySrcDirectory = [temporaryDirectory stringByAppendingPathComponent:@"src"];
     NSString *temporaryLibDirectory = [temporaryDirectory stringByAppendingPathComponent:@"lib"];
+    NSString *temporaryBuildDirectory = [temporaryDirectory stringByAppendingPathComponent:@"build"];
     
     /*
      External libaries used are also copied to the temporary directory later on.
@@ -121,6 +151,14 @@
         
         return NO;
     }
+    
+    /*
+     Check if there is a cached build and copy it if so.
+    */
+    
+    NSString *cachedBuildPath = [self cachedBuildDirectoryPath];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:cachedBuildPath])
+        [[NSFileManager defaultManager] moveItemAtPath:cachedBuildPath toPath:temporaryBuildDirectory error:NULL];
 
     /*
      Run ino in the background using NSTask
@@ -128,7 +166,7 @@
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         NSTask *buildTask = [[NSTask alloc] init];
-        [buildTask setLaunchPath:[[NSBundle mainBundle] pathForResource:@"ino" ofType:@""]];
+        [buildTask setLaunchPath:[self inoLaunchPath]];
         [buildTask setCurrentDirectoryPath:temporaryDirectory];
         
         [buildTask setStandardInput:[NSPipe pipe]];
@@ -143,9 +181,12 @@
         
         // ino was successful if terminationStatus is equal to 0
         if ([buildTask terminationStatus] == 0) {
+            // Cache the build
+            [[NSFileManager defaultManager] copyItemAtPath:temporaryBuildDirectory toPath:cachedBuildPath error:NULL];
+            
             if (shouldUpload) {
                 NSTask *uploadTask = [[NSTask alloc] init];
-                [uploadTask setLaunchPath:[[NSBundle mainBundle] pathForResource:@"ino" ofType:@""]];
+                [uploadTask setLaunchPath:[self inoLaunchPath]];
                 [uploadTask setCurrentDirectoryPath:temporaryDirectory];
                 
                 [uploadTask setStandardInput:[NSPipe pipe]];

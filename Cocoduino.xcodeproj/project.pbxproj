@@ -26,7 +26,6 @@
 		4B07D85D14BCA19800D7A32B /* Sketch.icns in Resources */ = {isa = PBXBuildFile; fileRef = 4B07D85714BCA19700D7A32B /* Sketch.icns */; };
 		4B07D85E14BCA19800D7A32B /* Software Update.icns in Resources */ = {isa = PBXBuildFile; fileRef = 4B07D85814BCA19700D7A32B /* Software Update.icns */; };
 		4B07D86014BCA1B600D7A32B /* Terminal.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B07D85F14BCA1B600D7A32B /* Terminal.png */; };
-		4B07D86F14BCB0C300D7A32B /* ino in Resources */ = {isa = PBXBuildFile; fileRef = 4B07D86E14BCB0C300D7A32B /* ino */; };
 		4B0F412A14B72B8B003D1F31 /* AMSerialPortAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0F412914B72B8B003D1F31 /* AMSerialPortAdditions.m */; };
 		4B884ED014BB46FE00209EBF /* PSMTabBarControl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B884ECD14BB46DA00209EBF /* PSMTabBarControl.framework */; };
 		4B884ED114BB470300209EBF /* PSMTabBarControl.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 4B884ECD14BB46DA00209EBF /* PSMTabBarControl.framework */; };
@@ -46,6 +45,8 @@
 		4BF041EB14BCCD6600A64D1B /* FKDocumentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF041E614BCCD6600A64D1B /* FKDocumentController.m */; };
 		4BF041EC14BCCD6600A64D1B /* FKSerialMonitorWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF041E814BCCD6600A64D1B /* FKSerialMonitorWindowController.m */; };
 		4BF041ED14BCCD6600A64D1B /* FKSketchDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF041EA14BCCD6600A64D1B /* FKSketchDocument.m */; };
+		4BFA552C14C1C7BB00089995 /* bin in Resources */ = {isa = PBXBuildFile; fileRef = 4BFA552A14C1C7BB00089995 /* bin */; };
+		4BFA552D14C1C7BB00089995 /* ino-cocoduino.egg in Resources */ = {isa = PBXBuildFile; fileRef = 4BFA552B14C1C7BB00089995 /* ino-cocoduino.egg */; };
 		4BFBDA7414B4A3CD00985AB9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
 
@@ -121,7 +122,6 @@
 		4B07D85714BCA19700D7A32B /* Sketch.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Sketch.icns; sourceTree = "<group>"; };
 		4B07D85814BCA19700D7A32B /* Software Update.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = "Software Update.icns"; sourceTree = "<group>"; };
 		4B07D85F14BCA1B600D7A32B /* Terminal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Terminal.png; sourceTree = "<group>"; };
-		4B07D86E14BCB0C300D7A32B /* ino */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = ino; sourceTree = "<group>"; };
 		4B0F412814B72B8B003D1F31 /* AMSerialPortAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMSerialPortAdditions.h; sourceTree = "<group>"; };
 		4B0F412914B72B8B003D1F31 /* AMSerialPortAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMSerialPortAdditions.m; sourceTree = "<group>"; };
 		4B884EC514BB46DA00209EBF /* PSMTabBarControl.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PSMTabBarControl.xcodeproj; path = PSMTabBarControl/PSMTabBarControl.xcodeproj; sourceTree = "<group>"; };
@@ -154,6 +154,8 @@
 		4BF041E814BCCD6600A64D1B /* FKSerialMonitorWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FKSerialMonitorWindowController.m; sourceTree = "<group>"; };
 		4BF041E914BCCD6600A64D1B /* FKSketchDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FKSketchDocument.h; sourceTree = "<group>"; };
 		4BF041EA14BCCD6600A64D1B /* FKSketchDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FKSketchDocument.m; sourceTree = "<group>"; };
+		4BFA552A14C1C7BB00089995 /* bin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = bin; path = ino/bin; sourceTree = SOURCE_ROOT; };
+		4BFA552B14C1C7BB00089995 /* ino-cocoduino.egg */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "ino-cocoduino.egg"; path = "ino/ino-cocoduino.egg"; sourceTree = SOURCE_ROOT; };
 		AB648E2A11FB385700AEF7BD /* Cocoduino.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cocoduino.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -226,13 +228,13 @@
 			isa = PBXGroup;
 			children = (
 				4BEEDF2D14C0D11800754579 /* LICENSE */,
-				4B07D86E14BCB0C300D7A32B /* ino */,
 				4B07D82F14BC9DA900D7A32B /* dsa_pub.pem */,
 				4B07D82E14BC9DA900D7A32B /* Boards.plist */,
 				4B07D84214BC9DFF00D7A32B /* Cocoduino-Info.plist */,
 				4B07D85214BCA15B00D7A32B /* Icons */,
 				4B07D83514BC9DB800D7A32B /* Interface */,
 				4BEEDEE014C073E100754579 /* Examples */,
+				4BFA552914C1C7AC00089995 /* ino */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -371,6 +373,15 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		4BFA552914C1C7AC00089995 /* ino */ = {
+			isa = PBXGroup;
+			children = (
+				4BFA552A14C1C7BB00089995 /* bin */,
+				4BFA552B14C1C7BB00089995 /* ino-cocoduino.egg */,
+			);
+			name = ino;
+			sourceTree = "<group>";
+		};
 		AB92A4151192B66A0055A3E7 /* Application */ = {
 			isa = PBXGroup;
 			children = (
@@ -480,9 +491,10 @@
 				4B07D85D14BCA19800D7A32B /* Sketch.icns in Resources */,
 				4B07D85E14BCA19800D7A32B /* Software Update.icns in Resources */,
 				4B07D86014BCA1B600D7A32B /* Terminal.png in Resources */,
-				4B07D86F14BCB0C300D7A32B /* ino in Resources */,
 				4BEEDEE114C073E100754579 /* Examples in Resources */,
 				4BEEDF2E14C0D11800754579 /* LICENSE in Resources */,
+				4BFA552C14C1C7BB00089995 /* bin in Resources */,
+				4BFA552D14C1C7BB00089995 /* ino-cocoduino.egg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

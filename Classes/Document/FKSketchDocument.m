@@ -131,7 +131,7 @@
     
     /*
      Move the file to the trash.
-     */
+    */
     
     if ([self.fileURL isFileURL]) {
         NSString *directoryPath = [[self.fileURL path] stringByDeletingLastPathComponent];
@@ -195,7 +195,7 @@
     if ([[NSFileManager defaultManager] fileExistsAtPath:headerPath]) {
         /*
          Libraries are always added to the main file!
-         */
+        */
         
         FKSketchFile *file = [self.files objectAtIndex:0];
         
@@ -245,7 +245,7 @@
     /*
      If the sketch was saved by Autosave, load all files from the stored array.
      If not, load it regularly.
-     */
+    */
     
     if ([[[url path] pathExtension] isEqualToString:@"ccdar"]) {
         NSArray *storedFiles = [NSKeyedUnarchiver unarchiveObjectWithFile:[url path]];
@@ -258,7 +258,7 @@
     else {
         /*
          Load main file at the specified url.
-         */
+        */
         
         NSString *readContent = [[NSString alloc] initWithContentsOfURL:url encoding:NSUTF8StringEncoding error:outError];
         if (readContent != nil) {
@@ -275,7 +275,7 @@
         
         /*
          Scan the directory for other files and load them if found.
-         */
+        */
         
         NSArray *pathComponents = [[url path] pathComponents];
         if ([typeName isEqualToString:@"Arduino Sketch"] && pathComponents.count >= 2) {
@@ -336,7 +336,7 @@
         /*
          Save all files in a single autosaved one.
          -> Change the file extension to .ccdar so that other methods know that we want to save all files in an archive.
-         */
+        */
         
         NSString *newPath = [[url path] stringByAppendingPathExtension:@"ccdar"];
         self.autosavedContentsFileURL = [NSURL fileURLWithPath:newPath];
@@ -346,7 +346,7 @@
     else {
         /*
          If the file needs to be saved (not by Autosave), also save the other files in the same directory.
-         */
+        */
         
         NSArray *pathComponents = [[url path] pathComponents];
         [[self.files objectAtIndex:0] setFilename:[[url path] lastPathComponent]];
@@ -658,7 +658,7 @@
     /*
      Because of a bug* in PSMTabBarControl I haven't been able to fix, the tabViewItems are repositioned here.
      (Even if -tabView:shouldDropTabViewItem:inTabBar: returns NO, the dropped tabViewItem is repositioned.)
-     */
+    */
     
     if (_dragTabViewItems != nil) {
         BOOL hideForSingleTab = [aTabBarControl hideForSingleTab];
@@ -676,7 +676,7 @@
     else {
         /*
          Reset the -files array.
-         */
+        */
         
         [self.files removeAllObjects];
         for (NSTabViewItem *item in [aTabView tabViewItems])
