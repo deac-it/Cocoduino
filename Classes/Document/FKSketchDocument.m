@@ -247,6 +247,7 @@
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+// TODO: -substringToIndex: sometimes causes a crash!
 - (BOOL) readFromURL:(NSURL *)url ofType:(NSString *)typeName error:(NSError **)outError {
     /*
      If the sketch was saved by Autosave, load all files from the stored array.
