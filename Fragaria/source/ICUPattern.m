@@ -44,11 +44,11 @@ unsigned const ICUUnicodeWordBoundaries = UREGEX_UWORD;
 @implementation ICUPattern
 
 +(ICUPattern *)patternWithString:(NSString *)aPattern flags:(unsigned)flags {
-	return [[[self alloc] initWithString:aPattern flags:flags] autorelease];	
+	return [[self alloc] initWithString:aPattern flags:flags];	
 }
 
 +(ICUPattern *)patternWithString:(NSString *)aPattern {
-	return [[[self alloc] initWithString:aPattern flags:0] autorelease];
+	return [[self alloc] initWithString:aPattern flags:0];
 }
 
 -(id)initWithString:(NSString *)aPattern flags:(unsigned)f {
@@ -153,7 +153,7 @@ unsigned const ICUUnicodeWordBoundaries = UREGEX_UWORD;
 
 -(void)setRe:(URegularExpression *)p {
 	if(re != NULL)
-		NSZoneFree([self zone], re);
+		free(re);
 
 	re = p;
 }
@@ -175,7 +175,7 @@ unsigned const ICUUnicodeWordBoundaries = UREGEX_UWORD;
 						format:@"Could not get pattern text from pattern."];
 		}
 
-		return [[[NSString alloc] initWithBytes:p length:len encoding:[NSString nativeUTF16Encoding]] autorelease];
+		return [[NSString alloc] initWithBytes:p length:len encoding:[NSString nativeUTF16Encoding]];
 	}
 
 	return nil;
@@ -192,7 +192,7 @@ unsigned const ICUUnicodeWordBoundaries = UREGEX_UWORD;
 	size_t destCapacity = u_strlen([self textToSearch]);
 
 	while(!isDone) {
-		UChar *destBuf = (UChar *)NSZoneCalloc([self zone], destCapacity, sizeof(UChar));
+		UChar *destBuf = (UChar *)calloc(destCapacity, sizeof(UChar));
 		int requiredCapacity = 0;
 		UChar *destFields[destFieldsCapacity];
 		int numberOfComponents = uregex_split([self re],
@@ -204,17 +204,17 @@ unsigned const ICUUnicodeWordBoundaries = UREGEX_UWORD;
 											  &status);
 		
 		if(status == U_BUFFER_OVERFLOW_ERROR) { // buffer was too small, grow it
-			NSZoneFree([self zone], destBuf);
+			free(destBuf);
 			NSAssert(destCapacity * 2 < INT_MAX, @"Overflow occurred splitting string.");
 			destCapacity = (destCapacity < (unsigned)requiredCapacity) ? (unsigned)requiredCapacity : destCapacity * 2;
 			status = 0;
 		} else if(destFieldsCapacity == numberOfComponents) {
 			destFieldsCapacity *= 2;
 			NSAssert(destFieldsCapacity *2 < INT_MAX, @"Overflow occurred splitting string.");
-			NSZoneFree([self zone], destBuf);
+			free(destBuf);
 			status = 0;
 		} else if(U_FAILURE(status)) {
-			NSZoneFree([self zone], destBuf);
+			free(destBuf);
 			isDone = YES;
 		} else {
 			int i;

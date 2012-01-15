@@ -39,14 +39,9 @@ static NSSet *objectSetterKeys;
 
 static MGSFragaria *_currentInstance;
 
-// class extension
-@interface MGSFragaria()
-@property (nonatomic, readwrite, assign) MGSExtraInterfaceController *extraInterfaceController;
-@end
-
 @implementation MGSFragaria
 
-@synthesize extraInterfaceController;
+@dynamic extraInterfaceController;
 
 #pragma mark -
 #pragma mark Class methods
@@ -77,7 +72,7 @@ static MGSFragaria *_currentInstance;
 + (void)setCurrentInstance:(MGSFragaria *)anInstance
 {
 	NSAssert([anInstance isKindOfClass:[self class]], @"bad class");
-	_currentInstance = [anInstance retain];
+	_currentInstance = anInstance;
 }
 
 
@@ -90,13 +85,13 @@ static MGSFragaria *_currentInstance;
 {
 	[MGSPreferencesController initializeValues];
 	
-	objectSetterKeys = [[NSSet setWithObjects:MGSFOIsSyntaxColoured, MGSFOShowLineNumberGutter, MGSFOIsEdited,
+	objectSetterKeys = [NSSet setWithObjects:MGSFOIsSyntaxColoured, MGSFOShowLineNumberGutter, MGSFOIsEdited,
 						MGSFOSyntaxDefinitionName, MGSFODelegate,
-						nil] retain];
+						nil];
 	
-	objectGetterKeys = [[NSMutableSet setWithObjects:ro_MGSFOTextView, ro_MGSFOScrollView, ro_MGSFOGutterScrollView, 
+	objectGetterKeys = [NSMutableSet setWithObjects:ro_MGSFOTextView, ro_MGSFOScrollView, ro_MGSFOGutterScrollView, 
 						ro_MGSFOLineNumbers, ro_MGSFOLineNumbers, 
-						nil] retain];
+						nil];
 	[(NSMutableSet *)objectGetterKeys unionSet:objectSetterKeys];
 }
 
@@ -206,8 +201,6 @@ static MGSFragaria *_currentInstance;
 		} else {
 			_docSpec = [[self class] createDocSpec];
 		}
-        [_docSpec retain];
-        [_currentInstance retain];
 	}
 
 	return self;
@@ -223,17 +216,6 @@ static MGSFragaria *_currentInstance;
 	return [self initWithObject:nil];
 }
 
-- (void)dealloc
-{
-    [_docSpec release];
-    _docSpec = nil;
-    
-    [extraInterfaceController release];
-    extraInterfaceController = nil;
-    
-    [super dealloc];
-}
-
 
 #pragma mark View handling
 /*
@@ -246,7 +228,7 @@ static MGSFragaria *_currentInstance;
 	NSInteger gutterWidth = [[SMLDefaults valueForKey:MGSPrefsGutterWidth] integerValue];
 	
 	// create text scrollview
-	NSScrollView *textScrollView = [[[NSScrollView alloc] initWithFrame:NSMakeRect(gutterWidth, 0, [contentView bounds].size.width - gutterWidth, [contentView bounds].size.height)] autorelease];
+	NSScrollView *textScrollView = [[NSScrollView alloc] initWithFrame:NSMakeRect(gutterWidth, 0, [contentView bounds].size.width - gutterWidth, [contentView bounds].size.height)];
 	NSSize contentSize = [textScrollView contentSize];
 	[textScrollView setBorderType:NSNoBorder];
 	[textScrollView setHasVerticalScroller:YES];
@@ -256,7 +238,7 @@ static MGSFragaria *_currentInstance;
 	[textScrollView setPostsFrameChangedNotifications:YES];
 	
 	// create line numbers
-	SMLLineNumbers *lineNumbers = [[[SMLLineNumbers alloc] initWithDocument:_docSpec] autorelease];
+	SMLLineNumbers *lineNumbers = [[SMLLineNumbers alloc] initWithDocument:_docSpec];
 	[[NSNotificationCenter defaultCenter] addObserver:lineNumbers selector:@selector(viewBoundsDidChange:) name:NSViewBoundsDidChangeNotification object:[textScrollView contentView]];
 	[[NSNotificationCenter defaultCenter] addObserver:lineNumbers selector:@selector(viewBoundsDidChange:) name:NSViewFrameDidChangeNotification object:[textScrollView contentView]];
 	
@@ -265,14 +247,14 @@ static MGSFragaria *_currentInstance;
 	// create textview
 	SMLTextView *textView = nil;
 	if ([[SMLDefaults valueForKey:MGSPrefsLineWrapNewDocuments] boolValue] == YES) {
-		textView = [[[SMLTextView alloc] initWithFrame:NSMakeRect(gutterWidth, 0, contentSize.width, contentSize.height)] autorelease];
+		textView = [[SMLTextView alloc] initWithFrame:NSMakeRect(gutterWidth, 0, contentSize.width, contentSize.height)];
 		[textView setMinSize:contentSize];
 		[textScrollView setHasHorizontalScroller:NO];
 		[textView setHorizontallyResizable:YES];
 		[[textView textContainer] setWidthTracksTextView:YES];
 		[[textView textContainer] setContainerSize:NSMakeSize(contentSize.width, FLT_MAX)];		 
 	} else {
-		textView = [[[SMLTextView alloc] initWithFrame:NSMakeRect(gutterWidth, 0, contentSize.width, contentSize.height)] autorelease];
+		textView = [[SMLTextView alloc] initWithFrame:NSMakeRect(gutterWidth, 0, contentSize.width, contentSize.height)];
 		[textView setMinSize:contentSize];
 		[textScrollView setHasHorizontalScroller:YES];
 		[textView setHorizontallyResizable:YES];
@@ -283,7 +265,7 @@ static MGSFragaria *_currentInstance;
 	[textScrollView setDocumentView:textView];
 	
 	// create gutter scrollview
-	NSScrollView *gutterScrollView = [[[NSScrollView alloc] initWithFrame:NSMakeRect(0, 0, gutterWidth, contentSize.height)] autorelease];
+	NSScrollView *gutterScrollView = [[NSScrollView alloc] initWithFrame:NSMakeRect(0, 0, gutterWidth, contentSize.height)];
     [gutterScrollView setBackgroundColor:[NSColor colorWithCalibratedWhite:0.94 alpha:1]];
 	[gutterScrollView setBorderType:NSNoBorder];
 	[gutterScrollView setHasVerticalScroller:NO];
@@ -292,7 +274,7 @@ static MGSFragaria *_currentInstance;
 	[[gutterScrollView contentView] setAutoresizesSubviews:YES];
 	
 	// create gutter textview
-	SMLGutterTextView *gutterTextView = [[[SMLGutterTextView alloc] initWithFrame:NSMakeRect(0, 0, gutterWidth, contentSize.height - 50)] autorelease];
+	SMLGutterTextView *gutterTextView = [[SMLGutterTextView alloc] initWithFrame:NSMakeRect(0, 0, gutterWidth, contentSize.height - 50)];
 	[gutterScrollView setDocumentView:gutterTextView];
 	
 	// update the docSpec
@@ -301,7 +283,7 @@ static MGSFragaria *_currentInstance;
 	[_docSpec setValue:gutterScrollView forKey:ro_MGSFOGutterScrollView];
 	
 	// add syntax colouring
-	SMLSyntaxColouring *syntaxColouring = [[[SMLSyntaxColouring alloc] initWithDocument:_docSpec] autorelease];
+	SMLSyntaxColouring *syntaxColouring = [[SMLSyntaxColouring alloc] initWithDocument:_docSpec];
 	[_docSpec setValue:syntaxColouring forKey:ro_MGSFOSyntaxColouring];
 	
 	// add views to content view
@@ -314,26 +296,6 @@ static MGSFragaria *_currentInstance;
 	[[_docSpec valueForKey:ro_MGSFOLineNumbers] updateLineNumbersForClipView:[[_docSpec valueForKey:ro_MGSFOScrollView] contentView] checkWidth:NO recolour:YES];
 	
 }
-
-//- (void)removeFromView {
-//    SMLLineNumbers *lineNumbers = [_docSpec valueForKey:ro_MGSFOLineNumbers];
-//    [[NSNotificationCenter defaultCenter] removeObserver:lineNumbers];
-//    [_docSpec setValue:nil forKey:ro_MGSFOLineNumbers];
-//    
-//    [_docSpec setValue:nil forKey:ro_MGSFOSyntaxColouring];
-//    
-//    SMLTextView *textView = [_docSpec valueForKey:ro_MGSFOTextView];
-//    NSScrollView *scrollView = [_docSpec valueForKey:ro_MGSFOScrollView];
-//    NSScrollView *gutterScrollView = [_docSpec valueForKey:ro_MGSFOGutterScrollView];
-//    
-//    [textView removeFromSuperview];
-//    [scrollView removeFromSuperview];
-//    [gutterScrollView removeFromSuperview];
-//    
-//    [_docSpec setValue:nil forKey:ro_MGSFOTextView];
-//	[_docSpec setValue:nil forKey:ro_MGSFOScrollView];
-//	[_docSpec setValue:nil forKey:ro_MGSFOGutterScrollView];
-//}
 
 #pragma mark -
 #pragma mark Document specification

@@ -44,7 +44,7 @@
  */
 @interface SCEvents : NSObject 
 {
-    id <NSObject, SCEventListenerProtocol> _delegate; 
+    id <NSObject, SCEventListenerProtocol> __unsafe_unretained _delegate; 
     
     BOOL                 _isWatchingPaths;
     BOOL                 _ignoreEventsFromSubDirs;
@@ -63,7 +63,7 @@
 /**
  * @property _delegate The delegate that SCEvents is to notify when events occur
  */
-@property (readwrite, assign, getter=delegate, setter=setDelegate:) id <NSObject, SCEventListenerProtocol> _delegate;
+@property (readwrite, unsafe_unretained, getter=delegate, setter=setDelegate:) id <NSObject, SCEventListenerProtocol> _delegate;
 
 /**
  * @property _isWatchingPaths Indicates whether the events stream is currently running
@@ -78,7 +78,7 @@
 /**
  * @property _lastEvent The last event that occurred and that was delivered to the delegate.
  */
-@property (readwrite, retain, getter=lastEvent, setter=setLastEvent:) SCEvent *_lastEvent;
+@property (readwrite, strong, getter=lastEvent, setter=setLastEvent:) SCEvent *_lastEvent;
 
 /**
  * @property _notificationLatency The latency time of which SCEvents is notified by FSEvents of events. Defaults to 3 seconds.
@@ -88,12 +88,12 @@
 /**
  * @property _watchedPaths The paths that are to be watched for events.
  */
-@property (readwrite, retain, getter=watchedPaths, setter=setWatchedPaths:) NSArray *_watchedPaths;
+@property (readwrite, strong, getter=watchedPaths, setter=setWatchedPaths:) NSArray *_watchedPaths;
 
 /**
  * @property _excludedPaths The paths that SCEvents should ignore events from and not deliver to the delegate.
  */
-@property (readwrite, retain, getter=excludedPaths, setter=setExcludedPaths:) NSArray *_excludedPaths;
+@property (readwrite, strong, getter=excludedPaths, setter=setExcludedPaths:) NSArray *_excludedPaths;
 
 /**
  * @property _resumeFromEventId The event ID from which to resume from when the stream is started.

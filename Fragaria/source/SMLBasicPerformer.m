@@ -35,9 +35,10 @@ static id sharedInstance = nil;
  */
 + (SMLBasicPerformer *)sharedInstance
 { 
-	if (sharedInstance == nil) { 
-		sharedInstance = [[self alloc] init];
-	}
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [[self alloc] init];
+    });
 	
 	return sharedInstance;
 } 
@@ -52,8 +53,7 @@ static id sharedInstance = nil;
  */
 - (id)init 
 {
-    if (sharedInstance == nil) {
-        sharedInstance = [super init];
+    if (self = [super init]) {
         
         /*
          Ignore analyzer warning or rewrite the singleton implementation
@@ -63,18 +63,7 @@ static id sharedInstance = nil;
 		[thousandFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
 		[thousandFormatter setFormat:@"#,##0"];	
     }
-    return sharedInstance;
-}
-
-- (void)dealloc
-{
-    [thousandFormatter release];
-    thousandFormatter = nil;
-    
-    [fetchRequests release];
-    fetchRequests = nil;
-    
-    [super dealloc];
+    return self;
 }
 
 #pragma mark -
@@ -130,10 +119,10 @@ static id sharedInstance = nil;
 - (NSString *)newUUID
 {
     CFUUIDRef uuid = CFUUIDCreate(NULL);
-    CFStringRef uuidString = CFUUIDCreateString(NULL, uuid);
+    NSString *uuidString = (__bridge_transfer NSString *)CFUUIDCreateString(NULL, uuid);
     CFRelease(uuid);
     
-    return NSMakeCollectable(uuidString);
+    return uuidString;
 }
 
 /*
@@ -170,7 +159,7 @@ static id sharedInstance = nil;
 - (NSString *)copyResolveAliasInPath:(NSString *)path
 {
 	NSString *resolvedPath = nil;
-	CFURLRef url = CFURLCreateWithFileSystemPath(NULL, (CFStringRef)path, kCFURLPOSIXPathStyle, NO);
+	CFURLRef url = CFURLCreateWithFileSystemPath(NULL, (__bridge CFStringRef)path, kCFURLPOSIXPathStyle, NO);
 	
 	if (url != NULL) {
 		FSRef fsRef;
@@ -179,7 +168,7 @@ static id sharedInstance = nil;
 			if (FSResolveAliasFile (&fsRef, true, &targetIsFolder, &wasAliased) == noErr && wasAliased) {
 				CFURLRef resolvedURL = CFURLCreateFromFSRef(NULL, &fsRef);
 				if (resolvedURL != NULL) {
-					resolvedPath = (NSString*)CFURLCopyFileSystemPath(resolvedURL, kCFURLPOSIXPathStyle);
+					resolvedPath = (__bridge_transfer NSString *)CFURLCopyFileSystemPath(resolvedURL, kCFURLPOSIXPathStyle);
                     CFRelease(resolvedURL);
 				}
 			}
@@ -191,7 +180,7 @@ static id sharedInstance = nil;
 		return path;
 	}
 	
-	return  NSMakeCollectable(resolvedPath);
+	return  resolvedPath;
 }
 
 @end

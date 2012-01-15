@@ -18,7 +18,7 @@
     NSTextView *textView;
     
     AMSerialPort *serialPort;
-    id <NSObject> closeDelegate;
+    id <NSObject> __unsafe_unretained closeDelegate;
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -27,14 +27,14 @@
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-@property (nonatomic, retain) IBOutlet NSTextField *writeTextField;
-@property (nonatomic, retain) IBOutlet NSButton *sendButton;
-@property (nonatomic, retain) IBOutlet NSTextView *textView;
+@property (nonatomic, strong) IBOutlet NSTextField *writeTextField;
+@property (nonatomic, strong) IBOutlet NSButton *sendButton;
+@property (nonatomic, strong) IBOutlet NSTextView *textView;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-@property (nonatomic, retain) AMSerialPort *serialPort;
-@property (nonatomic, assign) id <NSObject> closeDelegate;
+@property (nonatomic, strong) AMSerialPort *serialPort;
+@property (nonatomic, unsafe_unretained) id <NSObject> closeDelegate;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

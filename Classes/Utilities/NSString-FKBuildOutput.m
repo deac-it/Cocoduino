@@ -73,24 +73,16 @@
             if (![[failureReasonDictionary objectForKey:@"File"] isEqualToString:@"make"]) {
                 NSDictionary *copy = [failureReasonDictionary copy];
                 [mutableFailureReasons addObject:copy];
-                [failureReasonDictionary release];
-                [copy release];
             }
             else
-                [failureReasonDictionary release];
+                ;
         }
     }
     
-    if (mutableFailureReasons.count > 0) {
-        NSArray *copy = [mutableFailureReasons copy];
-        [mutableFailureReasons release];
-        
-        return [copy autorelease];
-    }
-    else {
-        [mutableFailureReasons release];
+    if (mutableFailureReasons.count > 0)
+       return [mutableFailureReasons copy];
+    else
         return nil;
-    }
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -

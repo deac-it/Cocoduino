@@ -33,11 +33,11 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	
 	NSCursor *colouredIBeamCursor;
 	
-	MGSFragaria *fragaria;
+	MGSFragaria *__unsafe_unretained fragaria;
 }
 
-@property (retain) NSCursor *colouredIBeamCursor;
-@property (assign) MGSFragaria *fragaria;
+@property (strong) NSCursor *colouredIBeamCursor;
+@property (unsafe_unretained) MGSFragaria *fragaria;
 
 - (void)setDefaults;
 

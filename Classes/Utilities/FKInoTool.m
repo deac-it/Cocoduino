@@ -61,11 +61,10 @@
     */
     
     CFUUIDRef uuidRef = CFUUIDCreate(NULL);
-    NSString *uuidString = (NSString *)CFUUIDCreateString(NULL, uuidRef);
+    NSString *uuidString = (__bridge_transfer NSString *)CFUUIDCreateString(NULL, uuidRef);
     CFRelease(uuidRef);
     
     NSString *temporaryDirectory = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Cocoduino-Build-%@", uuidString]];
-    [uuidString release];
 
     NSString *temporarySrcDirectory = [temporaryDirectory stringByAppendingPathComponent:@"src"];
     NSString *temporaryLibDirectory = [temporaryDirectory stringByAppendingPathComponent:@"lib"];
@@ -89,7 +88,6 @@
     }
     
     NSArray *libraryPaths = [mutableLibraryPaths copy];
-    [mutableLibraryPaths release];
     
     /*
      Setup the temporary directory for the ino project structure:
@@ -104,7 +102,6 @@
     BOOL createDirectoryStructureSuccess = ([[NSFileManager defaultManager] createDirectoryAtPath:temporaryDirectory withIntermediateDirectories:YES attributes:nil error:NULL] && [[NSFileManager defaultManager] createDirectoryAtPath:temporarySrcDirectory withIntermediateDirectories:YES attributes:nil error:NULL] && [[NSFileManager defaultManager] createDirectoryAtPath:temporaryLibDirectory withIntermediateDirectories:YES attributes:nil error:NULL]);
     if (!createDirectoryStructureSuccess) {
         [[NSFileManager defaultManager] removeItemAtPath:temporaryDirectory error:NULL];
-        [libraryPaths release];
                 
         if (terminationHandler != NULL) {
             NSError *error = [NSError errorWithDomain:@"FKInoToolErrorDomain" code:FKInoToolErrorTemporaryDirectoryNotCreatedError userInfo:[NSDictionary dictionaryWithObject:@"Temporary directory for ino build could not be created." forKey:NSLocalizedDescriptionKey]];
@@ -123,7 +120,6 @@
     
     if (savedFiles != files.count) {
         [[NSFileManager defaultManager] removeItemAtPath:temporaryDirectory error:NULL];
-        [libraryPaths release];
                 
         if (terminationHandler != NULL) {
             NSError *error = [NSError errorWithDomain:@"FKInoToolErrorDomain" code:FKInoToolErrorFilesCouldNotBeSavedError userInfo:[NSDictionary dictionaryWithObject:@"Source files could not be saved to temporary build directory." forKey:NSLocalizedDescriptionKey]];
@@ -139,7 +135,6 @@
         NSString *libraryName = [libraryPath lastPathComponent];
         copiedLibraries += ([[NSFileManager defaultManager] copyItemAtPath:libraryPath toPath:[temporaryLibDirectory stringByAppendingPathComponent:libraryName] error:NULL]) ? 1 : 0;
     }
-    [libraryPaths release];
     
     if (savedFiles != files.count) {
         [[NSFileManager defaultManager] removeItemAtPath:temporaryDirectory error:NULL];
@@ -221,9 +216,6 @@
                     }
                 }
                 
-                [uploadOutputString release];
-                [uploadErrorString release];
-                [uploadTask release];
             }
             else {
                 // Build successful
@@ -243,9 +235,6 @@
             }
         }
         
-        [buildOutputString release];
-        [buildErrorString release];
-        [buildTask release];
         
         // Clean up and delete the temporary directory
         dispatch_async(dispatch_get_main_queue(), ^{

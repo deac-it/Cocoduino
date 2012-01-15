@@ -29,14 +29,14 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	IBOutlet NSWindow *detabWindow;
 	IBOutlet NSWindow *goToLineWindow;
 	
-	IBOutlet NSView *openPanelAccessoryView;
-	IBOutlet NSPopUpButton *openPanelEncodingsPopUp;
+	IBOutlet NSView * openPanelAccessoryView;
+	IBOutlet NSPopUpButton * openPanelEncodingsPopUp;
 	//IBOutlet NSView *printAccessoryView;
 	
-	IBOutlet NSWindow *commandResultWindow;
-	IBOutlet NSTextView *commandResultTextView;
+	IBOutlet NSWindow * commandResultWindow;
+	IBOutlet NSTextView * commandResultTextView;
 	
-	IBOutlet NSWindow *theNewProjectWindow;
+	IBOutlet NSWindow * theNewProjectWindow;
 	IBOutlet NSPanel *regularExpressionsHelpPanel;
 }
 

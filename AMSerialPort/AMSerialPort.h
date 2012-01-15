@@ -115,16 +115,16 @@ typedef enum {
 	NSString *serviceName;
 	NSString *serviceType;
 	int fileDescriptor;
-	struct termios * __strong options;
-	struct termios * __strong originalOptions;
+	struct termios *options;
+	struct termios *originalOptions;
 	NSMutableDictionary *optionsDictionary;
 	NSFileHandle *fileHandle;
 	id owner;
-	char * __strong buffer;
+	char *buffer;
 	NSTimeInterval readTimeout; // for public blocking read methods and doRead
-	fd_set * __strong readfds;
-	id <AMSerialPortReadDelegate> readDelegate;
-	id <AMSerialPortWriteDelegate> writeDelegate;
+	fd_set *readfds;
+	id <AMSerialPortReadDelegate> __unsafe_unretained readDelegate;
+	id <AMSerialPortWriteDelegate> __unsafe_unretained writeDelegate;
 	NSLock *writeLock;
 	NSLock *readLock;
 	NSLock *closeLock;
@@ -144,16 +144,16 @@ typedef enum {
 // name is an IOKit service name
 // type is an IOKit service type
 
-@property (nonatomic, readonly, assign) NSString *bsdPath;
+@property (nonatomic, readonly) NSString *bsdPath;
 // bsdPath (e.g. '/dev/cu.modem')
 
-@property (nonatomic, readonly, assign) NSString *name;
+@property (nonatomic, readonly) NSString *name;
 // IOKit service name (e.g. 'modem')
 
-@property (nonatomic, readonly, assign) NSString *serviceType;
+@property (nonatomic, readonly) NSString *serviceType;
 // IOKit service type (e.g. kIOSerialBSDRS232Type)
 
-@property (nonatomic, readonly, assign) NSDictionary *properties;
+@property (nonatomic, readonly) NSDictionary *properties;
 // IORegistry entry properties - see IORegistryEntryCreateCFProperties()
 
 
@@ -227,8 +227,8 @@ typedef enum {
 
 
 // setting the delegate (for background reading/writing)
-@property (nonatomic, assign) id <AMSerialPortReadDelegate> readDelegate;
-@property (nonatomic, assign) id <AMSerialPortWriteDelegate> writeDelegate;
+@property (nonatomic, unsafe_unretained) id <AMSerialPortReadDelegate> readDelegate;
+@property (nonatomic, unsafe_unretained) id <AMSerialPortWriteDelegate> writeDelegate;
 
 // time out for blocking reads in seconds
 - (NSTimeInterval)readTimeout;

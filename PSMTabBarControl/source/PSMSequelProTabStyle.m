@@ -68,22 +68,6 @@
     return self;
 }
 
-- (void)dealloc
-{
-    [sequelProCloseButton release];
-    [sequelProCloseButtonDown release];
-    [sequelProCloseButtonOver release];
-    [sequelProCloseDirtyButton release];
-    [sequelProCloseDirtyButtonDown release];
-    [sequelProCloseDirtyButtonOver release];
-    [_addTabButtonImage release];
-    [_addTabButtonPressedImage release];
-    [_addTabButtonRolloverImage release];
-    
-	[_objectCountStringAttributes release];
-	
-    [super dealloc];
-}
 
 #pragma mark -
 #pragma mark Control Specific
@@ -309,14 +293,14 @@
 - (NSAttributedString *)attributedObjectCountValueForTabCell:(PSMTabBarCell *)cell
 {
     NSString *contents = [NSString stringWithFormat:@"%lu", (unsigned long)[cell count]];
-    return [[[NSMutableAttributedString alloc] initWithString:contents attributes:_objectCountStringAttributes] autorelease];
+    return [[NSMutableAttributedString alloc] initWithString:contents attributes:_objectCountStringAttributes];
 }
 
 - (NSAttributedString *)attributedStringValueForTabCell:(PSMTabBarCell *)cell
 {
     NSMutableAttributedString *attrStr;
     NSString *contents = [cell stringValue];
-    attrStr = [[[NSMutableAttributedString alloc] initWithString:contents] autorelease];
+    attrStr = [[NSMutableAttributedString alloc] initWithString:contents];
     NSRange range = NSMakeRange(0, [contents length]);
     
     // Add font attribute
@@ -325,7 +309,7 @@
     
     // Add shadow attribute
     NSShadow* textShadow;
-    textShadow = [[[NSShadow alloc] init] autorelease];
+    textShadow = [[NSShadow alloc] init];
     CGFloat shadowAlpha;
     if (([cell state] == NSOnState) || [cell isHighlighted]) {
         shadowAlpha = 0.8f;
@@ -372,7 +356,7 @@
         labelRect.origin.y += 4.0f;
         NSMutableAttributedString *attrStr;
         NSString *contents = @"PSMTabBarControl";
-        attrStr = [[[NSMutableAttributedString alloc] initWithString:contents] autorelease];
+        attrStr = [[NSMutableAttributedString alloc] initWithString:contents];
 		NSRange range = NSMakeRange(0, [contents length]);
         [attrStr addAttribute:NSFontAttributeName value:[NSFont systemFontOfSize:11.0f] range:range];
         NSMutableParagraphStyle *centeredParagraphStyle = nil;
@@ -382,7 +366,6 @@
             [centeredParagraphStyle setAlignment:NSCenterTextAlignment];
         }
         [attrStr addAttribute:NSParagraphStyleAttributeName value:centeredParagraphStyle range:range];
-        [centeredParagraphStyle release];
         [attrStr drawInRect:labelRect];
         return;
     }
@@ -434,7 +417,6 @@
 	[lineGlow setShadowOffset:NSMakeSize(0,1)];
 	[lineGlow set];
 	[NSBezierPath strokeLineFromPoint:NSMakePoint(rect.origin.x, rect.origin.y + rect.size.height - 0.5f) toPoint:NSMakePoint(rect.origin.x + rect.size.width, rect.origin.y + rect.size.height - 0.5f)];
-	[lineGlow release];
 	[NSGraphicsContext restoreGraphicsState];
     
     // Add a shadow before drawing the top edge
@@ -445,7 +427,6 @@
 	[edgeShadow setShadowOffset:NSMakeSize(0,0)];
 	[edgeShadow set];
 	[NSBezierPath strokeLineFromPoint:NSMakePoint(rect.origin.x, rect.origin.y + 0.5f) toPoint:NSMakePoint(rect.origin.x + rect.size.width, rect.origin.y + 0.5f)];
-	[edgeShadow release];
 	[NSGraphicsContext restoreGraphicsState];
 	
 	[NSGraphicsContext restoreGraphicsState];
@@ -570,7 +551,6 @@
 	[cellShadow setShadowOffset:NSMakeSize(0, 0)];
 	[cellShadow set];
 	[outlineBezier stroke];
-	[cellShadow release];
 	[NSGraphicsContext restoreGraphicsState];
     
     // Fill the tab with a solid colour
@@ -600,7 +580,6 @@
 		[cellShadow setShadowOffset:NSMakeSize(0, 1)];
 		[cellShadow set];
 		[outlineBezier stroke];
-		[cellShadow release];
         
         // Add the shadow over the tops of background tabs
 	} else if (drawLeftEdge || drawRightEdge) {
@@ -639,7 +618,6 @@
         
         // Draw, and then restore the previous graphics state
 		[outlineBezier stroke];
-		[cellShadow release];
 		CGContextRestoreGState(context);
 	}
 	

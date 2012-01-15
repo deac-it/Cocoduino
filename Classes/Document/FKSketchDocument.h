@@ -68,28 +68,28 @@
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-@property (nonatomic, retain) IBOutlet NSTabView *tabView;
-@property (nonatomic, retain) IBOutlet NSTextField *bottomTextField;
-@property (nonatomic, retain) IBOutlet PSMTabBarControl *tabBarControl;
+@property (nonatomic, strong) IBOutlet NSTabView *tabView;
+@property (nonatomic, strong) IBOutlet NSTextField *bottomTextField;
+@property (nonatomic, strong) IBOutlet PSMTabBarControl *tabBarControl;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-@property (nonatomic, retain) IBOutlet NSToolbarItem *buildButton;
-@property (nonatomic, retain) IBOutlet NSToolbarItem *buildAndUploadButton;
-@property (nonatomic, retain) IBOutlet NSProgressIndicator *progressIndicator;
+@property (nonatomic, strong) IBOutlet NSToolbarItem *buildButton;
+@property (nonatomic, strong) IBOutlet NSToolbarItem *buildAndUploadButton;
+@property (nonatomic, strong) IBOutlet NSProgressIndicator *progressIndicator;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-@property (nonatomic, retain) IBOutlet NSWindow *addFileSheet;
-@property (nonatomic, retain) IBOutlet NSTextField *addFileTextField;
-@property (nonatomic, retain) IBOutlet NSWindow *buildSuccessSheet;
-@property (nonatomic, retain) IBOutlet NSWindow *buildFailedSheet;
-@property (nonatomic, retain) IBOutlet NSTextView *buildFailedTextView;
+@property (nonatomic, strong) IBOutlet NSWindow *addFileSheet;
+@property (nonatomic, strong) IBOutlet NSTextField *addFileTextField;
+@property (nonatomic, strong) IBOutlet NSWindow *buildSuccessSheet;
+@property (nonatomic, strong) IBOutlet NSWindow *buildFailedSheet;
+@property (nonatomic, strong) IBOutlet NSTextView *buildFailedTextView;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 @property (nonatomic, copy) NSDictionary *board;
-@property (nonatomic, retain) AMSerialPort *serialPort;
+@property (nonatomic, strong) AMSerialPort *serialPort;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

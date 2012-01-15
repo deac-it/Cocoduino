@@ -18,6 +18,7 @@
 #import "FKInoTool.h"
 #import "AMSerialPort.h"
 #import "NSString-FKBuildOutput.h"
+#import <PSMTabBarControl/PSMRolloverButton.h>
 #import <PSMTabBarControl/PSMTabDragAssistant.h>
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -55,7 +56,7 @@
 + (void) alertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void (^)(NSInteger returnCode))completionHandler {
     if (completionHandler != NULL) {
         completionHandler(returnCode);
-        Block_release(completionHandler);
+        Block_release((__bridge void *)completionHandler);
     }
 }
 
@@ -97,7 +98,6 @@
         [item setLabel:file.filename];
         
         [self.tabView addTabViewItem:item];
-        [item release];
     }
     
     [self.tabView selectTabViewItemAtIndex:0];
@@ -119,7 +119,6 @@
     
     [self.tabView addTabViewItem:item];    
     [self.tabView selectTabViewItem:item];
-    [item release];
 }
 
 - (void) removeSketchFile:(FKSketchFile *)file {
@@ -167,8 +166,7 @@
 
 - (void) setBoard:(NSDictionary *)dictionary {
     if (board != dictionary) {
-        [board release];
-        board = [dictionary retain];
+        board = dictionary;
         
         [self reloadBottomTextField];
     }
@@ -176,8 +174,7 @@
 
 - (void) setSerialPort:(AMSerialPort *)port {
     if (serialPort != port) {
-        [serialPort release];
-        serialPort = [port retain];
+        serialPort = port;
         
         [self reloadBottomTextField];
     }
@@ -272,10 +269,8 @@
             FKSketchFile *mainFile = [[FKSketchFile alloc] initWithFilename:[[url path] lastPathComponent]];
             mainFile.string = readContent;
             mainFile.savedString = readContent;
-            [readContent release];
             
             [self.files addObject:mainFile];
-            [mainFile release];
         }
         else
             return NO;
@@ -307,13 +302,10 @@
                         FKSketchFile *file = [[FKSketchFile alloc] initWithFilename:otherFilename];
                         file.string = fileContent;
                         file.savedString = fileContent;
-                        [fileContent release];
                         
                         [self.files addObject:file];
-                        [file release];
                     }
                 }
-                [otherFilenames release];
             }
         }
     }
@@ -549,7 +541,7 @@
 }
 
 - (void) serialMonitorWindowWillClose:(FKSerialMonitorWindowController *)windowController {
-    [_serialMonitorWindowController release], _serialMonitorWindowController = nil;
+    _serialMonitorWindowController = nil;
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -578,7 +570,6 @@
         file.string = [NSString stringWithFormat:@"//\n//  %@\n//", filename];
         
         [self addSketchFile:file];
-        [file release];
     }
     
     [self.addFileSheet orderOut:nil];
@@ -627,7 +618,7 @@
             }
         };
         
-        [alert beginSheetModalForWindow:[[self.windowControllers objectAtIndex:0] window] modalDelegate:[self class] didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) contextInfo:Block_copy(completionHandler)];
+        [alert beginSheetModalForWindow:[[self.windowControllers objectAtIndex:0] window] modalDelegate:[self class] didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) contextInfo:Block_copy((__bridge void *)completionHandler)];
         
         return NO;
     }
@@ -647,13 +638,13 @@
 
 - (BOOL) tabView:(NSTabView *)aTabView shouldDropTabViewItem:(NSTabViewItem *)tabViewItem inTabBar:(PSMTabBarControl *)aTabBarControl {
     if ([[aTabBarControl cells] indexOfObject:[[PSMTabDragAssistant sharedDragAssistant] targetCell]] == 0) {
-        [_dragTabViewItems release];
+        _dragTabViewItems = nil;
         _dragTabViewItems = [[aTabView tabViewItems] copy];
         
         return YES;
     }
     else
-        [_dragTabViewItems release], _dragTabViewItems = nil;
+        _dragTabViewItems = nil;
     
     return YES;
 }
@@ -674,7 +665,7 @@
         for (NSInteger i = 0; i < numberOfUpdates; i++)
             [aTabView addTabViewItem:[_dragTabViewItems objectAtIndex:i]];
         
-        [_dragTabViewItems release], _dragTabViewItems = nil;
+        _dragTabViewItems = nil;
         [aTabBarControl setHideForSingleTab:hideForSingleTab];
     }
     else {
@@ -686,31 +677,6 @@
         for (NSTabViewItem *item in [aTabView tabViewItems])
             [self.files addObject:[item identifier]];
     }
-}
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-#pragma mark -
-#pragma mark Memory Management
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-- (void) dealloc {
-    [tabView release], tabView = nil;
-    [bottomTextField release], bottomTextField = nil;
-    [tabBarControl release], tabBarControl = nil;
-    [buildButton release], buildButton = nil;
-    [buildAndUploadButton release], buildAndUploadButton = nil;
-    [progressIndicator release], progressIndicator = nil;
-    [addFileSheet release], addFileSheet = nil;
-    [addFileTextField release], addFileTextField = nil;
-    [buildSuccessSheet release], buildSuccessSheet = nil;
-    [buildFailedSheet release], buildFailedSheet = nil;
-    [buildFailedTextView release], buildFailedTextView = nil;
-    [board release], board = nil;
-    [serialPort release], serialPort = nil;
-    [files release], files = nil;
-    [_dragTabViewItems release], _dragTabViewItems = nil;
-    [_serialMonitorWindowController release], _serialMonitorWindowController = nil;
-    [super dealloc];
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -

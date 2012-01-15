@@ -82,9 +82,9 @@ Unless required by applicable law or agreed to in writing, software distributed 
 @property (copy) NSString *functionDefinition;
 @property (copy) NSString *removeFromFunction;
 
-@property (assign) SMLLayoutManager *secondLayoutManager;
-@property (assign) SMLLayoutManager *thirdLayoutManager;
-@property (assign) SMLLayoutManager *fourthLayoutManager;
+@property (strong) SMLLayoutManager *secondLayoutManager;
+@property (strong) SMLLayoutManager *thirdLayoutManager;
+@property (strong) SMLLayoutManager *fourthLayoutManager;
 
 - (id)initWithDocument:(id)document;
 - (void)pageRecolourTextView:(SMLTextView *)textView;

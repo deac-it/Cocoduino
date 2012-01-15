@@ -21,6 +21,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 #import "MGSFragaria.h"
 #import "MGSFragariaFramework.h"
 #import "NSScanner+Fragaria.h"
+#import <objc/message.h>
 
 
 @interface NSScanner (Fragaria2)
@@ -81,7 +82,7 @@ thirdLayoutManager, fourthLayoutManager, undoManager;
 		NSAssert(theDocument, @"bad document");
 		
 		// retain the document
-		document = [theDocument retain];
+		document = theDocument;
 		
 		undoManager = [[NSUndoManager alloc] init];
 
@@ -97,19 +98,18 @@ thirdLayoutManager, fourthLayoutManager, undoManager;
 		reactToChanges = YES;
 		
 		// configure layout managers
-		firstLayoutManager = [(SMLLayoutManager *)[textView layoutManager] retain];
+		firstLayoutManager = (SMLLayoutManager *)[textView layoutManager];
 		
 		// configure colouring
 		[self applyColourDefaults];
 
 		// letter character set
-		letterCharacterSet = [[NSCharacterSet letterCharacterSet] retain];
+		letterCharacterSet = [NSCharacterSet letterCharacterSet];
 		
 		// keyword start character set
 		NSMutableCharacterSet *temporaryCharacterSet = [[NSCharacterSet letterCharacterSet] mutableCopy];
 		[temporaryCharacterSet addCharactersInString:@"_:@#"];
-		keywordStartCharacterSet = [[temporaryCharacterSet copy] retain];
-        [temporaryCharacterSet release];
+		keywordStartCharacterSet = [temporaryCharacterSet copy];
         temporaryCharacterSet = nil;
 		
 		// keyword end character set
@@ -117,15 +117,13 @@ thirdLayoutManager, fourthLayoutManager, undoManager;
 		[temporaryCharacterSet formUnionWithCharacterSet:[NSCharacterSet symbolCharacterSet]];
 		[temporaryCharacterSet formUnionWithCharacterSet:[NSCharacterSet punctuationCharacterSet]];
 		[temporaryCharacterSet removeCharactersInString:@"_"];
-		keywordEndCharacterSet = [[temporaryCharacterSet copy] retain];
-        [temporaryCharacterSet release];
+		keywordEndCharacterSet = [temporaryCharacterSet copy];
 		temporaryCharacterSet = nil;
         
 		// attributes character set
 		temporaryCharacterSet = [[NSCharacterSet alphanumericCharacterSet] mutableCopy];
 		[temporaryCharacterSet addCharactersInString:@" -"]; // If there are two spaces before an attribute
-		attributesCharacterSet = [[temporaryCharacterSet copy] retain];
-        [temporaryCharacterSet release];
+		attributesCharacterSet = [temporaryCharacterSet copy];
 		temporaryCharacterSet = nil;
 		
 		// configure syntax definition
@@ -169,149 +167,6 @@ thirdLayoutManager, fourthLayoutManager, undoManager;
     return self;
 }
 
-- (void)dealloc
-{
-    [undoManager release];
-    undoManager = nil;
-	
-    [firstLayoutManager release];
-    firstLayoutManager = nil;
-    
-    [secondLayoutManager release];
-    secondLayoutManager = nil;
-    
-    [thirdLayoutManager release];
-    thirdLayoutManager = nil;
-    
-    [fourthLayoutManager release];
-    fourthLayoutManager = nil;
-	
-    [commandsColour release];
-    commandsColour = nil;
-    
-    [commentsColour release];
-    commentsColour = nil;
-    
-    [instructionsColour release];
-    instructionsColour = nil;
-    
-    [keywordsColour release];
-    keywordsColour = nil;
-    
-    [autocompleteWordsColour release];
-    autocompleteWordsColour = nil;
-    
-    [stringsColour release];
-    stringsColour = nil;
-    
-    [variablesColour release];
-    variablesColour = nil;
-    
-    [attributesColour release];
-    attributesColour = nil;
-    
-    [lineHighlightColour release];
-    lineHighlightColour = nil;
-	
-    [keywords release];
-    keywords = nil;
-    
-    [autocompleteWords release];
-    autocompleteWords = nil;
-    
-    [keywordsAndAutocompleteWords release];
-    keywordsAndAutocompleteWords = nil;
-    
-    [beginCommand release];
-    beginCommand = nil;
-    
-    [endCommand release];
-    endCommand = nil;
-    
-    [beginInstruction release];
-    beginInstruction = nil;
-    
-    [endInstruction release];
-    endInstruction = nil;
-    
-    [firstString release];
-    firstString = nil;
-    
-    [secondString release];
-    secondString = nil;
-    
-    [firstSingleLineComment release];
-    firstSingleLineComment = nil;
-    
-    [secondSingleLineComment release];
-    secondSingleLineComment = nil;
-    
-    [beginFirstMultiLineComment release];
-    beginFirstMultiLineComment = nil;
-    
-    [endFirstMultiLineComment release]; 
-    endFirstMultiLineComment = nil;
-    
-    [beginSecondMultiLineComment release];
-    beginSecondMultiLineComment = nil;
-    
-    [endSecondMultiLineComment release];
-    endSecondMultiLineComment = nil;
-    
-    [functionDefinition release];
-    functionDefinition = nil;
-    
-    [removeFromFunction release];
-    removeFromFunction = nil;
-    
-    [searchString release];
-    searchString = nil;
-    
-    [singleLineComments release];
-    singleLineComments = nil;
-    
-    [multiLineComments release];
-    multiLineComments = nil;
-	
-    [attributesCharacterSet release];
-    attributesCharacterSet = nil;
-    
-    [beginVariable release];
-    beginVariable = nil;
-    
-    [endVariable release];
-    endVariable = nil;
-    
-    [letterCharacterSet release];
-    letterCharacterSet = nil;
-    
-    [keywordStartCharacterSet release];
-    keywordStartCharacterSet = nil;
-    
-    [keywordEndCharacterSet release];
-    keywordEndCharacterSet = nil;
-	
-    [firstStringPattern release];
-    firstStringPattern = nil;
-    
-    [secondStringPattern release];
-	secondStringPattern = nil;
-    
-    [firstStringMatcher release];
-    firstStringMatcher = nil;
-    
-    [secondStringMatcher release];
-    secondStringMatcher = nil;
-	
-    [liveUpdatePreviewTimer release];
-    liveUpdatePreviewTimer = nil;
-    
-    [autocompleteWordsTimer release];
-    autocompleteWordsTimer = nil;
-    
-    [super dealloc];
-}
-
 #pragma mark -
 #pragma mark KVO
 /*
@@ -321,7 +176,7 @@ thirdLayoutManager, fourthLayoutManager, undoManager;
  */
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-	if ([(NSString *)context isEqualToString:@"ColoursChanged"]) {
+	if ([(__bridge NSString *)context isEqualToString:@"ColoursChanged"]) {
 		[self applyColourDefaults];
 		[self pageRecolour];
 		if ([[SMLDefaults valueForKey:@"HighlightCurrentLine"] boolValue] == YES) {
@@ -331,10 +186,10 @@ thirdLayoutManager, fourthLayoutManager, undoManager;
 		} else {
 			[self highlightLineRange:NSMakeRange(0, 0)];
 		}
-	} else if ([(NSString *)context isEqualToString:@"MultiLineChanged"]) {
+	} else if ([(__bridge NSString *)context isEqualToString:@"MultiLineChanged"]) {
 		[self prepareRegularExpressions];
 		[self pageRecolour];
-	} else if ([(NSString *)context isEqualToString:@"syntaxDefinition"]) {
+	} else if ([(__bridge NSString *)context isEqualToString:@"syntaxDefinition"]) {
 		[self applySyntaxDefinition];
 		[self removeAllColours];
 		[self pageRecolour];
@@ -435,10 +290,10 @@ thirdLayoutManager, fourthLayoutManager, undoManager;
 	}
 	
 	if ([[SMLDefaults valueForKey:@"ColourAutocompleteWordsAsKeywords"] boolValue] == YES) {
-		keywords = [[NSSet setWithArray:keywordsAndAutocompleteWordsTemporary] retain];
+		keywords = [NSSet setWithArray:keywordsAndAutocompleteWordsTemporary];
 	}
 	
-	keywordsAndAutocompleteWords = [[keywordsAndAutocompleteWordsTemporary sortedArrayUsingSelector:@selector(compare:)] retain];
+	keywordsAndAutocompleteWords = [keywordsAndAutocompleteWordsTemporary sortedArrayUsingSelector:@selector(compare:)];
 	
 	if ([syntaxDictionary valueForKey:@"recolourKeywordIfAlreadyColoured"]) {
 		recolourKeywordIfAlreadyColoured = [[syntaxDictionary valueForKey:@"recolourKeywordIfAlreadyColoured"] boolValue];
@@ -454,7 +309,6 @@ thirdLayoutManager, fourthLayoutManager, undoManager;
 			[lowerCaseKeywords addObject:[item lowercaseString]];
 		}
 		
-        [keywords release];
 		NSSet *lowerCaseKeywordsSet = [[NSSet alloc] initWithArray:lowerCaseKeywords];
 		keywords = lowerCaseKeywordsSet;
 	}
@@ -464,31 +318,27 @@ thirdLayoutManager, fourthLayoutManager, undoManager;
 	} else { 
 		beginCommand = @"";
 	}
-    [beginCommand retain];
 	
 	if ([syntaxDictionary valueForKey:@"endCommand"]) {
 		endCommand = [syntaxDictionary valueForKey:@"endCommand"];
 	} else { 
 		endCommand = @"";
 	}
-    [endCommand retain];
 	
 	if ([syntaxDictionary valueForKey:@"beginInstruction"]) {
 		beginInstruction = [syntaxDictionary valueForKey:@"beginInstruction"];
 	} else {
 		beginInstruction = @"";
 	}
-    [beginInstruction retain];
 	
 	if ([syntaxDictionary valueForKey:@"endInstruction"]) {
 		endInstruction = [syntaxDictionary valueForKey:@"endInstruction"];
 	} else {
 		endInstruction = @"";
 	}
-    [endInstruction retain];
 	
 	if ([syntaxDictionary valueForKey:@"beginVariable"]) {
-		beginVariable = [[NSCharacterSet characterSetWithCharactersInString:[syntaxDictionary valueForKey:@"beginVariable"]] retain];
+		beginVariable = [NSCharacterSet characterSetWithCharactersInString:[syntaxDictionary valueForKey:@"beginVariable"]];
 	}
 	
 	if ([syntaxDictionary valueForKey:@"endVariable"]) {
@@ -496,7 +346,6 @@ thirdLayoutManager, fourthLayoutManager, undoManager;
 	} else {
 		endVariable = [NSCharacterSet characterSetWithCharactersInString:@""];
 	}
-    [endVariable retain];
 	
 	if ([syntaxDictionary valueForKey:@"firstString"]) {
 		firstString = [syntaxDictionary valueForKey:@"firstString"];
@@ -506,7 +355,6 @@ thirdLayoutManager, fourthLayoutManager, undoManager;
 	} else { 
 		firstString = @"";
 	}
-    [firstString retain];
 	
 	if ([syntaxDictionary valueForKey:@"secondString"]) {
 		secondString = [syntaxDictionary valueForKey:@"secondString"];
@@ -516,7 +364,6 @@ thirdLayoutManager, fourthLayoutManager, undoManager;
 	} else { 
 		secondString = @"";
 	}
-    [secondString retain];
 	
     // single line comment definitions
 	if ([syntaxDictionary valueForKey:@"firstSingleLineComment"]) {
@@ -524,9 +371,8 @@ thirdLayoutManager, fourthLayoutManager, undoManager;
 	} else {
 		firstSingleLineComment = @"";
 	}
-    [firstSingleLineComment retain];
     
-    singleLineComments = [[NSMutableArray arrayWithCapacity:2] retain];
+    singleLineComments = [NSMutableArray arrayWithCapacity:2];
     [singleLineComments addObject:firstSingleLineComment];
 	
 	if ([syntaxDictionary valueForKey:@"secondSingleLineComment"]) {
@@ -534,10 +380,8 @@ thirdLayoutManager, fourthLayoutManager, undoManager;
 	} else {
 		secondSingleLineComment = @"";
 	}
-    [secondSingleLineComment retain];
     
     [singleLineComments addObject:secondSingleLineComment];
-    [singleLineComments retain];
 	
     // multi line comment definitions
 	if ([syntaxDictionary valueForKey:@"beginFirstMultiLineComment"]) {
@@ -545,15 +389,13 @@ thirdLayoutManager, fourthLayoutManager, undoManager;
 	} else {
 		beginFirstMultiLineComment = @"";
 	}
-    [beginFirstMultiLineComment retain];
 	
 	if ([syntaxDictionary valueForKey:@"endFirstMultiLineComment"]) {
 		endFirstMultiLineComment = [syntaxDictionary valueForKey:@"endFirstMultiLineComment"];
 	} else {
 		endFirstMultiLineComment = @"";
 	}
-    [endFirstMultiLineComment retain];
-    multiLineComments = [[NSMutableArray arrayWithCapacity:2] retain];
+    multiLineComments = [NSMutableArray arrayWithCapacity:2];
 
 	[multiLineComments addObject:[NSArray arrayWithObjects:beginFirstMultiLineComment, endFirstMultiLineComment, nil]];
 	
@@ -562,14 +404,12 @@ thirdLayoutManager, fourthLayoutManager, undoManager;
 	} else {
 		beginSecondMultiLineComment = @"";
 	}
-    [beginSecondMultiLineComment retain];
      
 	if ([syntaxDictionary valueForKey:@"endSecondMultiLineComment"]) {
 		endSecondMultiLineComment = [syntaxDictionary valueForKey:@"endSecondMultiLineComment"];
 	} else {
 		endSecondMultiLineComment = @"";
 	}
-    [endSecondMultiLineComment retain];
 	[multiLineComments addObject:[NSArray arrayWithObjects:beginSecondMultiLineComment, endSecondMultiLineComment, nil]];
 
 	
@@ -578,37 +418,35 @@ thirdLayoutManager, fourthLayoutManager, undoManager;
 	} else {
 		self.functionDefinition = @"";
 	}
-    [functionDefinition retain];
 	
 	if ([syntaxDictionary valueForKey:@"removeFromFunction"]) {
 		self.removeFromFunction = [syntaxDictionary valueForKey:@"removeFromFunction"];
 	} else {
 		self.removeFromFunction = @"";
 	}
-    [removeFromFunction retain];
 	
 	if ([syntaxDictionary valueForKey:@"excludeFromKeywordStartCharacterSet"]) {
-		NSMutableCharacterSet *temporaryCharacterSet = [[keywordStartCharacterSet mutableCopy] autorelease];
+		NSMutableCharacterSet *temporaryCharacterSet = [keywordStartCharacterSet mutableCopy];
 		[temporaryCharacterSet removeCharactersInString:[syntaxDictionary valueForKey:@"excludeFromKeywordStartCharacterSet"]];
-		keywordStartCharacterSet = [[temporaryCharacterSet copy] retain];
+		keywordStartCharacterSet = [temporaryCharacterSet copy];
 	}
 	
 	if ([syntaxDictionary valueForKey:@"excludeFromKeywordEndCharacterSet"]) {
-		NSMutableCharacterSet *temporaryCharacterSet = [[keywordEndCharacterSet mutableCopy] autorelease];
+		NSMutableCharacterSet *temporaryCharacterSet = [keywordEndCharacterSet mutableCopy];
 		[temporaryCharacterSet removeCharactersInString:[syntaxDictionary valueForKey:@"excludeFromKeywordEndCharacterSet"]];
-		keywordEndCharacterSet = [[temporaryCharacterSet copy] retain];
+		keywordEndCharacterSet = [temporaryCharacterSet copy];
 	}
 	
 	if ([syntaxDictionary valueForKey:@"includeInKeywordStartCharacterSet"]) {
-		NSMutableCharacterSet *temporaryCharacterSet = [[keywordStartCharacterSet mutableCopy] autorelease];
+		NSMutableCharacterSet *temporaryCharacterSet = [keywordStartCharacterSet mutableCopy];
 		[temporaryCharacterSet addCharactersInString:[syntaxDictionary valueForKey:@"includeInKeywordStartCharacterSet"]];
-		keywordStartCharacterSet = [[temporaryCharacterSet copy] retain];
+		keywordStartCharacterSet = [temporaryCharacterSet copy];
 	}
 	
 	if ([syntaxDictionary valueForKey:@"includeInKeywordEndCharacterSet"]) {
-		NSMutableCharacterSet *temporaryCharacterSet = [[keywordEndCharacterSet mutableCopy] autorelease];
+		NSMutableCharacterSet *temporaryCharacterSet = [keywordEndCharacterSet mutableCopy];
 		[temporaryCharacterSet addCharactersInString:[syntaxDictionary valueForKey:@"includeInKeywordEndCharacterSet"]];
-		keywordEndCharacterSet = [[temporaryCharacterSet copy] retain];
+		keywordEndCharacterSet = [temporaryCharacterSet copy];
 	}
 
 	[self prepareRegularExpressions];
@@ -1043,7 +881,6 @@ thirdLayoutManager, fourthLayoutManager, undoManager;
         //
 		if (![secondString isEqualToString:@""] && [[SMLDefaults valueForKey:@"ColourStrings"] boolValue] == YES) {
 			@try {
-                [secondStringMatcher release];
 				secondStringMatcher = [[ICUMatcher alloc] initWithPattern:secondStringPattern overString:searchString];
 			}
 			@catch (NSException *exception) {
@@ -1061,7 +898,6 @@ thirdLayoutManager, fourthLayoutManager, undoManager;
         //
 		if (![firstString isEqualToString:@""] && [[SMLDefaults valueForKey:@"ColourStrings"] boolValue] == YES) {
 			@try {
-                [firstStringMatcher release];
 				firstStringMatcher = [[ICUMatcher alloc] initWithPattern:firstStringPattern overString:searchString];
 			}
 			@catch (NSException *exception) {
@@ -1263,11 +1099,6 @@ thirdLayoutManager, fourthLayoutManager, undoManager;
 	@catch (NSException *exception) {
 		NSLog(@"Syntax colouring exception: %@", exception);
 	}
-    @finally {
-        [scanner release];
-        [completeDocumentScanner release];
-    }
-	
 }
 
 /*
@@ -1365,7 +1196,7 @@ thirdLayoutManager, fourthLayoutManager, undoManager;
 {
 	id delegate = [document valueForKey:MGSFODelegate]; 
 	if (delegate && [delegate respondsToSelector:selector]) {
-		[delegate performSelector:selector withObject:object];
+        objc_msgSend(delegate, selector, object);
 	}
 }
 

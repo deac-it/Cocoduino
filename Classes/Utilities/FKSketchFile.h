@@ -39,8 +39,8 @@
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-@property (nonatomic, retain) NSView *editorView;
-@property (nonatomic, retain) MGSFragaria *fragaria;
+@property (nonatomic, strong) NSView *editorView;
+@property (nonatomic, strong) MGSFragaria *fragaria;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

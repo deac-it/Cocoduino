@@ -134,9 +134,8 @@
     file.string = @"//\n//  Untitled.ino\n//\n\nvoid setup() {\n\t//Your setup code goes here.\n}\n\nvoid loop() {\n\t//This will be called in an infinite loop.\n}";
     
     [document.files addObject:file];
-    [file release];
     
-    return [document autorelease];
+    return document;
 }
 
 - (id) openDocumentWithContentsOfURL:(NSURL *)url display:(BOOL)displayDocument error:(NSError **)outError {
@@ -197,7 +196,6 @@
                 NSMenu *menu = [[NSMenu alloc] initWithTitle:path];
                 NSMenuItem *menuItem = [self.examplesMenu addItemWithTitle:menu.title action:NULL keyEquivalent:@""];
                 [menuItem setSubmenu:menu];
-                [menu release];
                 
                 for (NSMenuItem *item in menuItems)
                     [menu addItem:item];
@@ -221,7 +219,6 @@
                 NSMenu *menu = [[NSMenu alloc] initWithTitle:path];
                 NSMenuItem *menuItem = [self.examplesMenu addItemWithTitle:menu.title action:NULL keyEquivalent:@""];
                 [menuItem setSubmenu:menu];
-                [menu release];
                 
                 for (NSMenuItem *item in menuItems)
                     [menu addItem:item];
@@ -246,7 +243,6 @@
                 NSMenu *menu = [[NSMenu alloc] initWithTitle:path];
                 NSMenuItem *menuItem = [self.examplesMenu addItemWithTitle:menu.title action:NULL keyEquivalent:@""];
                 [menuItem setSubmenu:menu];
-                [menu release];
                 
                 for (NSMenuItem *item in menuItems)
                     [menu addItem:item];
@@ -331,27 +327,47 @@
 }
 
 - (void) didSelectBoard:(id)sender {
-    NSDictionary *board = [sender representedObject];
-    for (NSMenuItem *item in self.boardMenu.itemArray)
-        [item setState:(item == sender) ? NSOnState : NSOffState];
-    
-    for (FKSketchDocument *document in self.documents)
-        [document setBoard:board];
-    
-    [[NSUserDefaults standardUserDefaults] setObject:[board objectForKey:@"short"] forKey:@"Default Board"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    if ([sender state] == NSOnState) {
+        [sender setState:NSOffState];
+        for (FKSketchDocument *document in self.documents)
+            [document setBoard:nil];
+        
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Default Bord"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    else {
+        NSDictionary *board = [sender representedObject];
+        for (NSMenuItem *item in self.boardMenu.itemArray)
+            [item setState:(item == sender) ? NSOnState : NSOffState];
+        
+        for (FKSketchDocument *document in self.documents)
+            [document setBoard:board];
+        
+        [[NSUserDefaults standardUserDefaults] setObject:[board objectForKey:@"short"] forKey:@"Default Board"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
 }
 
 - (void) didSelectSerialPort:(id)sender {
-    AMSerialPort *serialPort = [sender representedObject];
-    for (NSMenuItem *item in self.serialPortMenu.itemArray)
-        [item setState:(item == sender) ? NSOnState : NSOffState];
-    
-    for (FKSketchDocument *document in self.documents)
-        [document setSerialPort:serialPort];
-    
-    [[NSUserDefaults standardUserDefaults] setObject:serialPort.bsdPath forKey:@"Default Serial Port"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    if ([sender state] == NSOnState) {
+        [sender setState:NSOffState];
+        for (FKSketchDocument *document in self.documents)
+            [document setSerialPort:nil];
+        
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Default Serial Port"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    else {
+        AMSerialPort *serialPort = [sender representedObject];
+        for (NSMenuItem *item in self.serialPortMenu.itemArray)
+            [item setState:(item == sender) ? NSOnState : NSOffState];
+        
+        for (FKSketchDocument *document in self.documents)
+            [document setSerialPort:serialPort];
+        
+        [[NSUserDefaults standardUserDefaults] setObject:serialPort.bsdPath forKey:@"Default Serial Port"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
 }
 
 - (void) didSelectLibrary:(id)sender {
@@ -418,21 +434,14 @@
                 [item setRepresentedObject:sketchPath];
                 
                 [menuItems addObject:item];
-                [item release];
             }
         }
     }
     
-    if (menuItems.count > 0) {
-        NSArray *copy = [menuItems copy];
-        [menuItems release];
-        
-        return [copy autorelease];
-    }
-    else {
-        [menuItems release];
+    if (menuItems.count > 0)
+        return [menuItems copy];
+    else
         return nil;
-    }
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -447,8 +456,6 @@
         
         _preferencesWindowController = [[MASPreferencesWindowController alloc] initWithViewControllers:[NSArray arrayWithObjects:generalPreferencesViewController, updatePreferencesViewController, nil]];
         _preferencesWindowController.closeDelegate = self;
-        [generalPreferencesViewController release];
-        [updatePreferencesViewController release];
         
         [_preferencesWindowController showWindow:nil];
     }
@@ -457,7 +464,7 @@
 }
 
 - (void) preferencesWindowControllerWillClose:(MASPreferencesWindowController *)windowController {
-    [_preferencesWindowController release], _preferencesWindowController = nil;
+    _preferencesWindowController = nil;
 }
 
 - (IBAction) showGettingStartedPage:(id)sender {
@@ -471,14 +478,6 @@
 
 - (void) dealloc {
     [_pathWatcher stopWatchingPaths];
-    [sketchbookMenu release], sketchbookMenu = nil;
-    [examplesMenu release], examplesMenu = nil;
-    [boardMenu release], boardMenu = nil;
-    [serialPortMenu release], serialPortMenu = nil;
-    [importLibraryMenu release], importLibraryMenu = nil;
-    [_pathWatcher release], _pathWatcher = nil;
-    [_preferencesWindowController release], _preferencesWindowController = nil;
-    [super dealloc];
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -

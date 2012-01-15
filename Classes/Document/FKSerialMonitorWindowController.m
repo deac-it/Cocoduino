@@ -41,7 +41,7 @@
 + (void) alertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void (^)(NSInteger returnCode))completionHandler {
     if (completionHandler != NULL) {
         completionHandler(returnCode);
-        Block_release(completionHandler);
+        Block_release((__bridge void *)completionHandler);
     }
 }
 
@@ -59,26 +59,6 @@
 #pragma mark Window Loading
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-- (void) showWindow:(id)sender {
-    if (self.serialPort == nil) {
-        /*
-         Close the window if the serial port is not set.
-        */
-        
-        [self autorelease];
-        return;
-    }
-    else
-        [super showWindow:sender];
-}
-
-- (void) windowWillClose:(NSNotification *)notification {
-    if (self.closeDelegate != nil && [self.closeDelegate respondsToSelector:@selector(serialMonitorWindowWillClose:)])
-        [(id)self.closeDelegate performSelector:@selector(serialMonitorWindowWillClose:) withObject:self afterDelay:0];
-}
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
 - (void) windowDidLoad {
     [super windowDidLoad];
         
@@ -89,6 +69,11 @@
         [self.serialPort readDataInBackground];
     else
         [self performSelector:@selector(displaySerialPortErrorAlert) withObject:nil afterDelay:0.5];
+}
+
+- (void) windowWillClose:(NSNotification *)notification {
+    if (self.closeDelegate != nil && [self.closeDelegate respondsToSelector:@selector(serialMonitorWindowWillClose:)])
+        [(id)self.closeDelegate performSelector:@selector(serialMonitorWindowWillClose:) withObject:self afterDelay:0];
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -112,8 +97,6 @@
     if (string != nil) {
         NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:string attributes:[NSDictionary dictionaryWithObject:[NSFont boldSystemFontOfSize:12] forKey:NSFontAttributeName]];        
         [self.textView.textStorage appendAttributedString:attributedString];
-        [attributedString release];
-        [string release];
     }
     
     [port readDataInBackground];
@@ -132,7 +115,7 @@
     void (^completionHandler)(NSInteger) = ^(NSInteger returnCode) {
         [self performSelector:@selector(close) withObject:nil afterDelay:0.5];
     };
-    [alert beginSheetModalForWindow:self.window modalDelegate:[self class] didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) contextInfo:Block_copy(completionHandler)];
+    [alert beginSheetModalForWindow:self.window modalDelegate:[self class] didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) contextInfo:Block_copy((__bridge void *)completionHandler)];
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -147,12 +130,6 @@
     [self.serialPort stopReadInBackground];
     [self.serialPort stopWriteInBackground];
     [self.serialPort free];
-
-    [writeTextField release], writeTextField = nil;
-    [sendButton release], sendButton = nil;
-    [textView release], textView = nil;
-    [serialPort release], serialPort = nil;
-    [super dealloc];
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -

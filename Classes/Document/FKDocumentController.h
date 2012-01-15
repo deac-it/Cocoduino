@@ -41,12 +41,12 @@
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-@property (nonatomic, retain) IBOutlet NSMenu *sketchbookMenu;
-@property (nonatomic, retain) IBOutlet NSMenu *examplesMenu;
+@property (nonatomic, strong) IBOutlet NSMenu *sketchbookMenu;
+@property (nonatomic, strong) IBOutlet NSMenu *examplesMenu;
 
-@property (nonatomic, retain) IBOutlet NSMenu *boardMenu;
-@property (nonatomic, retain) IBOutlet NSMenu *serialPortMenu;
-@property (nonatomic, retain) IBOutlet NSMenu *importLibraryMenu;
+@property (nonatomic, strong) IBOutlet NSMenu *boardMenu;
+@property (nonatomic, strong) IBOutlet NSMenu *serialPortMenu;
+@property (nonatomic, strong) IBOutlet NSMenu *importLibraryMenu;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

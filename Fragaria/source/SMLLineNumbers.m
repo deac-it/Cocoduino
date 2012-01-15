@@ -18,7 +18,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 */
 
 #import "SMLStandardHeader.h"
-
+#import "SMLTextView.h"
 #import "SMLLineNumbers.h"
 #import "SMLSyntaxColouring.h"
 
@@ -61,19 +61,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
     return self;
 }
 
-- (void)dealloc
-{
-    [document release];
-    document = nil;
-    
-    [attributes release];
-    attributes = nil;
-    
-    [updatingLineNumbersForClipView release];
-    updatingLineNumbersForClipView = nil;
-    
-    [super dealloc];
-}
 
 #pragma mark -
 #pragma mark KVO
@@ -84,7 +71,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
  */
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-	if ([(NSString *)context isEqualToString:@"TextFontChanged"]) {
+	if ([(__bridge NSString *)context isEqualToString:@"TextFontChanged"]) {
 		attributes = [[NSDictionary alloc] initWithObjectsAndKeys:[NSUnarchiver unarchiveObjectWithData:[SMLDefaults valueForKey:@"TextFont"]], NSFontAttributeName, nil];
 	} else {
 		[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
@@ -118,7 +105,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 		[self updateLineNumbersForClipView:[[document valueForKey:@"secondTextScrollView"] contentView] checkWidth:checkWidth recolour:recolour];
 	}
 	
-	if ([document valueForKey:@"singleDocumentWindow"] != nil) {
+	if ([document valueForKey:@"thirdTextScrollView"] != nil) {
 		[self updateLineNumbersForClipView:[[document valueForKey:@"thirdTextScrollView"] contentView] checkWidth:checkWidth recolour:recolour];
 	}
 	
@@ -136,8 +123,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 {
 	SMLTextView *textView;
 	NSScrollView *scrollView;
-	NSScrollView *gutterScrollView;
-	NSLayoutManager *layoutManager;
 	NSRect visibleRect;
 	NSRange visibleRange;
 	NSString *textString;
@@ -172,9 +157,12 @@ Unless required by applicable law or agreed to in writing, software distributed 
 		if (checkWidth == YES && recolour == YES) {
 			[[document valueForKey:@"syntaxColouring"] pageRecolourTextView:textView];
 		}
-		goto allDone;
+        
+		updatingLineNumbersForClipView = nil;
+        return;
 	}
 	
+    NSScrollView *gutterScrollView;
 	scrollView = (NSScrollView *)[clipView superview];
 	addToScrollPoint = 0;	
 	if (scrollView == [document valueForKey:@"firstTextScrollView"]) {
@@ -187,10 +175,11 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	} else if (scrollView == [document valueForKey:@"fourthTextScrollView"]) {
 		gutterScrollView = [document valueForKey:@"fourthGutterScrollView"];
 	} else {
-		goto allDone;
+		updatingLineNumbersForClipView = nil;
+        return;
 	}
 	
-	layoutManager = [textView layoutManager];
+	NSLayoutManager *layoutManager = [textView layoutManager];
 	visibleRect = [[scrollView contentView] documentVisibleRect];
 	visibleRange = [layoutManager glyphRangeForBoundingRect:visibleRect inTextContainer:[textView textContainer]];
 	textString = [textView string];
@@ -210,7 +199,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 			oneMoreTime = YES; // Continue one more time through the loop if the last glyph isn't newline
 		}
 	}
-	NSMutableString *lineNumbersString = [[[NSMutableString alloc] init] autorelease];
+	NSMutableString *lineNumbersString = [[NSMutableString alloc] init];
 	
 	while (indexNonWrap <= maxRangeVisibleRange) {
 		if (idx == indexNonWrap) {
@@ -275,9 +264,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	if ((NSInteger)visibleRect.origin.y != 0 && currentLineHeight != 0) {
 		[[gutterScrollView contentView] scrollToPoint:NSMakePoint(0, ((NSInteger)visibleRect.origin.y % currentLineHeight) + addToScrollPoint)]; // Move currentGutterScrollView so it aligns with the rows in currentTextView
 	}
-	
-allDone:
-	
+		
 	updatingLineNumbersForClipView = nil;
 }
 @end

@@ -16,8 +16,8 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
 - (void) toolbarItemDidClick:(id)sender;
 - (NSViewController <MASPreferencesViewController> *)viewControllerForIdentifier:(NSString *)identifier;
 
-@property (readonly) NSArray *toolbarItemIdentifiers;
-@property (nonatomic, retain) NSViewController <MASPreferencesViewController> *selectedViewController;
+@property (nonatomic, readonly, unsafe_unretained) NSArray *toolbarItemIdentifiers;
+@property (nonatomic, readwrite, unsafe_unretained) NSViewController <MASPreferencesViewController> *selectedViewController;
 
 @end
 
@@ -40,7 +40,7 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
 {
     if ((self = [super initWithWindowNibName:@"MASPreferencesWindow"]))
     {
-        _viewControllers = [viewControllers retain];
+        _viewControllers = viewControllers;
         _minimumViewRects = [[NSMutableDictionary alloc] init];
         _title = [title copy];
     }
@@ -50,15 +50,10 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
 - (void)dealloc
 {
     self.closeDelegate = nil;
+    [self.window setDelegate:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [[self window] setDelegate:nil];
     
-    [_viewControllers release];
-    [_selectedViewController release];
-    [_minimumViewRects release];
-    [_title release];
     
-    [super dealloc];
 }
 
 #pragma mark -
@@ -155,7 +150,7 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
         toolbarItem.target = self;
         toolbarItem.action = @selector(toolbarItemDidClick:);
     }
-    return [toolbarItem autorelease];
+    return toolbarItem;
 }
 
 #pragma mark -
@@ -211,11 +206,10 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
             return;
         }
 
-        [self.window setContentView:[[[NSView alloc] init] autorelease]];
+        [self.window setContentView:[[NSView alloc] init]];
         if ([_selectedViewController respondsToSelector:@selector(viewDidDisappear)])
             [_selectedViewController viewDidDisappear];
 
-        [_selectedViewController release];
         _selectedViewController = nil;
     }
 
@@ -262,7 +256,7 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
 
     [self.window setFrame:newFrame display:YES animate:[self.window isVisible]];
     
-    _selectedViewController = [controller retain];
+    _selectedViewController = controller;
     if ([controller respondsToSelector:@selector(viewWillAppear)])
         [controller viewWillAppear];
     

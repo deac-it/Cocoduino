@@ -107,18 +107,5 @@
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-#pragma mark -
-#pragma mark Memory Management
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-- (void) dealloc {
-    [sketchbookPathTextField release], sketchbookPathTextField = nil;
-    [autocompleteButton release], autocompleteButton = nil;
-    [closingBraceButton release], closingBraceButton = nil;
-    [closingParenthesisButton release], closingParenthesisButton = nil;
-    [super dealloc];
-}
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 @end

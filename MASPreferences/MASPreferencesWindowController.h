@@ -17,19 +17,19 @@ extern NSString *const kMASPreferencesWindowControllerDidChangeViewNotification;
 @interface MASPreferencesWindowController : NSWindowController
 #endif
 {
-    id <NSObject> closeDelegate;
+    id <NSObject> __unsafe_unretained closeDelegate;
 @private
-    NSArray *_viewControllers;
+    NSArray *__unsafe_unretained _viewControllers;
     NSMutableDictionary *_minimumViewRects;
     NSString *_title;
-    NSViewController <MASPreferencesViewController> *_selectedViewController;
+    NSViewController <MASPreferencesViewController> *__unsafe_unretained _selectedViewController;
 }
 
-@property (nonatomic, assign) id <NSObject> closeDelegate;
+@property (nonatomic, unsafe_unretained) id <NSObject> closeDelegate;
 
 @property (nonatomic, readonly) NSArray *viewControllers;
 @property (nonatomic, readonly) NSUInteger indexOfSelectedController;
-@property (nonatomic, readonly, retain) NSViewController <MASPreferencesViewController> *selectedViewController;
+@property (nonatomic, readonly, unsafe_unretained) NSViewController <MASPreferencesViewController> *selectedViewController;
 @property (nonatomic, readonly) NSString *title;
 
 - (id)initWithViewControllers:(NSArray *)viewControllers;

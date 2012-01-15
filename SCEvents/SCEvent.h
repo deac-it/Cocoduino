@@ -56,12 +56,12 @@
 /**
  * @property _eventDate The date of the event.
  */
-@property (readwrite, retain, getter=eventDate, setter=setEventDate:) NSDate *_eventDate;
+@property (readwrite, strong, getter=eventDate, setter=setEventDate:) NSDate *_eventDate;
 
 /**
  * @property _eventPath The file system path of the event.
  */
-@property (readwrite, retain, getter=eventPath, setter=setEventPath:) NSString *_eventPath;
+@property (readwrite, strong, getter=eventPath, setter=setEventPath:) NSString *_eventPath;
 
 /**
  * @property _eventFlag The flags that are associated with the event.

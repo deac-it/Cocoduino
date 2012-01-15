@@ -57,9 +57,6 @@
 #pragma mark Memory Management
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-- (void) dealloc {
-    [super dealloc];
-}
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

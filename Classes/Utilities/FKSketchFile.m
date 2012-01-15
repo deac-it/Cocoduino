@@ -77,31 +77,15 @@
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 - (void) textDidChange:(NSNotification *)notification {
-    [string release];
     string = [[self.fragaria string] copy];
 }
 
 - (void) setString:(NSString *)aString {
     if (string != aString) {
-        [string release];
         string = [aString copy];
         
         [self.fragaria setString:(string != nil) ? string : @""];
     }
-}
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-#pragma mark -
-#pragma mark Memory Management
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-- (void) dealloc {
-    [string release], string = nil;
-    [savedString release], savedString = nil;
-    [filename release], filename = nil;
-    [editorView release], editorView = nil;
-    [fragaria release], fragaria = nil;
-    [super dealloc];
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -

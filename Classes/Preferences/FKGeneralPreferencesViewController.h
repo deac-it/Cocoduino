@@ -32,13 +32,13 @@
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-@property (nonatomic, retain) IBOutlet NSTextField *sketchbookPathTextField;
+@property (nonatomic, strong) IBOutlet NSTextField *sketchbookPathTextField;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-@property (nonatomic, retain) IBOutlet NSButton *autocompleteButton;
-@property (nonatomic, retain) IBOutlet NSButton *closingBraceButton;
-@property (nonatomic, retain) IBOutlet NSButton *closingParenthesisButton;
+@property (nonatomic, strong) IBOutlet NSButton *autocompleteButton;
+@property (nonatomic, strong) IBOutlet NSButton *closingBraceButton;
+@property (nonatomic, strong) IBOutlet NSButton *closingParenthesisButton;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

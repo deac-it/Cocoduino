@@ -17,18 +17,14 @@
 }
 
 - (NSString *)stringWithEllipsisByTruncatingToLength:(NSUInteger)length
-{
-	NSString *returnString;
-	
+{	
 	if (length < [self length]) {
 		//Truncate and append the ellipsis
-		returnString = [[self substringToIndex:length-1] stringByAppendingString:[NSString ellipsis]];
+		return [[self substringToIndex:length-1] stringByAppendingString:[NSString ellipsis]];
 	} else {
 		//We don't need to truncate, so don't append an ellipsis
-		returnString = [[self copy] autorelease];
+		return [self copy];
 	}
-	
-	return returnString;
 }
 
 @end

@@ -45,7 +45,7 @@ extern NSString * const ro_MGSFOSyntaxColouring; // readonly
 	MGSExtraInterfaceController *extraInterfaceController;
 }
 
-@property (nonatomic, readonly, assign) MGSExtraInterfaceController *extraInterfaceController;
+@property (nonatomic, readonly) MGSExtraInterfaceController *extraInterfaceController;
 
 + (id)currentInstance;
 + (void)setCurrentInstance:(MGSFragaria *)anInstance;
@@ -63,7 +63,6 @@ extern NSString * const ro_MGSFOSyntaxColouring; // readonly
 - (void)setObject:(id)object forKey:(id)key;
 - (id)objectForKey:(id)key;
 - (void)embedInView:(NSView *)view;
-//- (void)removeFromView;
 - (void)setString:(NSString *)aString;
 - (void)setString:(NSString *)aString options:(NSDictionary *)options;
 - (NSAttributedString *)attributedString;

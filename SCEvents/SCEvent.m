@@ -56,7 +56,7 @@
 					eventPath:(NSString *)path 
 				   eventFlags:(SCEventFlags)flags
 {
-    return [[[SCEvent alloc] initWithEventId:identifier eventDate:date eventPath:path eventFlags:flags] autorelease];
+    return [[SCEvent alloc] initWithEventId:identifier eventDate:date eventPath:path eventFlags:flags];
 }
 
 /**
@@ -100,15 +100,6 @@
 			((unsigned long)_eventId), 
 			[self eventPath], 
 			((unsigned long)_eventFlags)];
-}
-
-#pragma mark -
-
-- (void)dealloc
-{
-    [_eventDate release], _eventDate = nil;
-	
-    [super dealloc];
 }
 
 @end

@@ -77,11 +77,11 @@ NSString * const AMSerialOptionCanonicalMode = @"AMSerialOptionCanonicalMode";
 		bsdPath = [path copy];
 		serviceName = [name copy];
 		serviceType = [type copy];
-		optionsDictionary = [[NSMutableDictionary dictionaryWithCapacity:8] retain];
-		options = (struct termios* __strong)malloc(sizeof(*options));
-		originalOptions = (struct termios* __strong)malloc(sizeof(*originalOptions));
-		buffer = (char* __strong)malloc(AMSER_MAXBUFSIZE);
-		readfds = (fd_set* __strong)malloc(sizeof(*readfds));
+		optionsDictionary = [NSMutableDictionary dictionaryWithCapacity:8];
+		options = (struct termios*)malloc(sizeof(*options));
+		originalOptions = (struct termios*)malloc(sizeof(*originalOptions));
+		buffer = (char*)malloc(AMSER_MAXBUFSIZE);
+		readfds = (fd_set*)malloc(sizeof(*readfds));
 		fileDescriptor = -1;
 		
 		writeLock = [[NSLock alloc] init];
@@ -109,20 +109,11 @@ NSString * const AMSerialOptionCanonicalMode = @"AMSerialOptionCanonicalMode";
 		NSLog(@"It is a programmer error to have not called -close on an AMSerialPort you have opened");
 #endif
 
-	[readLock release]; readLock = nil;
-	[writeLock release]; writeLock = nil;
-	[closeLock release]; closeLock = nil;
-	[am_readTarget release]; am_readTarget = nil;
 
-	free(readfds); readfds = NULL;
-	free(buffer); buffer = NULL;
-	free(originalOptions); originalOptions = NULL;
-	free(options); options = NULL;
-	[optionsDictionary release]; optionsDictionary = nil;
-	[serviceName release]; serviceName = nil;
-	[serviceType release]; serviceType = nil;
-	[bsdPath release]; bsdPath = nil;
-	[super dealloc];
+	free(readfds);
+	free(buffer);
+	free(originalOptions);
+	free(options);
 }
 
 - (id)copy {
@@ -156,7 +147,7 @@ NSString * const AMSerialOptionCanonicalMode = @"AMSerialOptionCanonicalMode";
 	io_service_t serialService;
 	
 	matchingDictionary = IOServiceMatching(kIOSerialBSDServiceValue);
-	CFDictionarySetValue(matchingDictionary, CFSTR(kIOTTYDeviceKey), (CFStringRef)[self name]);
+	CFDictionarySetValue(matchingDictionary, CFSTR(kIOTTYDeviceKey), (__bridge CFStringRef)[self name]);
 	if (matchingDictionary != NULL) {
 		CFRetain(matchingDictionary);
 		// This function decrements the refcount of the dictionary passed it
@@ -166,7 +157,7 @@ NSString * const AMSerialOptionCanonicalMode = @"AMSerialOptionCanonicalMode";
 			CFMutableDictionaryRef propertiesDict = NULL;
 			kernResult = IORegistryEntryCreateCFProperties(serialService, &propertiesDict, kCFAllocatorDefault, 0);
 			if (kernResult == KERN_SUCCESS) {
-				result = [[(NSDictionary*)propertiesDict copy] autorelease];
+				result = [(__bridge NSDictionary*)propertiesDict copy];
 			}
 			if (propertiesDict) {
 				CFRelease(propertiesDict);
@@ -315,7 +306,6 @@ NSString * const AMSerialOptionCanonicalMode = @"AMSerialOptionCanonicalMode";
 		[fileHandle closeFile];
 
 		// Release the fileHandle
-		[fileHandle release];
 		fileHandle = nil;
 		
 #ifdef AMSerialDebug

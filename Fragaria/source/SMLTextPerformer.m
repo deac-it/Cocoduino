@@ -40,9 +40,10 @@ static id sharedInstance = nil;
  */
 + (SMLTextPerformer *)sharedInstance
 { 
-	if (sharedInstance == nil) { 
-		sharedInstance = [[self alloc] init];
-	}
+	static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [[self alloc] init];
+    });
 	
 	return sharedInstance;
 } 
@@ -57,8 +58,7 @@ static id sharedInstance = nil;
  */
 - (id)init 
 {
-    if (sharedInstance == nil) {
-        sharedInstance = [super init];
+    if (self = [super init]) {
         
         /*
          Ignore analyzer warning or rewrite the singleton implementation
@@ -70,25 +70,9 @@ static id sharedInstance = nil;
 		
 		newLineSymbolString = [[NSString alloc] initWithFormat:@"%C", 0x23CE];
     }
-    return sharedInstance;
+    return self;
 }
 
-- (void)dealloc
-{
-    [darkSideLineEnding release];
-    darkSideLineEnding = nil;
-    
-    [macLineEnding release];
-    macLineEnding = nil;
-    
-    [unixLineEnding release];
-    unixLineEnding = nil;
-    
-    [newLineSymbolString release];
-    newLineSymbolString = nil;
-    
-    [super dealloc];
-}
 
 #pragma mark -
 #pragma mark Text manipulation
@@ -138,12 +122,12 @@ static id sharedInstance = nil;
  */
 - (NSStringEncoding)guessEncodingFromData:(NSData *)textData
 {
-	NSString *string = [[[NSString alloc] initWithData:textData encoding:NSISOLatin1StringEncoding] autorelease];
+	NSString *string = [[NSString alloc] initWithData:textData encoding:NSISOLatin1StringEncoding];
 	NSStringEncoding encoding = 0;
 	BOOL foundExplicitEncoding = NO;
 	
 	if ([string length] > 9) { // If it's shorter than this you can't check for encoding string
-		NSScanner *scannerHTML = [[[NSScanner alloc] initWithString:string] autorelease];
+		NSScanner *scannerHTML = [[NSScanner alloc] initWithString:string];
 		NSUInteger beginning;
 		NSInteger end;
 		
@@ -157,16 +141,16 @@ static id sharedInstance = nil;
 			[scannerHTML scanUpToCharactersFromSet:[NSCharacterSet characterSetWithCharactersInString:@"\"' />"] intoString:nil];
 			end = [scannerHTML scanLocation];
 
-			encoding = CFStringConvertEncodingToNSStringEncoding(CFStringConvertIANACharSetNameToEncoding((CFStringRef)[string substringWithRange:NSMakeRange(beginning, end - beginning)]));
+			encoding = CFStringConvertEncodingToNSStringEncoding(CFStringConvertIANACharSetNameToEncoding((__bridge CFStringRef)[string substringWithRange:NSMakeRange(beginning, end - beginning)]));
 			foundExplicitEncoding = YES;
 		} else {
-			NSScanner *scannerXML = [[[NSScanner alloc] initWithString:string] autorelease];
+			NSScanner *scannerXML = [[NSScanner alloc] initWithString:string];
 			[scannerXML scanUpToString:@"encoding=" intoString:nil]; // If not found, search for "encoding=" (xml) and get the string after that
 			if ([scannerXML scanLocation] < [string length] - 9) { 
 				beginning = [scannerXML scanLocation] + 9 + 1; // After the " or '
 				[scannerXML scanUpToString:@"?>" intoString:nil];
 				end = [scannerXML scanLocation] - 1; // -1 to get rid of " or '
-				encoding = CFStringConvertEncodingToNSStringEncoding(CFStringConvertIANACharSetNameToEncoding((CFStringRef)[string substringWithRange:NSMakeRange(beginning, end - beginning)]));
+				encoding = CFStringConvertEncodingToNSStringEncoding(CFStringConvertIANACharSetNameToEncoding((__bridge CFStringRef)[string substringWithRange:NSMakeRange(beginning, end - beginning)]));
 				foundExplicitEncoding = YES;
 			}
 		}
