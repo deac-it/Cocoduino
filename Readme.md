@@ -38,7 +38,7 @@ Last but not least, there is also:
 1. **Build Process**
     
     As there is no official `CLI` interface for the Arduino build process, I can't guarantee that Cocoduino can compile all sketches that work with the official IDE.  
-    If you want to more about the internal mechanisms of the build process, see "About the Use of Ino" below.
+    For example adding functions at the bottom of the file is not working without manually declaring prototypes at the top of the file. This might change when Ino is updated.
 
 2. **File Architecture**
     
@@ -52,7 +52,7 @@ Last but not least, there is also:
 
 # On the List…
 
-* **Nicer build log output**
+* **Completely rewrite Fragaria** *(~90% of the crashes are directly related to Fragaria!)*
 * **Test more complex sketches**
 * **More advanced code completion**
 
@@ -64,7 +64,8 @@ Last but not least, there is also:
 
 2. **My sketch won't compile**
 
-    If you have problems with one particular sketch, please post to the [issues](https://github.com/fabiankr/Cocoduino/issues).
+    If you have problems with one particular sketch, please post to the [issues](https://github.com/fabiankr/Cocoduino/issues).  
+    Adding prototypes for functions at the top of the file helps to remove "undeclared function" errors.
 
 3. **Application crashes**
 
@@ -79,7 +80,7 @@ Cocoduino uses *(modified)* versions of the following third party libraries:
 * [AMSerialPort](http://www.harmless.de/cocoa-code.php)
 * [MASPreferences](https://github.com/shpakovski/MASPreferences)
 * [PSMTabBarControl](http://www.positivespinmedia.com/dev/PSMTabBarControl.html)
-* [MGSFragaria](https://github.com/mugginsoft/Fragaria)
+* [Fragaria](https://github.com/mugginsoft/Fragaria)
 
 The tool used for the actual build process is *(strongly modified)*:
 

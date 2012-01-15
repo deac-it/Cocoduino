@@ -1,5 +1,5 @@
 //
-//  NSString+NSString_FKBuildOutput.h
+//  NSString-FKBuildOutput.h
 //  Cocoduino
 //
 //  Created by Fabian Kreiser on 15.01.12.
@@ -8,6 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSString (NSString_FKBuildOutput)
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+@interface NSString (FKBuildOutput)
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+- (NSArray *) failureReasonComponents;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 @end
