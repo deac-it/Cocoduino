@@ -40,7 +40,7 @@
 }
 
 - (NSImage *) toolbarItemImage {
-    return [NSImage imageNamed:@"Software Update.icns"];
+    return [NSImage imageNamed:@"SoftwareUpdate.png"];
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -

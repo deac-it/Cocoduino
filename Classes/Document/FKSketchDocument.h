@@ -17,11 +17,15 @@
     NSTextField *bottomTextField;
     PSMTabBarControl *tabBarControl;
 
-    NSWindow *addFileSheet;
-    NSTextField *addFileTextField;
     NSToolbarItem *buildButton;
     NSToolbarItem *buildAndUploadButton;
     NSProgressIndicator *progressIndicator;
+    
+    NSWindow *addFileSheet;
+    NSTextField *addFileTextField;
+    NSWindow *buildSuccessSheet;
+    NSWindow *buildFailedSheet;
+    NSTextView *buildFailedTextView;
 
     NSDictionary *board;
     AMSerialPort *serialPort;
@@ -59,6 +63,8 @@
 
 - (IBAction) addFileSheetDidEnd:(id)sender;
 - (IBAction) addFileSheetDidCancel:(id)sender;
+- (IBAction) buildSuccessSheetDidEnd:(id)sender;
+- (IBAction) buildFailedSheetDidEnd:(id)sender;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -68,11 +74,17 @@
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-@property (nonatomic, retain) IBOutlet NSWindow *addFileSheet;
-@property (nonatomic, retain) IBOutlet NSTextField *addFileTextField;
 @property (nonatomic, retain) IBOutlet NSToolbarItem *buildButton;
 @property (nonatomic, retain) IBOutlet NSToolbarItem *buildAndUploadButton;
 @property (nonatomic, retain) IBOutlet NSProgressIndicator *progressIndicator;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+@property (nonatomic, retain) IBOutlet NSWindow *addFileSheet;
+@property (nonatomic, retain) IBOutlet NSTextField *addFileTextField;
+@property (nonatomic, retain) IBOutlet NSWindow *buildSuccessSheet;
+@property (nonatomic, retain) IBOutlet NSWindow *buildFailedSheet;
+@property (nonatomic, retain) IBOutlet NSTextView *buildFailedTextView;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

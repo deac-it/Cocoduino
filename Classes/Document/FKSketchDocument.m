@@ -17,6 +17,7 @@
 #import "FKSerialMonitorWindowController.h"
 #import "FKInoTool.h"
 #import "AMSerialPort.h"
+#import "NSString-FKBuildOutput.h"
 #import <PSMTabBarControl/PSMTabDragAssistant.h>
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -28,7 +29,11 @@
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-- (void)didEndAddFileSheet:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo;
+- (void) didEndAddFileSheet:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo;
+- (void) didEndBuildSheet:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 + (void) alertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void (^)(NSInteger returnCode))completionHandler;
 
 @end
@@ -37,7 +42,8 @@
 
 @implementation FKSketchDocument
 @synthesize tabView, bottomTextField, tabBarControl;
-@synthesize addFileSheet, addFileTextField, buildButton, buildAndUploadButton, progressIndicator;
+@synthesize buildButton, buildAndUploadButton, progressIndicator;
+@synthesize addFileSheet, addFileTextField, buildSuccessSheet, buildFailedSheet, buildFailedTextView;
 @synthesize board, serialPort;
 @synthesize files;
 
@@ -150,6 +156,7 @@
     if (!currentFile.embedded) {
         currentFile.embedded = YES;
         [currentFile.fragaria embedInView:currentFile.editorView];
+        [[currentFile.fragaria textView] setUsesFindBar:YES];
         [currentFile.fragaria setString:(currentFile.string != nil) ? currentFile.string : @""];
     }
     
@@ -455,33 +462,32 @@
         return;
     }
     
-    if ([FKInoTool buildSketchWithFiles:self.files forBoard:self.board onSerialPort:nil uploadAfterBuild:NO verboseOutput:YES terminationHandler:^(BOOL success, FKInoToolType toolType, NSError *error, NSString *output) {
+    if ([FKInoTool buildSketchWithFiles:self.files forBoard:self.board onSerialPort:nil uploadAfterBuild:NO verboseOutput:NO terminationHandler:^(BOOL success, FKInoToolType toolType, NSError *error, NSString *output) {
         _building = NO;
         [self.progressIndicator stopAnimation:nil];
         
-        NSAlert *alert = [[NSAlert alloc] init];
-        [alert setMessageText:(error == nil) ? @"Build Successful!" : @"Build Failed!"];
-
-        NSScrollView *scrollview = [[NSScrollView alloc] initWithFrame:[[alert.window contentView] frame]];
-        [scrollview setBorderType:NSBezelBorder];
-        [scrollview setHasVerticalScroller:YES];
-        [scrollview setHasHorizontalScroller:NO];
-        [scrollview setAutoresizingMask:(NSViewWidthSizable | NSViewHeightSizable)];
-        
-        NSTextView *textView = [[NSTextView alloc] initWithFrame:NSMakeRect(0, 0, scrollview.contentSize.width, scrollview.contentSize.height)];
-        [textView setEditable:NO];
-        [textView setVerticallyResizable:YES];
-        [textView setHorizontallyResizable:NO];
-        
-        [[[textView textStorage] mutableString] appendString:output];
-        
-        [scrollview setDocumentView:textView];
-        [alert setAccessoryView:scrollview];
-        [textView release];
-        [scrollview release];
-        
-        [alert beginSheetModalForWindow:[[self.windowControllers objectAtIndex:0] window] modalDelegate:[self class] didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) contextInfo:NULL];
-        [alert release];
+        if (success) {
+            [NSApp beginSheet:self.buildSuccessSheet modalForWindow:[[self.windowControllers objectAtIndex:0] window] modalDelegate:self didEndSelector:@selector(didEndBuildSheet:returnCode:contextInfo:) contextInfo:NULL];
+            [[NSSound soundNamed:@"Tri-Tone"] play];
+        }
+        else {
+            NSArray *failureReasons = [[error localizedFailureReason] failureReasonComponents];
+            for (NSUInteger i = 0; i < failureReasons.count; i++) {
+                NSDictionary *dictionary = [failureReasons objectAtIndex:i];
+                NSString *failureReason = nil;
+                if ([[dictionary objectForKey:@"Line"] integerValue] == NSNotFound)
+                    failureReason = [NSString stringWithFormat:@"In file: \"%@\": %@", [dictionary objectForKey:@"File"], [dictionary objectForKey:@"Error"], nil];
+                else
+                    failureReason = [NSString stringWithFormat:@"In file: \"%@\" on line: %d: %@", [dictionary objectForKey:@"File"], [[dictionary objectForKey:@"Line"] integerValue], [dictionary objectForKey:@"Error"], nil];
+                
+                [[[self.buildFailedTextView textStorage] mutableString] appendString:failureReason];
+                if (i < failureReasons.count - 1)
+                    [[[self.buildFailedTextView textStorage] mutableString] appendString:@"\n"];
+            }
+            
+            [NSApp beginSheet:self.buildFailedSheet modalForWindow:[[self.windowControllers objectAtIndex:0] window] modalDelegate:self didEndSelector:@selector(didEndBuildSheet:returnCode:contextInfo:) contextInfo:NULL];
+            [[NSSound soundNamed:@"Funk"] play];
+        }
     }]) {
         _building = YES;
         [self.progressIndicator startAnimation:nil];
@@ -502,36 +508,19 @@
         return;
     }
     
-    if ([FKInoTool buildSketchWithFiles:self.files forBoard:self.board onSerialPort:self.serialPort uploadAfterBuild:YES verboseOutput:YES terminationHandler:^(BOOL success, FKInoToolType toolType, NSError *error, NSString *output) {
+    if ([FKInoTool buildSketchWithFiles:self.files forBoard:self.board onSerialPort:self.serialPort uploadAfterBuild:YES verboseOutput:NO terminationHandler:^(BOOL success, FKInoToolType toolType, NSError *error, NSString *output) {
         _building = NO;
         [self.progressIndicator stopAnimation:nil];
         
-        NSAlert *alert = [[NSAlert alloc] init];
-        if (toolType == FKInoToolTypeBuild)
-            [alert setMessageText:(error == nil) ? @"Build Successful!" : @"Build Failed!"];
-        else
-            [alert setMessageText:(error == nil) ? @"Build & Upload Successful!" : @"Build & Upload Failed!"];
-        
-        NSScrollView *scrollview = [[NSScrollView alloc] initWithFrame:[[alert.window contentView] frame]];
-        [scrollview setBorderType:NSBezelBorder];
-        [scrollview setHasVerticalScroller:YES];
-        [scrollview setHasHorizontalScroller:NO];
-        [scrollview setAutoresizingMask:(NSViewWidthSizable | NSViewHeightSizable)];
-        
-        NSTextView *textView = [[NSTextView alloc] initWithFrame:NSMakeRect(0, 0, scrollview.contentSize.width, scrollview.contentSize.height)];
-        [textView setEditable:NO];
-        [textView setVerticallyResizable:YES];
-        [textView setHorizontallyResizable:NO];
-        
-        [[[textView textStorage] mutableString] appendString:output];
-        
-        [scrollview setDocumentView:textView];
-        [alert setAccessoryView:scrollview];
-        [textView release];
-        [scrollview release];
-        
-        [alert beginSheetModalForWindow:[[self.windowControllers objectAtIndex:0] window] modalDelegate:[self class] didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) contextInfo:NULL];
-        [alert release];
+        if (success) {
+            [NSApp beginSheet:self.buildSuccessSheet modalForWindow:[[self.windowControllers objectAtIndex:0] window] modalDelegate:self didEndSelector:@selector(didEndBuildSheet:returnCode:contextInfo:) contextInfo:NULL];
+            [[NSSound soundNamed:@"Tri-Tone"] play];
+        }
+        else {
+            [[[self.buildFailedTextView textStorage] mutableString] setString:output];
+            [NSApp beginSheet:self.buildFailedSheet modalForWindow:[[self.windowControllers objectAtIndex:0] window] modalDelegate:self didEndSelector:@selector(didEndBuildSheet:returnCode:contextInfo:) contextInfo:NULL];
+            [[NSSound soundNamed:@"Funk"] play];
+        }
     }]) {
         _building = YES;
         [self.progressIndicator startAnimation:nil];
@@ -594,6 +583,19 @@
     
     [self.addFileSheet orderOut:nil];
     [self.addFileTextField setStringValue:@""];
+}
+
+- (IBAction) buildSuccessSheetDidEnd:(id)sender {
+    [NSApp endSheet:self.buildSuccessSheet returnCode:NSOKButton];
+}
+
+- (IBAction) buildFailedSheetDidEnd:(id)sender {
+    [NSApp endSheet:self.buildFailedSheet returnCode:NSOKButton];
+}
+
+- (void) didEndBuildSheet:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
+    [sheet orderOut:nil];
+    [[[self.buildFailedTextView textStorage] mutableString] setString:@""];
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -695,11 +697,14 @@
     [tabView release], tabView = nil;
     [bottomTextField release], bottomTextField = nil;
     [tabBarControl release], tabBarControl = nil;
-    [addFileSheet release], addFileSheet = nil;
-    [addFileTextField release], addFileTextField = nil;
     [buildButton release], buildButton = nil;
     [buildAndUploadButton release], buildAndUploadButton = nil;
     [progressIndicator release], progressIndicator = nil;
+    [addFileSheet release], addFileSheet = nil;
+    [addFileTextField release], addFileTextField = nil;
+    [buildSuccessSheet release], buildSuccessSheet = nil;
+    [buildFailedSheet release], buildFailedSheet = nil;
+    [buildFailedTextView release], buildFailedTextView = nil;
     [board release], board = nil;
     [serialPort release], serialPort = nil;
     [files release], files = nil;

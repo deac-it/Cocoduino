@@ -171,6 +171,7 @@
         
         [buildTask setStandardInput:[NSPipe pipe]];
         [buildTask setStandardOutput:[NSPipe pipe]];
+        [buildTask setStandardError:[NSPipe pipe]];
         [buildTask setArguments:[NSArray arrayWithObjects:@"build", @"--board-model", [board objectForKey:@"short"], (verbose) ? @"--verbose" : nil, nil]];
         
         [buildTask launch];
@@ -178,9 +179,11 @@
         
         NSData *buildOutputData = [[(NSPipe *)[buildTask standardOutput] fileHandleForReading] readDataToEndOfFile];
         NSString *buildOutputString = (buildOutputData != nil) ? [[NSString alloc] initWithData:buildOutputData encoding:NSUTF8StringEncoding] : nil;
+        NSData *buildErrorData = [[(NSPipe *)[buildTask standardError] fileHandleForReading] readDataToEndOfFile];
+        NSString *buildErrorString = (buildErrorData != nil) ? [[NSString alloc] initWithData:buildErrorData encoding:NSUTF8StringEncoding] : nil;
         
         // ino was successful if terminationStatus is equal to 0
-        if ([buildTask terminationStatus] == 0) {
+        if ([buildTask terminationStatus] == 0 && buildErrorString.length <= 0) {
             // Cache the build
             [[NSFileManager defaultManager] copyItemAtPath:temporaryBuildDirectory toPath:cachedBuildPath error:NULL];
             
@@ -198,8 +201,10 @@
                 
                 NSData *uploadOutputData = [[(NSPipe *)[uploadTask standardOutput] fileHandleForReading] readDataToEndOfFile];
                 NSString *uploadOutputString = (uploadOutputData != nil) ? [[NSString alloc] initWithData:uploadOutputData encoding:NSUTF8StringEncoding] : nil;
+                NSData *uploadErrorData = [[(NSPipe *)[uploadTask standardError] fileHandleForReading] readDataToEndOfFile];
+                NSString *uploadErrorString = (uploadErrorData != nil) ? [[NSString alloc] initWithData:uploadErrorData encoding:NSUTF8StringEncoding] : nil;
                 
-                if ([uploadTask terminationStatus] == 0) {
+                if ([uploadTask terminationStatus] == 0 && uploadErrorString.length <= 0) {
                     // Upload successful
                     if (terminationHandler != NULL) {
                         dispatch_async(dispatch_get_main_queue(), ^{
@@ -210,13 +215,14 @@
                 else {                    
                     if (terminationHandler != NULL) {
                         dispatch_async(dispatch_get_main_queue(), ^{
-                            NSError *error = [NSError errorWithDomain:@"FKInoToolErrorDomain" code:FKInoToolErrorUploadFailedError userInfo:[NSDictionary dictionaryWithObject:@"Ino upload failed, see log output for more information." forKey:NSLocalizedDescriptionKey]];
-                            terminationHandler(YES, FKInoToolTypeBuildAndUpload, error, uploadOutputString);
+                            NSError *error = [NSError errorWithDomain:@"FKInoToolErrorDomain" code:FKInoToolErrorUploadFailedError userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"Ino upload failed, see log output for more information.", NSLocalizedDescriptionKey, uploadErrorString, NSLocalizedFailureReasonErrorKey, nil]];
+                            terminationHandler(NO, FKInoToolTypeBuildAndUpload, error, uploadOutputString);
                         });
                     }
                 }
                 
                 [uploadOutputString release];
+                [uploadErrorString release];
                 [uploadTask release];
             }
             else {
@@ -228,16 +234,17 @@
                 }
             }
         }
-        else {            
+        else {
             if (terminationHandler != NULL) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    NSError *error = [NSError errorWithDomain:@"FKInoToolErrorDomain" code:FKInoToolErrorBuildFailedError userInfo:[NSDictionary dictionaryWithObject:@"Ino build failed, see log output for more information." forKey:NSLocalizedDescriptionKey]];
-                    terminationHandler(YES, FKInoToolTypeBuild, error, buildOutputString);
+                    NSError *error = [NSError errorWithDomain:@"FKInoToolErrorDomain" code:FKInoToolErrorBuildFailedError userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"Ino build failed, see log output for more information.", NSLocalizedDescriptionKey, buildErrorString, NSLocalizedFailureReasonErrorKey, nil]];
+                    terminationHandler(NO, FKInoToolTypeBuild, error, buildOutputString);
                 });
             }
         }
         
         [buildOutputString release];
+        [buildErrorString release];
         [buildTask release];
         
         // Clean up and delete the temporary directory
