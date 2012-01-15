@@ -37,6 +37,8 @@
 
 + (void) alertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void (^)(NSInteger returnCode))completionHandler;
 
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 @end
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
