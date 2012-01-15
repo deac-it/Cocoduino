@@ -38,7 +38,7 @@ Last but not least, there is also:
 1. **Build Process**
     
     As there is no official `CLI` interface for the Arduino build process, I can't guarantee that Cocoduino can compile all sketches that work with the official IDE.  
-    For example adding functions at the bottom of the file is not working without manually declaring prototypes at the top of the file. This might change when Ino is updated.
+    For example adding functions at the bottom of the file is not working without **manually declaring prototypes** at the top of the file. This might change when Ino is updated.
 
 2. **File Architecture**
     
@@ -52,8 +52,8 @@ Last but not least, there is also:
 
 # On the List…
 
-* **Completely rewrite Fragaria** *(~90% of the crashes are directly related to Fragaria!)*
-* **Test more complex sketches**
+* **Clean up Fragaria**
+* **Improve Ino Build Process**
 * **More advanced code completion**
 
 # F.A.Q
