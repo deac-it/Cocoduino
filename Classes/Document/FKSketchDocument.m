@@ -44,7 +44,7 @@
 @implementation FKSketchDocument
 @synthesize tabView, bottomTextField, tabBarControl;
 @synthesize buildButton, buildAndUploadButton, progressIndicator;
-@synthesize addFileSheet, addFileTextField, buildSuccessSheet, buildFailedSheet, buildFailedTextView;
+@synthesize addFileSheet, addFileTextField, buildSuccessSheet, buildSuccessProgressIndicator, buildFailedSheet, buildFailedTextView;
 @synthesize board, serialPort;
 @synthesize files;
 
@@ -454,11 +454,18 @@
         return;
     }
     
-    if ([FKInoTool buildSketchWithFiles:self.files forBoard:self.board onSerialPort:nil uploadAfterBuild:NO verboseOutput:NO terminationHandler:^(BOOL success, FKInoToolType toolType, NSError *error, NSString *output) {
+    if ([FKInoTool buildSketchWithFiles:self.files forBoard:self.board onSerialPort:nil uploadAfterBuild:NO verboseOutput:NO terminationHandler:^(BOOL success, FKInoToolType toolType, NSUInteger binarySize, NSError *error, NSString *output) {
         _building = NO;
         [self.progressIndicator stopAnimation:nil];
         
         if (success) {
+            // TODO: ADJUST BUILD SIZE
+            NSUInteger maximumBuildSize = [[self.board objectForKey:@"upload.maximum_size"] unsignedIntegerValue];
+            if (maximumBuildSize > 0)
+                [self.buildSuccessProgressIndicator setDoubleValue:binarySize / maximumBuildSize];
+            else
+                [self.buildSuccessProgressIndicator setDoubleValue:0];
+            
             [NSApp beginSheet:self.buildSuccessSheet modalForWindow:[[self.windowControllers objectAtIndex:0] window] modalDelegate:self didEndSelector:@selector(didEndBuildSheet:returnCode:contextInfo:) contextInfo:NULL];
             [[NSSound soundNamed:@"Tri-Tone"] play];
         }
@@ -500,11 +507,18 @@
         return;
     }
     
-    if ([FKInoTool buildSketchWithFiles:self.files forBoard:self.board onSerialPort:self.serialPort uploadAfterBuild:YES verboseOutput:NO terminationHandler:^(BOOL success, FKInoToolType toolType, NSError *error, NSString *output) {
+    if ([FKInoTool buildSketchWithFiles:self.files forBoard:self.board onSerialPort:self.serialPort uploadAfterBuild:YES verboseOutput:NO terminationHandler:^(BOOL success, FKInoToolType toolType, NSUInteger binarySize, NSError *error, NSString *output) {
         _building = NO;
         [self.progressIndicator stopAnimation:nil];
         
         if (success) {
+            // TODO: ADJUST BUILD SIZE
+            NSUInteger maximumBuildSize = [[self.board objectForKey:@"upload.maximum_size"] unsignedIntegerValue];
+            if (maximumBuildSize > 0)
+                [self.buildSuccessProgressIndicator setDoubleValue:binarySize / maximumBuildSize];
+            else
+                [self.buildSuccessProgressIndicator setDoubleValue:0];
+            
             [NSApp beginSheet:self.buildSuccessSheet modalForWindow:[[self.windowControllers objectAtIndex:0] window] modalDelegate:self didEndSelector:@selector(didEndBuildSheet:returnCode:contextInfo:) contextInfo:NULL];
             [[NSSound soundNamed:@"Tri-Tone"] play];
         }

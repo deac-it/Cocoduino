@@ -61,7 +61,7 @@
 #pragma mark Ino-Cocoduino
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-+ (BOOL) buildSketchWithFiles:(NSArray *)files forBoard:(NSDictionary *)board onSerialPort:(AMSerialPort *)serialPort uploadAfterBuild:(BOOL)shouldUpload verboseOutput:(BOOL)verbose terminationHandler:(void (^)(BOOL success, FKInoToolType toolType, NSError *error, NSString *output))terminationHandler {
++ (BOOL) buildSketchWithFiles:(NSArray *)files forBoard:(NSDictionary *)board onSerialPort:(AMSerialPort *)serialPort uploadAfterBuild:(BOOL)shouldUpload verboseOutput:(BOOL)verbose terminationHandler:(void (^)(BOOL success, FKInoToolType toolType, NSUInteger binarySize, NSError *error, NSString *output))terminationHandler {
     NSParameterAssert(board != nil && terminationHandler != NULL && (!shouldUpload || serialPort != nil));
     NSAssert([[NSFileManager defaultManager] fileExistsAtPath:[self inoLaunchPath]], @"Ino binary could not be found!");
     
@@ -114,7 +114,7 @@
                 
         if (terminationHandler != NULL) {
             NSError *error = [NSError errorWithDomain:@"FKInoToolErrorDomain" code:FKInoToolErrorTemporaryDirectoryNotCreatedError userInfo:[NSDictionary dictionaryWithObject:@"Temporary directory for ino build could not be created." forKey:NSLocalizedDescriptionKey]];
-            terminationHandler(NO, (shouldUpload) ? FKInoToolTypeBuildAndUpload : FKInoToolTypeBuild, error, nil);
+            terminationHandler(NO, (shouldUpload) ? FKInoToolTypeBuildAndUpload : FKInoToolTypeBuild, 0, error, nil);
         }
 
         return NO;
@@ -132,7 +132,7 @@
                 
         if (terminationHandler != NULL) {
             NSError *error = [NSError errorWithDomain:@"FKInoToolErrorDomain" code:FKInoToolErrorFilesCouldNotBeSavedError userInfo:[NSDictionary dictionaryWithObject:@"Source files could not be saved to temporary build directory." forKey:NSLocalizedDescriptionKey]];
-            terminationHandler(NO, (shouldUpload) ? FKInoToolTypeBuildAndUpload : FKInoToolTypeBuild, error, nil);
+            terminationHandler(NO, (shouldUpload) ? FKInoToolTypeBuildAndUpload : FKInoToolTypeBuild, 0, error, nil);
         }
         
         return NO;
@@ -150,7 +150,7 @@
         
         if (terminationHandler != NULL) {
             NSError *error = [NSError errorWithDomain:@"FKInoToolErrorDomain" code:FKInoToolErrorFilesLibrariesCouldNotBeCopiedError userInfo:[NSDictionary dictionaryWithObject:@"External libraries could not be copied to temporary build directory." forKey:NSLocalizedDescriptionKey]];
-            terminationHandler(NO, (shouldUpload) ? FKInoToolTypeBuildAndUpload : FKInoToolTypeBuild, error, nil);
+            terminationHandler(NO, (shouldUpload) ? FKInoToolTypeBuildAndUpload : FKInoToolTypeBuild, 0, error, nil);
         }
         
         return NO;
@@ -188,8 +188,10 @@
         
         // ino was successful if terminationStatus is equal to 0
         if ([buildTask terminationStatus] == 0 && buildErrorString.length <= 0) {
-            // Cache the build
-            [[NSFileManager defaultManager] copyItemAtPath:temporaryBuildDirectory toPath:cachedBuildPath error:NULL];
+            // Read the binary size and cache the build
+            NSUInteger binarySize = [[[[NSFileManager defaultManager] attributesOfItemAtPath:[temporaryBuildDirectory stringByAppendingPathComponent:@"firmware.hex"] error:NULL] objectForKey:NSFileSize] unsignedIntegerValue];
+            if (binarySize > 0)
+                [[NSFileManager defaultManager] copyItemAtPath:temporaryBuildDirectory toPath:cachedBuildPath error:NULL];
             
             if (shouldUpload) {
                 NSTask *uploadTask = [[NSTask alloc] init];
@@ -212,7 +214,7 @@
                     // Upload successful
                     if (terminationHandler != NULL) {
                         dispatch_async(dispatch_get_main_queue(), ^{
-                            terminationHandler(YES, FKInoToolTypeBuildAndUpload, nil, uploadOutputString);
+                            terminationHandler(YES, FKInoToolTypeBuildAndUpload, binarySize, nil, uploadOutputString);
                         });
                     }
                 }
@@ -220,7 +222,7 @@
                     if (terminationHandler != NULL) {
                         dispatch_async(dispatch_get_main_queue(), ^{
                             NSError *error = [NSError errorWithDomain:@"FKInoToolErrorDomain" code:FKInoToolErrorUploadFailedError userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"Ino upload failed, see log output for more information.", NSLocalizedDescriptionKey, uploadErrorString, NSLocalizedFailureReasonErrorKey, nil]];
-                            terminationHandler(NO, FKInoToolTypeBuildAndUpload, error, uploadOutputString);
+                            terminationHandler(NO, FKInoToolTypeBuildAndUpload, binarySize, error, uploadOutputString);
                         });
                     }
                 }
@@ -230,7 +232,7 @@
                 // Build successful
                 if (terminationHandler != NULL) {
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        terminationHandler(YES, FKInoToolTypeBuild, nil, buildOutputString);
+                        terminationHandler(YES, FKInoToolTypeBuild, binarySize, nil, buildOutputString);
                     });
                 }
             }
@@ -239,7 +241,7 @@
             if (terminationHandler != NULL) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     NSError *error = [NSError errorWithDomain:@"FKInoToolErrorDomain" code:FKInoToolErrorBuildFailedError userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"Ino build failed, see log output for more information.", NSLocalizedDescriptionKey, buildErrorString, NSLocalizedFailureReasonErrorKey, nil]];
-                    terminationHandler(NO, FKInoToolTypeBuild, error, buildOutputString);
+                    terminationHandler(NO, FKInoToolTypeBuild, 0, error, buildOutputString);
                 });
             }
         }
