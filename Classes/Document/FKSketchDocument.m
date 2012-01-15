@@ -459,13 +459,12 @@
         [self.progressIndicator stopAnimation:nil];
         
         if (success) {
-            // TODO: ADJUST BUILD SIZE
             NSUInteger maximumBuildSize = [[self.board objectForKey:@"upload.maximum_size"] unsignedIntegerValue];
             if (maximumBuildSize > 0)
-                [self.buildSuccessProgressIndicator setDoubleValue:binarySize / maximumBuildSize];
+                [self.buildSuccessProgressIndicator setDoubleValue:100 * (binarySize / (double)maximumBuildSize)];
             else
                 [self.buildSuccessProgressIndicator setDoubleValue:0];
-            
+                        
             [NSApp beginSheet:self.buildSuccessSheet modalForWindow:[[self.windowControllers objectAtIndex:0] window] modalDelegate:self didEndSelector:@selector(didEndBuildSheet:returnCode:contextInfo:) contextInfo:NULL];
             [[NSSound soundNamed:@"Tri-Tone"] play];
         }
@@ -512,10 +511,9 @@
         [self.progressIndicator stopAnimation:nil];
         
         if (success) {
-            // TODO: ADJUST BUILD SIZE
             NSUInteger maximumBuildSize = [[self.board objectForKey:@"upload.maximum_size"] unsignedIntegerValue];
             if (maximumBuildSize > 0)
-                [self.buildSuccessProgressIndicator setDoubleValue:binarySize / maximumBuildSize];
+                [self.buildSuccessProgressIndicator setDoubleValue:100 * (binarySize / (double)maximumBuildSize)];
             else
                 [self.buildSuccessProgressIndicator setDoubleValue:0];
             

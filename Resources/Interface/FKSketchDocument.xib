@@ -579,7 +579,7 @@
 							<reference key="NSNextKeyView" ref="591443892"/>
 							<string key="NSReuseIdentifierKey">_NS:2352</string>
 							<int key="NSpiFlags">16392</int>
-							<double key="NSMaxValue">1</double>
+							<double key="NSMaxValue">100</double>
 						</object>
 						<object class="NSTextField" id="110421751">
 							<reference key="NSNextResponder" ref="747620173"/>

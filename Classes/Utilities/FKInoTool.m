@@ -188,10 +188,50 @@
         
         // ino was successful if terminationStatus is equal to 0
         if ([buildTask terminationStatus] == 0 && buildErrorString.length <= 0) {
-            // Read the binary size and cache the build
-            NSUInteger binarySize = [[[[NSFileManager defaultManager] attributesOfItemAtPath:[temporaryBuildDirectory stringByAppendingPathComponent:@"firmware.hex"] error:NULL] objectForKey:NSFileSize] unsignedIntegerValue];
+            /*
+             Check the binary size using avr-size.
+            */
+            
+            NSUInteger binarySize = 0;
+            NSString *avrSizePath = @"/Applications/Arduino.app/Contents/Resources/Java/hardware/tools/avr/bin/avr-size";
+            NSString *firmwareHexPath = [temporaryBuildDirectory stringByAppendingPathComponent:@"firmware.hex"];
+            if ([[NSFileManager defaultManager] fileExistsAtPath:avrSizePath] && [[NSFileManager defaultManager] fileExistsAtPath:firmwareHexPath]) {
+                NSTask *avrSizeTask = [[NSTask alloc] init];
+                [avrSizeTask setLaunchPath:avrSizePath];
+                [avrSizeTask setCurrentDirectoryPath:temporaryBuildDirectory];
+                
+                [avrSizeTask setStandardInput:[NSPipe pipe]];
+                [avrSizeTask setStandardOutput:[NSPipe pipe]];
+                [avrSizeTask setStandardError:[NSPipe pipe]];
+                [avrSizeTask setArguments:[NSArray arrayWithObjects:@"-A", firmwareHexPath, nil]];
+                
+                [avrSizeTask launch];
+                [avrSizeTask waitUntilExit];
+                
+                NSData *avrSizeOutputData = [[(NSPipe *)[avrSizeTask standardOutput] fileHandleForReading] readDataToEndOfFile];
+                NSString *avrSizeOutputString = (avrSizeOutputData != nil) ? [[NSString alloc] initWithData:avrSizeOutputData encoding:NSUTF8StringEncoding] : nil;
+                
+                if ([avrSizeTask terminationStatus] == 0 && avrSizeOutputString.length > 0) {
+                    NSUInteger totalLocation = [avrSizeOutputString rangeOfString:@"Total"].location;
+                    if (totalLocation != NSNotFound) {
+                        // Read the size from the output of avr-size
+                        NSString *remainingString = [avrSizeOutputString substringFromIndex:totalLocation + 5];
+                        remainingString = [remainingString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                        
+                        binarySize = strtoul([remainingString UTF8String], NULL, 0);
+                        if (binarySize == NSUIntegerMax)
+                            binarySize = 0;
+                    }
+                }
+            }
+            
+            // Cache the build
             if (binarySize > 0)
                 [[NSFileManager defaultManager] copyItemAtPath:temporaryBuildDirectory toPath:cachedBuildPath error:NULL];
+            
+            /*
+             Try to uplod the sketch if necessary.
+            */
             
             if (shouldUpload) {
                 NSTask *uploadTask = [[NSTask alloc] init];
