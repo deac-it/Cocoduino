@@ -14,6 +14,9 @@
 #import "FKInoTool.h"
 #import "FKSketchFile.h"
 #import "AMSerialPort.h"
+#import <MGSFragaria/ICUPattern.h>
+#import <MGSFragaria/ICUMatcher.h>
+#import <MGSFragaria/NSStringICUAdditions.h>
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -21,6 +24,12 @@
 
 + (NSString *) inoLaunchPath;
 + (NSString *) cachedBuildDirectoryPath;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
++ (NSString *) preprocessedSourceFromString:(NSString *)source;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 @end
 
@@ -114,7 +123,7 @@
     // Write save files to the src directory
     NSUInteger savedFiles = 0;
     for (FKSketchFile *file in files) {
-        NSData *fileData = [file.string dataUsingEncoding:NSUTF8StringEncoding];
+        NSData *fileData = [[self preprocessedSourceFromString:file.string] dataUsingEncoding:NSUTF8StringEncoding];
         savedFiles += (fileData != nil && [fileData writeToFile:[temporarySrcDirectory stringByAppendingPathComponent:file.filename] atomically:YES]) ? 1 : 0;
     }
     
@@ -243,6 +252,63 @@
     });
     
     return YES;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+#pragma mark -
+#pragma mark Preprocessing
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
++ (NSString *) preprocessedSourceFromString:(NSString *)source {
+    /*
+     Add prototypes for user-defined functions.
+     Note: Line numbers in build output are getting useless now...
+    */
+    
+    // Strip the source from string, comments and preprocessor directives    
+    ICUPattern *stripPattern = [ICUPattern patternWithString:@"('.')|(\"(?:[^\"\\\\]|\\\\.)*\")|(//.*?$)|(/\\*[^*]*(?:\\*(?!/)[^*]*)*\\*/)|(^\\s*#.*?$)" flags:8]; // 8 = UREGEX_MULTILINE
+    NSString *strippedString = [[ICUMatcher matcherWithPattern:stripPattern overString:source] replaceAllWithString:@""];
+    
+    /*
+     Remove the contents of all top-level curly braces.
+    */
+    
+    NSMutableString *searchString = [[NSMutableString alloc] init];
+    NSScanner *bracesScanner = [NSScanner scannerWithString:strippedString];
+    while (![bracesScanner isAtEnd]) {
+        NSString *temporaryString = nil;
+        [bracesScanner scanUpToString:@"{" intoString:&temporaryString];
+        [bracesScanner scanString:@"{" intoString:NULL];
+        [searchString appendString:temporaryString];
+        [searchString appendString:@"{"];
+        
+        NSUInteger nesting = 1;
+        do {
+            NSString *bracesString = nil;
+            [bracesScanner scanUpToCharactersFromSet:[NSCharacterSet characterSetWithCharactersInString:@"{}"] intoString:NULL];
+            [bracesScanner scanCharactersFromSet:[NSCharacterSet characterSetWithCharactersInString:@"{}"] intoString:&bracesString];
+            
+            if ([bracesString isEqualToString:@"{"])
+                nesting++;
+            else
+                nesting--;
+        } while (nesting > 0);
+        
+        [searchString appendString:@"}"];
+    }
+    
+    /*
+     Find the function declarations and add prototypes for them.
+    */
+    
+    NSMutableString *mutableSource = [[NSMutableString alloc] initWithString:source];
+    ICUMatcher *functionMatcher = [ICUMatcher matcherWithPattern:[ICUPattern patternWithString:@"[\\w\\[\\]\\*]+\\s+[&\\[\\]\\*\\w\\s]+\\([&,\\[\\]\\*\\w\\s]*\\)(?=\\s*\\{)"]  overString:searchString];
+    while ([functionMatcher findNext]) {
+        NSString *prototype = [NSString stringWithFormat:@"%@;\n", [functionMatcher group]];
+        [mutableSource insertString:prototype atIndex:0];
+    }
+    
+    return [mutableSource copy];
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -

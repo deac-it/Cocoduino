@@ -38,7 +38,7 @@ Last but not least, there is also:
 1. **Build Process**
     
     As there is no official `CLI` interface for the Arduino build process, I can't guarantee that Cocoduino can compile all sketches that work with the official IDE.  
-    For example adding functions at the bottom of the file is not working without **manually declaring prototypes** at the top of the file. This might change when Ino is updated.
+    For example there might be some problems with more complex sketches.
 
 2. **File Architecture**
     
@@ -64,8 +64,7 @@ Last but not least, there is also:
 
 2. **My sketch won't compile**
 
-    If you have problems with one particular sketch, please post to the [issues](https://github.com/fabiankr/Cocoduino/issues).  
-    Adding prototypes for functions at the top of the file helps to remove "undeclared function" errors.
+    If you have problems with one particular sketch, please post to the [issues](https://github.com/fabiankr/Cocoduino/issues).
 
 3. **Application crashes**
 
@@ -82,6 +81,6 @@ Cocoduino uses *(modified)* versions of the following third party libraries:
 * [PSMTabBarControl](http://www.positivespinmedia.com/dev/PSMTabBarControl.html)
 * [Fragaria](https://github.com/mugginsoft/Fragaria)
 
-The tool used for the actual build process is *(strongly modified)*:
+The tool used for the actual build process is *(strongly modified and with some preprocessing)*:
 
 * [Ino](http://inotool.org/)

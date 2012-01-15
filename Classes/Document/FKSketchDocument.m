@@ -470,7 +470,7 @@
                 if ([[dictionary objectForKey:@"Line"] integerValue] == NSNotFound)
                     failureReason = [NSString stringWithFormat:@"In file: \"%@\": %@", [dictionary objectForKey:@"File"], [dictionary objectForKey:@"Error"], nil];
                 else
-                    failureReason = [NSString stringWithFormat:@"In file: \"%@\" on line: %d: %@", [dictionary objectForKey:@"File"], [[dictionary objectForKey:@"Line"] integerValue], [dictionary objectForKey:@"Error"], nil];
+                    failureReason = [NSString stringWithFormat:@"In file: \"%@\" on about line %d: %@", [dictionary objectForKey:@"File"], [[dictionary objectForKey:@"Line"] integerValue], [dictionary objectForKey:@"Error"], nil];
                 
                 [[[self.buildFailedTextView textStorage] mutableString] appendString:failureReason];
                 if (i < failureReasons.count - 1)

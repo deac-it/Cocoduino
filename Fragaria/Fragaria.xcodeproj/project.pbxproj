@@ -14,9 +14,9 @@
 		4B884EEF14BB5DEB00209EBF /* SMLOpenPanelAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B884EE914BB5DEB00209EBF /* SMLOpenPanelAccessoryView.xib */; };
 		4B884EF014BB5DEB00209EBF /* SMLRegularExpressionHelp.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B884EEA14BB5DEB00209EBF /* SMLRegularExpressionHelp.xib */; };
 		4B884EF214BB5E0200209EBF /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4B884EF114BB5E0200209EBF /* LICENSE.txt */; };
-		4B884F1614BB5E4300209EBF /* ICUMatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F1314BB5E4300209EBF /* ICUMatcher.h */; };
-		4B884F1714BB5E4300209EBF /* ICUPattern.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F1414BB5E4300209EBF /* ICUPattern.h */; };
-		4B884F1814BB5E4300209EBF /* NSStringICUAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F1514BB5E4300209EBF /* NSStringICUAdditions.h */; };
+		4B884F1614BB5E4300209EBF /* ICUMatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F1314BB5E4300209EBF /* ICUMatcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4B884F1714BB5E4300209EBF /* ICUPattern.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F1414BB5E4300209EBF /* ICUPattern.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4B884F1814BB5E4300209EBF /* NSStringICUAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F1514BB5E4300209EBF /* NSStringICUAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B884F1C14BB5E5800209EBF /* ICUMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B884F1914BB5E5800209EBF /* ICUMatcher.m */; };
 		4B884F1D14BB5E5800209EBF /* ICUPattern.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B884F1A14BB5E5800209EBF /* ICUPattern.m */; };
 		4B884F1E14BB5E5800209EBF /* NSStringICUAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B884F1B14BB5E5800209EBF /* NSStringICUAdditions.m */; };
@@ -347,13 +347,13 @@
 			files = (
 				4B884F7214BB5EDF00209EBF /* MGSExtraInterfaceController.h in Headers */,
 				4B884F7314BB5EDF00209EBF /* MGSFragaria.h in Headers */,
+				4B884F1714BB5E4300209EBF /* ICUPattern.h in Headers */,
+				4B884F1614BB5E4300209EBF /* ICUMatcher.h in Headers */,
 				4B884F7114BB5EDF00209EBF /* MGSFragariaPreferences.h in Headers */,
 				4B884F7614BB5EDF00209EBF /* MGSFragariaFramework.h in Headers */,
+				4B884F1814BB5E4300209EBF /* NSStringICUAdditions.h in Headers */,
 				4B884F7714BB5EDF00209EBF /* MGSPreferencesController.h in Headers */,
 				4B92378214C2F42E007A8BF4 /* NSScanner+Fragaria.h in Headers */,
-				4B884F1614BB5E4300209EBF /* ICUMatcher.h in Headers */,
-				4B884F1714BB5E4300209EBF /* ICUPattern.h in Headers */,
-				4B884F1814BB5E4300209EBF /* NSStringICUAdditions.h in Headers */,
 				4B884F2F14BB5E6A00209EBF /* parseerr.h in Headers */,
 				4B884F3014BB5E6A00209EBF /* platform.h in Headers */,
 				4B884F3114BB5E6A00209EBF /* putil.h in Headers */,
