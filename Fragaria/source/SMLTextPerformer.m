@@ -20,7 +20,11 @@ Unless required by applicable law or agreed to in writing, software distributed 
 #import "SMLStandardHeader.h"
 
 #import "SMLTextPerformer.h"
+#import "NSScanner+Fragaria.h"
 
+@interface NSScanner (Fragaria3)
+- (void) mgs_setScanLocation:(NSUInteger)location;
+@end
 
 @implementation SMLTextPerformer
 
@@ -149,7 +153,7 @@ static id sharedInstance = nil;
 			if (beginning + 1 < [string length] && [string characterAtIndex:beginning] == '"') { // If the encoding is within quotes
 				beginning++;
 			}
-			[scannerHTML setScanLocation:beginning];
+			[scannerHTML mgs_setScanLocation:beginning];
 			[scannerHTML scanUpToCharactersFromSet:[NSCharacterSet characterSetWithCharactersInString:@"\"' />"] intoString:nil];
 			end = [scannerHTML scanLocation];
 

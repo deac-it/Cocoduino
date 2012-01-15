@@ -1,5 +1,5 @@
 //
-//  MGSTolerantScanner.h
+//  NSScanner+Fragaria.h
 //  Fragaria
 //
 //  Created by Jonathan on 12/08/2010.
@@ -9,8 +9,6 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface MGSScanner : NSScanner {
-	NSUInteger maxIndex;
-}
-
+@interface NSScanner (Fragaria)
+- (void)mgs_setScanLocation:(NSUInteger)idx;
 @end

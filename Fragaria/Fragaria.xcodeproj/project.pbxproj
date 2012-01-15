@@ -56,7 +56,6 @@
 		4B884F6514BB5EC200209EBF /* MGSPreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B884F5F14BB5EC200209EBF /* MGSPreferencesController.m */; };
 		4B884F6614BB5EC200209EBF /* MGSSyntaxController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B884F6014BB5EC200209EBF /* MGSSyntaxController.m */; };
 		4B884F6714BB5EC200209EBF /* MGSExtraInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B884F6114BB5EC200209EBF /* MGSExtraInterfaceController.m */; };
-		4B884F6814BB5EC200209EBF /* MGSScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B884F6214BB5EC200209EBF /* MGSScanner.m */; };
 		4B884F7114BB5EDF00209EBF /* MGSFragariaPreferences.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F6914BB5EDF00209EBF /* MGSFragariaPreferences.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B884F7214BB5EDF00209EBF /* MGSExtraInterfaceController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F6A14BB5EDF00209EBF /* MGSExtraInterfaceController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B884F7314BB5EDF00209EBF /* MGSFragaria.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F6B14BB5EDF00209EBF /* MGSFragaria.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -64,7 +63,8 @@
 		4B884F7514BB5EDF00209EBF /* MGSSyntaxController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F6D14BB5EDF00209EBF /* MGSSyntaxController.h */; };
 		4B884F7614BB5EDF00209EBF /* MGSFragariaFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F6E14BB5EDF00209EBF /* MGSFragariaFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B884F7714BB5EDF00209EBF /* MGSPreferencesController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F6F14BB5EDF00209EBF /* MGSPreferencesController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4B884F7814BB5EDF00209EBF /* MGSScanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B884F7014BB5EDF00209EBF /* MGSScanner.h */; };
+		4B92378114C2F2FC007A8BF4 /* NSScanner+Fragaria.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B92378014C2F2FC007A8BF4 /* NSScanner+Fragaria.m */; };
+		4B92378214C2F42E007A8BF4 /* NSScanner+Fragaria.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B92377E14C2F2F6007A8BF4 /* NSScanner+Fragaria.h */; };
 		AB39723A118C27E700AEF388 /* SyntaxDefinitions.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB3971E6118C27E700AEF388 /* SyntaxDefinitions.plist */; };
 		AB3972E5118C28E700AEF388 /* Syntax Definitions in Resources */ = {isa = PBXBuildFile; fileRef = AB397291118C28E700AEF388 /* Syntax Definitions */; };
 		AB69B6CA118B7D2100903D1D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -124,7 +124,6 @@
 		4B884F5F14BB5EC200209EBF /* MGSPreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGSPreferencesController.m; path = source/MGSPreferencesController.m; sourceTree = "<group>"; };
 		4B884F6014BB5EC200209EBF /* MGSSyntaxController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGSSyntaxController.m; path = source/MGSSyntaxController.m; sourceTree = "<group>"; };
 		4B884F6114BB5EC200209EBF /* MGSExtraInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGSExtraInterfaceController.m; path = source/MGSExtraInterfaceController.m; sourceTree = "<group>"; };
-		4B884F6214BB5EC200209EBF /* MGSScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGSScanner.m; path = source/MGSScanner.m; sourceTree = "<group>"; };
 		4B884F6914BB5EDF00209EBF /* MGSFragariaPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGSFragariaPreferences.h; path = source/MGSFragariaPreferences.h; sourceTree = "<group>"; };
 		4B884F6A14BB5EDF00209EBF /* MGSExtraInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGSExtraInterfaceController.h; path = source/MGSExtraInterfaceController.h; sourceTree = "<group>"; };
 		4B884F6B14BB5EDF00209EBF /* MGSFragaria.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGSFragaria.h; path = source/MGSFragaria.h; sourceTree = "<group>"; };
@@ -132,7 +131,8 @@
 		4B884F6D14BB5EDF00209EBF /* MGSSyntaxController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGSSyntaxController.h; path = source/MGSSyntaxController.h; sourceTree = "<group>"; };
 		4B884F6E14BB5EDF00209EBF /* MGSFragariaFramework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGSFragariaFramework.h; path = source/MGSFragariaFramework.h; sourceTree = "<group>"; };
 		4B884F6F14BB5EDF00209EBF /* MGSPreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGSPreferencesController.h; path = source/MGSPreferencesController.h; sourceTree = "<group>"; };
-		4B884F7014BB5EDF00209EBF /* MGSScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGSScanner.h; path = source/MGSScanner.h; sourceTree = "<group>"; };
+		4B92377E14C2F2F6007A8BF4 /* NSScanner+Fragaria.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSScanner+Fragaria.h"; sourceTree = "<group>"; };
+		4B92378014C2F2FC007A8BF4 /* NSScanner+Fragaria.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSScanner+Fragaria.m"; sourceTree = "<group>"; };
 		AB3971E6118C27E700AEF388 /* SyntaxDefinitions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SyntaxDefinitions.plist; sourceTree = "<group>"; };
 		AB397291118C28E700AEF388 /* Syntax Definitions */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Syntax Definitions"; sourceTree = "<group>"; };
 		AB69B62B118B745700903D1D /* MGSFragaria.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MGSFragaria.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -308,7 +308,7 @@
 				4B884F5F14BB5EC200209EBF /* MGSPreferencesController.m */,
 				4B884F6014BB5EC200209EBF /* MGSSyntaxController.m */,
 				4B884F6114BB5EC200209EBF /* MGSExtraInterfaceController.m */,
-				4B884F6214BB5EC200209EBF /* MGSScanner.m */,
+				4B92378014C2F2FC007A8BF4 /* NSScanner+Fragaria.m */,
 			);
 			name = Fragaria;
 			sourceTree = "<group>";
@@ -333,7 +333,7 @@
 				4B884F6D14BB5EDF00209EBF /* MGSSyntaxController.h */,
 				4B884F6E14BB5EDF00209EBF /* MGSFragariaFramework.h */,
 				4B884F6F14BB5EDF00209EBF /* MGSPreferencesController.h */,
-				4B884F7014BB5EDF00209EBF /* MGSScanner.h */,
+				4B92377E14C2F2F6007A8BF4 /* NSScanner+Fragaria.h */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
@@ -350,6 +350,7 @@
 				4B884F7114BB5EDF00209EBF /* MGSFragariaPreferences.h in Headers */,
 				4B884F7614BB5EDF00209EBF /* MGSFragariaFramework.h in Headers */,
 				4B884F7714BB5EDF00209EBF /* MGSPreferencesController.h in Headers */,
+				4B92378214C2F42E007A8BF4 /* NSScanner+Fragaria.h in Headers */,
 				4B884F1614BB5E4300209EBF /* ICUMatcher.h in Headers */,
 				4B884F1714BB5E4300209EBF /* ICUPattern.h in Headers */,
 				4B884F1814BB5E4300209EBF /* NSStringICUAdditions.h in Headers */,
@@ -379,7 +380,6 @@
 				4B884F5C14BB5EA500209EBF /* SMLGutterTextView.h in Headers */,
 				4B884F7414BB5EDF00209EBF /* MGSTextMenuController.h in Headers */,
 				4B884F7514BB5EDF00209EBF /* MGSSyntaxController.h in Headers */,
-				4B884F7814BB5EDF00209EBF /* MGSScanner.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -470,7 +470,7 @@
 				4B884F6514BB5EC200209EBF /* MGSPreferencesController.m in Sources */,
 				4B884F6614BB5EC200209EBF /* MGSSyntaxController.m in Sources */,
 				4B884F6714BB5EC200209EBF /* MGSExtraInterfaceController.m in Sources */,
-				4B884F6814BB5EC200209EBF /* MGSScanner.m in Sources */,
+				4B92378114C2F2FC007A8BF4 /* NSScanner+Fragaria.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
