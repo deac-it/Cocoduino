@@ -327,14 +327,15 @@
         NSUInteger nesting = 1;
         do {
             NSString *bracesString = nil;
-            [bracesScanner scanUpToCharactersFromSet:[NSCharacterSet characterSetWithCharactersInString:@"{}"] intoString:NULL];
-            [bracesScanner scanCharactersFromSet:[NSCharacterSet characterSetWithCharactersInString:@"{}"] intoString:&bracesString];
+            NSCharacterSet *bracesCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"{}"];
+            [bracesScanner scanUpToCharactersFromSet:bracesCharacterSet intoString:NULL];
+            [bracesScanner scanCharactersFromSet:bracesCharacterSet intoString:&bracesString];
             
             if ([bracesString isEqualToString:@"{"])
                 nesting++;
             else
                 nesting--;
-        } while (nesting > 0);
+        } while (nesting > 0 && ![bracesScanner isAtEnd]);
         
         [searchString appendString:@"}"];
     }
