@@ -24,6 +24,7 @@
     NSWindow *addFileSheet;
     NSTextField *addFileTextField;
     NSWindow *buildSuccessSheet;
+    NSTextField *buildSuccessTextField;
     NSProgressIndicator *buildSuccessProgressIndicator;
     NSWindow *buildFailedSheet;
     NSTextView *buildFailedTextView;
@@ -84,6 +85,7 @@
 @property (nonatomic, strong) IBOutlet NSWindow *addFileSheet;
 @property (nonatomic, strong) IBOutlet NSTextField *addFileTextField;
 @property (nonatomic, strong) IBOutlet NSWindow *buildSuccessSheet;
+@property (nonatomic, strong) IBOutlet NSTextField *buildSuccessTextField;
 @property (nonatomic, strong) IBOutlet NSProgressIndicator *buildSuccessProgressIndicator;
 @property (nonatomic, strong) IBOutlet NSWindow *buildFailedSheet;
 @property (nonatomic, strong) IBOutlet NSTextView *buildFailedTextView;

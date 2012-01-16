@@ -46,7 +46,7 @@
 @implementation FKSketchDocument
 @synthesize tabView, bottomTextField, tabBarControl;
 @synthesize buildButton, buildAndUploadButton, progressIndicator;
-@synthesize addFileSheet, addFileTextField, buildSuccessSheet, buildSuccessProgressIndicator, buildFailedSheet, buildFailedTextView;
+@synthesize addFileSheet, addFileTextField, buildSuccessSheet, buildSuccessTextField, buildSuccessProgressIndicator, buildFailedSheet, buildFailedTextView;
 @synthesize board, serialPort;
 @synthesize files;
 
@@ -447,6 +447,8 @@
         return YES;
 }
 
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 - (IBAction) buildSketch:(id)sender {
     if (self.board == nil) {
         NSAlert *alert = [NSAlert alertWithMessageText:@"Build Failed!" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"Your sketch can't be build. Please specify the board you want to build for."];
@@ -463,8 +465,13 @@
         
         if (success) {
             NSUInteger maximumBuildSize = [[self.board objectForKey:@"upload.maximum_size"] unsignedIntegerValue];
-            if (maximumBuildSize > 0)
-                [self.buildSuccessProgressIndicator setDoubleValue:100 * (binarySize / (double)maximumBuildSize)];
+            if (binarySize > 0 && maximumBuildSize > 0) {
+                CGFloat roundedBinarySize = round(10 * (binarySize / (CGFloat)1024)) / 10;
+                CGFloat roundedMaximumSize = round(10 * (maximumBuildSize / (CGFloat)1024)) / 10;
+                [self.buildSuccessTextField setStringValue:[NSString stringWithFormat:@"%.1f kB of %.1f kB", roundedBinarySize, roundedMaximumSize]];
+                
+                [self.buildSuccessProgressIndicator setDoubleValue:100 * ((CGFloat)binarySize / (CGFloat)maximumBuildSize)];
+            }
             else
                 [self.buildSuccessProgressIndicator setDoubleValue:0];
                         
@@ -515,8 +522,13 @@
         
         if (success) {
             NSUInteger maximumBuildSize = [[self.board objectForKey:@"upload.maximum_size"] unsignedIntegerValue];
-            if (maximumBuildSize > 0)
-                [self.buildSuccessProgressIndicator setDoubleValue:100 * (binarySize / (double)maximumBuildSize)];
+            if (binarySize > 0 && maximumBuildSize > 0) {
+                CGFloat roundedBinarySize = round(10 * (binarySize / (CGFloat)1024)) / 10;
+                CGFloat roundedMaximumSize = round(10 * (maximumBuildSize / (CGFloat)1024)) / 10;
+                [self.buildSuccessTextField setStringValue:[NSString stringWithFormat:@"%.1f kB of %.1f kB", roundedBinarySize, roundedMaximumSize]];
+                
+                [self.buildSuccessProgressIndicator setDoubleValue:100 * ((CGFloat)binarySize / (CGFloat)maximumBuildSize)];
+            }
             else
                 [self.buildSuccessProgressIndicator setDoubleValue:0];
             
@@ -533,6 +545,25 @@
         [self.progressIndicator startAnimation:nil];
     }
 }
+
+- (IBAction) buildSuccessSheetDidEnd:(id)sender {
+    [NSApp endSheet:self.buildSuccessSheet returnCode:NSOKButton];
+}
+
+- (IBAction) buildFailedSheetDidEnd:(id)sender {
+    [NSApp endSheet:self.buildFailedSheet returnCode:NSOKButton];
+}
+
+- (void) didEndBuildSheet:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
+    [sheet orderOut:nil];
+    
+    if (sheet == self.buildSuccessSheet)
+        [self.buildSuccessTextField setStringValue:@""];
+    else
+        [[[self.buildFailedTextView textStorage] mutableString] setString:@""];
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 - (IBAction) openSerialMonitor:(id)sender {
     if (_serialMonitorWindowController == nil) {
@@ -589,19 +620,6 @@
     
     [self.addFileSheet orderOut:nil];
     [self.addFileTextField setStringValue:@""];
-}
-
-- (IBAction) buildSuccessSheetDidEnd:(id)sender {
-    [NSApp endSheet:self.buildSuccessSheet returnCode:NSOKButton];
-}
-
-- (IBAction) buildFailedSheetDidEnd:(id)sender {
-    [NSApp endSheet:self.buildFailedSheet returnCode:NSOKButton];
-}
-
-- (void) didEndBuildSheet:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
-    [sheet orderOut:nil];
-    [[[self.buildFailedTextView textStorage] mutableString] setString:@""];
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -674,10 +692,10 @@
         BOOL hideForSingleTab = [aTabBarControl hideForSingleTab];
         [aTabBarControl setHideForSingleTab:NO];
         
-        NSInteger numberOfUpdates = [aTabView numberOfTabViewItems];
-        for (NSInteger i = 0; i < numberOfUpdates; i++)
+        NSUInteger numberOfUpdates = (NSUInteger)[aTabView numberOfTabViewItems];
+        for (NSUInteger i = 0; i < numberOfUpdates; i++)
             [aTabView removeTabViewItem:[aTabView tabViewItemAtIndex:0]];
-        for (NSInteger i = 0; i < numberOfUpdates; i++)
+        for (NSUInteger i = 0; i < numberOfUpdates; i++)
             [aTabView addTabViewItem:[_dragTabViewItems objectAtIndex:i]];
         
         _dragTabViewItems = nil;
