@@ -44,33 +44,33 @@
 			<key>name</key>
 			<string>Arduino Duemilanove</string>
 			<key>upload.protocol</key>
-			<string></string>
+			<string>arduino</string>
 			<key>upload.maximum_size</key>
-			<string></string>
+			<integer>30720</integer>
 			<key>upload.speed</key>
-			<string></string>
+			<integer>57600</integer>
 			<key>bootloader.low_fuses</key>
-			<string></string>
+			<string>0xFF</string>
 			<key>bootloader.high_fuses</key>
-			<string></string>
+			<string>0xDA</string>
 			<key>bootloader.extended_fuses</key>
-			<string></string>
+			<string>0x05</string>
 			<key>bootloader.path</key>
-			<string></string>
+			<string>atmega</string>
 			<key>bootloader.file</key>
-			<string></string>
+			<string>ATmegaBOOT_168_atmega328.hex</string>
 			<key>bootloader.unlock_bits</key>
-			<string></string>
+			<string>0x3F</string>
 			<key>bootloader.lock_bits</key>
-			<string></string>
+			<string>0x0F</string>
 			<key>build.mcu</key>
-			<string></string>
+			<string>atmega328p</string>
 			<key>build.f_cpu</key>
-			<string></string>
+			<string>16000000L</string>
 			<key>build.core</key>
-			<string></string>
+			<string>arduino</string>
 			<key>build.variant</key>
-			<string></string>
+			<string>standard</string>
 		</dict>
 		<dict>
 			<key>short</key>
@@ -78,33 +78,33 @@
 			<key>name</key>
 			<string>Arduino Diecimila or Duemilanove (ATmega168)</string>
 			<key>upload.protocol</key>
-			<string></string>
+			<string>arduino</string>
 			<key>upload.maximum_size</key>
-			<string></string>
+			<integer>14336</integer>
 			<key>upload.speed</key>
-			<string></string>
+			<integer>19200</integer>
 			<key>bootloader.low_fuses</key>
-			<string></string>
+			<string>0xff</string>
 			<key>bootloader.high_fuses</key>
-			<string></string>
+			<string>0xdd</string>
 			<key>bootloader.extended_fuses</key>
-			<string></string>
+			<string>0x00</string>
 			<key>bootloader.path</key>
-			<string></string>
+			<string>atmega</string>
 			<key>bootloader.file</key>
-			<string></string>
+			<string>ATmegaBOOT_168_diecimila.hex</string>
 			<key>bootloader.unlock_bits</key>
-			<string></string>
+			<string>0x3F</string>
 			<key>bootloader.lock_bits</key>
-			<string></string>
+			<string>0x0F</string>
 			<key>build.mcu</key>
-			<string></string>
+			<string>atmega168</string>
 			<key>build.f_cpu</key>
-			<string></string>
+			<string>16000000L</string>
 			<key>build.core</key>
-			<string></string>
+			<string>arduino</string>
 			<key>build.variant</key>
-			<string></string>
+			<string>standard</string>
 		</dict>
 		<dict>
 			<key>short</key>
@@ -112,33 +112,33 @@
 			<key>name</key>
 			<string>Arduino Nano</string>
 			<key>upload.protocol</key>
-			<string></string>
+			<string>arduino</string>
 			<key>upload.maximum_size</key>
-			<string></string>
+			<integer>30720</integer>
 			<key>upload.speed</key>
-			<string></string>
+			<integer>57600</integer>
 			<key>bootloader.low_fuses</key>
-			<string></string>
+			<string>0xFF</string>
 			<key>bootloader.high_fuses</key>
-			<string></string>
+			<string>0xDA</string>
 			<key>bootloader.extended_fuses</key>
-			<string></string>
+			<string>0x05</string>
 			<key>bootloader.path</key>
-			<string></string>
+			<string>atmega</string>
 			<key>bootloader.file</key>
-			<string></string>
+			<string>ATmegaBOOT_168_atmega328.hex</string>
 			<key>bootloader.unlock_bits</key>
-			<string></string>
+			<string>0x3F</string>
 			<key>bootloader.lock_bits</key>
-			<string></string>
+			<string>0x0F</string>
 			<key>build.mcu</key>
-			<string></string>
+			<string>atmega328p</string>
 			<key>build.f_cpu</key>
-			<string></string>
+			<string>16000000L</string>
 			<key>build.core</key>
-			<string></string>
+			<string>arduino</string>
 			<key>build.variant</key>
-			<string></string>
+			<string>eightanaloginputs</string>
 		</dict>
 		<dict>
 			<key>short</key>
@@ -146,33 +146,33 @@
 			<key>name</key>
 			<string>Arduino Nano (ATmega168)</string>
 			<key>upload.protocol</key>
-			<string></string>
+			<string>arduino</string>
 			<key>upload.maximum_size</key>
-			<string></string>
+			<integer>14336</integer>
 			<key>upload.speed</key>
-			<string></string>
+			<integer>19200</integer>
 			<key>bootloader.low_fuses</key>
-			<string></string>
+			<string>0xff</string>
 			<key>bootloader.high_fuses</key>
-			<string></string>
+			<string>0xdd</string>
 			<key>bootloader.extended_fuses</key>
-			<string></string>
+			<string>0x00</string>
 			<key>bootloader.path</key>
-			<string></string>
+			<string>atmega</string>
 			<key>bootloader.file</key>
-			<string></string>
+			<string>ATmegaBOOT_168_diecimila.hex</string>
 			<key>bootloader.unlock_bits</key>
-			<string></string>
+			<string>0x3F</string>
 			<key>bootloader.lock_bits</key>
-			<string></string>
+			<string>0x0F</string>
 			<key>build.mcu</key>
-			<string></string>
+			<string>atmega168</string>
 			<key>build.f_cpu</key>
-			<string></string>
+			<string>16000000L</string>
 			<key>build.core</key>
-			<string></string>
+			<string>arduino</string>
 			<key>build.variant</key>
-			<string></string>
+			<string>eightanaloginputs</string>
 		</dict>
 		<dict>
 			<key>short</key>
@@ -180,33 +180,33 @@
 			<key>name</key>
 			<string>Arduino Mega 2560 or Mega ADK</string>
 			<key>upload.protocol</key>
-			<string></string>
+			<string>stk500v2</string>
 			<key>upload.maximum_size</key>
-			<string></string>
+			<integer>258048</integer>
 			<key>upload.speed</key>
-			<string></string>
+			<integer>115200</integer>
 			<key>bootloader.low_fuses</key>
-			<string></string>
+			<string>0xFF</string>
 			<key>bootloader.high_fuses</key>
-			<string></string>
+			<string>0xD8</string>
 			<key>bootloader.extended_fuses</key>
-			<string></string>
+			<string>0xFD</string>
 			<key>bootloader.path</key>
-			<string></string>
+			<string>stk500v2</string>
 			<key>bootloader.file</key>
-			<string></string>
+			<string>stk500boot_v2_mega2560.hex</string>
 			<key>bootloader.unlock_bits</key>
-			<string></string>
+			<string>0x3F</string>
 			<key>bootloader.lock_bits</key>
-			<string></string>
+			<string>0x0F</string>
 			<key>build.mcu</key>
-			<string></string>
+			<string>atmega2560</string>
 			<key>build.f_cpu</key>
-			<string></string>
+			<string>16000000L</string>
 			<key>build.core</key>
-			<string></string>
+			<string>arduino</string>
 			<key>build.variant</key>
-			<string></string>
+			<string>mega</string>
 		</dict>
 		<dict>
 			<key>short</key>
@@ -214,33 +214,33 @@
 			<key>name</key>
 			<string>Arduino Mega (ATmega1280)</string>
 			<key>upload.protocol</key>
-			<string></string>
+			<string>arduino</string>
 			<key>upload.maximum_size</key>
-			<string></string>
+			<integer>126976</integer>
 			<key>upload.speed</key>
-			<string></string>
+			<integer>57600</integer>
 			<key>bootloader.low_fuses</key>
-			<string></string>
+			<string>0xFF</string>
 			<key>bootloader.high_fuses</key>
-			<string></string>
+			<string>0xDA</string>
 			<key>bootloader.extended_fuses</key>
-			<string></string>
+			<string>0xF5</string>
 			<key>bootloader.path</key>
-			<string></string>
+			<string>atmega</string>
 			<key>bootloader.file</key>
-			<string></string>
+			<string>ATmegaBOOT_168_atmega1280.hex</string>
 			<key>bootloader.unlock_bits</key>
-			<string></string>
+			<string>0x3F</string>
 			<key>bootloader.lock_bits</key>
-			<string></string>
+			<string>0x0F</string>
 			<key>build.mcu</key>
-			<string></string>
+			<string>atmega1280</string>
 			<key>build.f_cpu</key>
-			<string></string>
+			<string>16000000L</string>
 			<key>build.core</key>
-			<string></string>
+			<string>arduino</string>
 			<key>build.variant</key>
-			<string></string>
+			<string>mega</string>
 		</dict>
 		<dict>
 			<key>short</key>
@@ -248,33 +248,33 @@
 			<key>name</key>
 			<string>Arduino Leonardo</string>
 			<key>upload.protocol</key>
-			<string></string>
+			<string>arduino</string>
 			<key>upload.maximum_size</key>
-			<string></string>
+			<integer>28672</integer>
 			<key>upload.speed</key>
-			<string></string>
+			<integer>1200</integer>
 			<key>bootloader.low_fuses</key>
-			<string></string>
+			<string>0xde</string>
 			<key>bootloader.high_fuses</key>
-			<string></string>
+			<string>0xd8</string>
 			<key>bootloader.extended_fuses</key>
-			<string></string>
+			<string>0xcb</string>
 			<key>bootloader.path</key>
-			<string></string>
+			<string>diskloader</string>
 			<key>bootloader.file</key>
-			<string></string>
+			<string>DiskLoader-Leonardo.hex</string>
 			<key>bootloader.unlock_bits</key>
-			<string></string>
+			<string>0x3F</string>
 			<key>bootloader.lock_bits</key>
-			<string></string>
+			<string>0x2F</string>
 			<key>build.mcu</key>
-			<string></string>
+			<string>atmega32u4</string>
 			<key>build.f_cpu</key>
-			<string></string>
+			<string>16000000L</string>
 			<key>build.core</key>
-			<string></string>
+			<string>arduino</string>
 			<key>build.variant</key>
-			<string></string>
+			<string>leonardo</string>
 		</dict>
 		<dict>
 			<key>short</key>
@@ -282,33 +282,33 @@
 			<key>name</key>
 			<string>Arduino Micro</string>
 			<key>upload.protocol</key>
-			<string></string>
+			<string>arduino</string>
 			<key>upload.maximum_size</key>
-			<string></string>
+			<integer>30720</integer>
 			<key>upload.speed</key>
-			<string></string>
+			<integer>1200</integer>
 			<key>bootloader.low_fuses</key>
-			<string></string>
+			<string>0xde</string>
 			<key>bootloader.high_fuses</key>
-			<string></string>
+			<string>0xda</string>
 			<key>bootloader.extended_fuses</key>
-			<string></string>
+			<string>0xcb</string>
 			<key>bootloader.path</key>
-			<string></string>
+			<string>diskloader</string>
 			<key>bootloader.file</key>
-			<string></string>
+			<string>DiskLoader-Micro.hex</string>
 			<key>bootloader.unlock_bits</key>
-			<string></string>
+			<string>0x3F</string>
 			<key>bootloader.lock_bits</key>
-			<string></string>
+			<string>0x2F</string>
 			<key>build.mcu</key>
-			<string></string>
+			<string>atmega32u4</string>
 			<key>build.f_cpu</key>
-			<string></string>
+			<string>16000000L</string>
 			<key>build.core</key>
-			<string></string>
+			<string>arduino</string>
 			<key>build.variant</key>
-			<string></string>
+			<string>micro</string>
 		</dict>
 		<dict>
 			<key>short</key>
@@ -316,33 +316,33 @@
 			<key>name</key>
 			<string>Arduino Mini</string>
 			<key>upload.protocol</key>
-			<string></string>
+			<string>stk500</string>
 			<key>upload.maximum_size</key>
-			<string></string>
+			<integer>28672</integer>
 			<key>upload.speed</key>
-			<string></string>
+			<integer>115200</integer>
 			<key>bootloader.low_fuses</key>
-			<string></string>
+			<string>0xff</string>
 			<key>bootloader.high_fuses</key>
-			<string></string>
+			<string>0xd8</string>
 			<key>bootloader.extended_fuses</key>
-			<string></string>
+			<string>0x05</string>
 			<key>bootloader.path</key>
-			<string></string>
+			<string>optiboot</string>
 			<key>bootloader.file</key>
-			<string></string>
+			<string>optiboot_atmega328-Mini.hex</string>
 			<key>bootloader.unlock_bits</key>
-			<string></string>
+			<string>0x3F</string>
 			<key>bootloader.lock_bits</key>
-			<string></string>
+			<string>0x0F</string>
 			<key>build.mcu</key>
-			<string></string>
+			<string>atmega328p</string>
 			<key>build.f_cpu</key>
-			<string></string>
+			<string>16000000L</string>
 			<key>build.core</key>
-			<string></string>
+			<string>arduino</string>
 			<key>build.variant</key>
-			<string></string>
+			<string>eightanaloginputs</string>
 		</dict>
 		<dict>
 			<key>short</key>
@@ -350,33 +350,33 @@
 			<key>name</key>
 			<string>Arduino Mini (ATmega168)</string>
 			<key>upload.protocol</key>
-			<string></string>
+			<string>arduino</string>
 			<key>upload.maximum_size</key>
-			<string></string>
+			<integer>14336</integer>
 			<key>upload.speed</key>
-			<string></string>
+			<integer>19200</integer>
 			<key>bootloader.low_fuses</key>
-			<string></string>
+			<string>0xff</string>
 			<key>bootloader.high_fuses</key>
-			<string></string>
+			<string>0xdd</string>
 			<key>bootloader.extended_fuses</key>
-			<string></string>
+			<string>0x00</string>
 			<key>bootloader.path</key>
-			<string></string>
+			<string>atmega</string>
 			<key>bootloader.file</key>
-			<string></string>
+			<string>ATmegaBOOT_168_ng.hex</string>
 			<key>bootloader.unlock_bits</key>
-			<string></string>
+			<string>0x3F</string>
 			<key>bootloader.lock_bits</key>
-			<string></string>
+			<string>0x0F</string>
 			<key>build.mcu</key>
-			<string></string>
+			<string>atmega168</string>
 			<key>build.f_cpu</key>
-			<string></string>
+			<string>16000000L</string>
 			<key>build.core</key>
-			<string></string>
+			<string>arduino</string>
 			<key>build.variant</key>
-			<string></string>
+			<string>eightanaloginputs</string>
 		</dict>
 		<dict>
 			<key>short</key>
@@ -384,33 +384,33 @@
 			<key>name</key>
 			<string>Arduino Ethernet</string>
 			<key>upload.protocol</key>
-			<string></string>
+			<string>arduino</string>
 			<key>upload.maximum_size</key>
-			<string></string>
+			<integer>32256</integer>
 			<key>upload.speed</key>
-			<string></string>
+			<integer>115200</integer>
 			<key>bootloader.low_fuses</key>
-			<string></string>
+			<string>0xff</string>
 			<key>bootloader.high_fuses</key>
-			<string></string>
+			<string>0xde</string>
 			<key>bootloader.extended_fuses</key>
-			<string></string>
+			<string>0x05</string>
 			<key>bootloader.path</key>
-			<string></string>
+			<string>optiboot</string>
 			<key>bootloader.file</key>
-			<string></string>
+			<string>optiboot_atmega328.hex</string>
 			<key>bootloader.unlock_bits</key>
-			<string></string>
+			<string>0x3F</string>
 			<key>bootloader.lock_bits</key>
-			<string></string>
+			<string>0x0F</string>
 			<key>build.mcu</key>
-			<string></string>
+			<string>atmega328p</string>
 			<key>build.f_cpu</key>
-			<string></string>
+			<string>16000000L</string>
 			<key>build.core</key>
-			<string></string>
+			<string>arduino</string>
 			<key>build.variant</key>
-			<string></string>
+			<string>standard</string>
 		</dict>
 		<dict>
 			<key>short</key>
@@ -418,33 +418,33 @@
 			<key>name</key>
 			<string>Arduino Fio</string>
 			<key>upload.protocol</key>
-			<string></string>
+			<string>arduino</string>
 			<key>upload.maximum_size</key>
-			<string></string>
+			<integer>30720</integer>
 			<key>upload.speed</key>
-			<string></string>
+			<integer>57600</integer>
 			<key>bootloader.low_fuses</key>
-			<string></string>
+			<string>0xFF</string>
 			<key>bootloader.high_fuses</key>
-			<string></string>
+			<string>0xDA</string>
 			<key>bootloader.extended_fuses</key>
-			<string></string>
+			<string>0x05</string>
 			<key>bootloader.path</key>
-			<string></string>
+			<string>arduino:atmega</string>
 			<key>bootloader.file</key>
-			<string></string>
+			<string>ATmegaBOOT_168_atmega328_pro_8MHz.hex</string>
 			<key>bootloader.unlock_bits</key>
-			<string></string>
+			<string>0x3F</string>
 			<key>bootloader.lock_bits</key>
-			<string></string>
+			<string>0x0F</string>
 			<key>build.mcu</key>
-			<string></string>
+			<string>atmega328p</string>
 			<key>build.f_cpu</key>
-			<string></string>
+			<string>8000000L</string>
 			<key>build.core</key>
-			<string></string>
+			<string>arduino</string>
 			<key>build.variant</key>
-			<string></string>
+			<string>eightanaloginputs</string>
 		</dict>
 		<dict>
 			<key>short</key>
@@ -452,33 +452,35 @@
 			<key>name</key>
 			<string>Arduino Bluetooth</string>
 			<key>upload.protocol</key>
-			<string></string>
+			<string>arduino</string>
 			<key>upload.maximum_size</key>
-			<string></string>
+			<integer>28672</integer>
 			<key>upload.speed</key>
-			<string></string>
+			<integer>19200</integer>
+			<key>upload.disable_flushing</key>
+			<true/>
 			<key>bootloader.low_fuses</key>
-			<string></string>
+			<string>0xff</string>
 			<key>bootloader.high_fuses</key>
-			<string></string>
+			<string>0xd8</string>
 			<key>bootloader.extended_fuses</key>
-			<string></string>
+			<string>0x05</string>
 			<key>bootloader.path</key>
-			<string></string>
+			<string>bt</string>
 			<key>bootloader.file</key>
-			<string></string>
+			<string>ATmegaBOOT_168_atmega328_bt.hex</string>
 			<key>bootloader.unlock_bits</key>
-			<string></string>
+			<string>0x3F</string>
 			<key>bootloader.lock_bits</key>
-			<string></string>
+			<string>0x0F</string>
 			<key>build.mcu</key>
-			<string></string>
+			<string>atmega328p</string>
 			<key>build.f_cpu</key>
-			<string></string>
+			<string>16000000L</string>
 			<key>build.core</key>
-			<string></string>
+			<string>arduino</string>
 			<key>build.variant</key>
-			<string></string>
+			<string>eightanaloginputs</string>
 		</dict>
 		<dict>
 			<key>short</key>
@@ -486,33 +488,35 @@
 			<key>name</key>
 			<string>Arduino Bluetooth (ATmega168)</string>
 			<key>upload.protocol</key>
-			<string></string>
+			<string>arduino</string>
 			<key>upload.maximum_size</key>
-			<string></string>
+			<integer>14336</integer>
 			<key>upload.speed</key>
-			<string></string>
+			<integer>19200</integer>
+			<key>upload.disable_flushing</key>
+			<true/>
 			<key>bootloader.low_fuses</key>
-			<string></string>
+			<string>0xff</string>
 			<key>bootloader.high_fuses</key>
-			<string></string>
+			<string>0xdd</string>
 			<key>bootloader.extended_fuses</key>
-			<string></string>
+			<string>0x00</string>
 			<key>bootloader.path</key>
-			<string></string>
+			<string>bt</string>
 			<key>bootloader.file</key>
-			<string></string>
+			<string>ATmegaBOOT_168.hex</string>
 			<key>bootloader.unlock_bits</key>
-			<string></string>
+			<string>0x3F</string>
 			<key>bootloader.lock_bits</key>
-			<string></string>
+			<string>0x0F</string>
 			<key>build.mcu</key>
-			<string></string>
+			<string>atmega168</string>
 			<key>build.f_cpu</key>
-			<string></string>
+			<string>16000000L</string>
 			<key>build.core</key>
-			<string></string>
+			<string>arduino</string>
 			<key>build.variant</key>
-			<string></string>
+			<string>eightanaloginputs</string>
 		</dict>
 		<dict>
 			<key>short</key>
@@ -520,33 +524,33 @@
 			<key>name</key>
 			<string>Arduino LilyPad</string>
 			<key>upload.protocol</key>
-			<string></string>
+			<string>arduino</string>
 			<key>upload.maximum_size</key>
-			<string></string>
+			<integer>30720</integer>
 			<key>upload.speed</key>
-			<string></string>
+			<integer>57600</integer>
 			<key>bootloader.low_fuses</key>
-			<string></string>
+			<string>0xFF</string>
 			<key>bootloader.high_fuses</key>
-			<string></string>
+			<string>0xDA</string>
 			<key>bootloader.extended_fuses</key>
-			<string></string>
+			<string>0x05</string>
 			<key>bootloader.path</key>
-			<string></string>
+			<string>atmega</string>
 			<key>bootloader.file</key>
-			<string></string>
+			<string>ATmegaBOOT_168_atmega328_pro_8MHz.hex</string>
 			<key>bootloader.unlock_bits</key>
-			<string></string>
+			<string>0x3F</string>
 			<key>bootloader.lock_bits</key>
-			<string></string>
+			<string>0x0F</string>
 			<key>build.mcu</key>
-			<string></string>
+			<string>atmega328p</string>
 			<key>build.f_cpu</key>
-			<string></string>
+			<string>8000000L</string>
 			<key>build.core</key>
-			<string></string>
+			<string>arduino</string>
 			<key>build.variant</key>
-			<string></string>
+			<string>standard</string>
 		</dict>
 		<dict>
 			<key>short</key>
@@ -554,33 +558,33 @@
 			<key>name</key>
 			<string>Arduino LilyPad (ATmega168)</string>
 			<key>upload.protocol</key>
-			<string></string>
+			<string>arduino</string>
 			<key>upload.maximum_size</key>
-			<string></string>
+			<integer>14336</integer>
 			<key>upload.speed</key>
-			<string></string>
+			<integer>19200</integer>
 			<key>bootloader.low_fuses</key>
-			<string></string>
+			<string>0xe2</string>
 			<key>bootloader.high_fuses</key>
-			<string></string>
+			<string>0xdd</string>
 			<key>bootloader.extended_fuses</key>
-			<string></string>
+			<string>0x00</string>
 			<key>bootloader.path</key>
-			<string></string>
+			<string>lilypad</string>
 			<key>bootloader.file</key>
-			<string></string>
+			<string>LilyPadBOOT_168.hex</string>
 			<key>bootloader.unlock_bits</key>
-			<string></string>
+			<string>0x3F</string>
 			<key>bootloader.lock_bits</key>
-			<string></string>
+			<string>0x0F</string>
 			<key>build.mcu</key>
-			<string></string>
+			<string>atmega168</string>
 			<key>build.f_cpu</key>
-			<string></string>
+			<string>8000000L</string>
 			<key>build.core</key>
-			<string></string>
+			<string>arduino</string>
 			<key>build.variant</key>
-			<string></string>
+			<string>standard</string>
 		</dict>
 		<dict>
 			<key>short</key>
@@ -588,33 +592,33 @@
 			<key>name</key>
 			<string>Arduino Pro or Pro Mini (5V)</string>
 			<key>upload.protocol</key>
-			<string></string>
+			<string>arduino</string>
 			<key>upload.maximum_size</key>
-			<string></string>
+			<integer>30720</integer>
 			<key>upload.speed</key>
-			<string></string>
+			<integer>57600</integer>
 			<key>bootloader.low_fuses</key>
-			<string></string>
+			<string>0xFF</string>
 			<key>bootloader.high_fuses</key>
-			<string></string>
+			<string>0xDA</string>
 			<key>bootloader.extended_fuses</key>
-			<string></string>
+			<string>0x05</string>
 			<key>bootloader.path</key>
-			<string></string>
+			<string>atmega</string>
 			<key>bootloader.file</key>
-			<string></string>
+			<string>ATmegaBOOT_168_atmega328.hex</string>
 			<key>bootloader.unlock_bits</key>
-			<string></string>
+			<string>0x3F</string>
 			<key>bootloader.lock_bits</key>
-			<string></string>
+			<string>0x0F</string>
 			<key>build.mcu</key>
-			<string></string>
+			<string>atmega328p</string>
 			<key>build.f_cpu</key>
-			<string></string>
+			<string>16000000L</string>
 			<key>build.core</key>
-			<string></string>
+			<string>arduino</string>
 			<key>build.variant</key>
-			<string></string>
+			<string>standard</string>
 		</dict>
 		<dict>
 			<key>short</key>
@@ -622,33 +626,33 @@
 			<key>name</key>
 			<string>Arduino Pro or Pro Mini (5V, ATmega168)</string>
 			<key>upload.protocol</key>
-			<string></string>
+			<string>arduino</string>
 			<key>upload.maximum_size</key>
-			<string></string>
+			<integer>30720</integer>
 			<key>upload.speed</key>
-			<string></string>
+			<integer>57600</integer>
 			<key>bootloader.low_fuses</key>
-			<string></string>
+			<string>0xFF</string>
 			<key>bootloader.high_fuses</key>
-			<string></string>
+			<string>0xDA</string>
 			<key>bootloader.extended_fuses</key>
-			<string></string>
+			<string>0x05</string>
 			<key>bootloader.path</key>
-			<string></string>
+			<string>atmega</string>
 			<key>bootloader.file</key>
-			<string></string>
+			<string>ATmegaBOOT_168_atmega328.hex</string>
 			<key>bootloader.unlock_bits</key>
-			<string></string>
+			<string>0x3F</string>
 			<key>bootloader.lock_bits</key>
-			<string></string>
+			<string>0x0F</string>
 			<key>build.mcu</key>
-			<string></string>
+			<string>atmega328p</string>
 			<key>build.f_cpu</key>
-			<string></string>
+			<string>16000000L</string>
 			<key>build.core</key>
-			<string></string>
+			<string>arduino</string>
 			<key>build.variant</key>
-			<string></string>
+			<string>standard</string>
 		</dict>
 		<dict>
 			<key>short</key>
@@ -656,33 +660,33 @@
 			<key>name</key>
 			<string>Arduino Pro or Pro Mini</string>
 			<key>upload.protocol</key>
-			<string></string>
+			<string>arduino</string>
 			<key>upload.maximum_size</key>
-			<string></string>
+			<integer>14336</integer>
 			<key>upload.speed</key>
-			<string></string>
+			<integer>19200</integer>
 			<key>bootloader.low_fuses</key>
-			<string></string>
+			<string>0xff</string>
 			<key>bootloader.high_fuses</key>
-			<string></string>
+			<string>0xdd</string>
 			<key>bootloader.extended_fuses</key>
-			<string></string>
+			<string>0x00</string>
 			<key>bootloader.path</key>
-			<string></string>
+			<string>atmega</string>
 			<key>bootloader.file</key>
-			<string></string>
+			<string>ATmegaBOOT_168_diecimila.hex</string>
 			<key>bootloader.unlock_bits</key>
-			<string></string>
+			<string>0x3F</string>
 			<key>bootloader.lock_bits</key>
-			<string></string>
+			<string>0x0F</string>
 			<key>build.mcu</key>
-			<string></string>
+			<string>atmega168</string>
 			<key>build.f_cpu</key>
-			<string></string>
+			<string>16000000L</string>
 			<key>build.core</key>
-			<string></string>
+			<string>arduino</string>
 			<key>build.variant</key>
-			<string></string>
+			<string>standard</string>
 		</dict>
 		<dict>
 			<key>short</key>
@@ -690,33 +694,33 @@
 			<key>name</key>
 			<string>Arduino Pro or Pro Mini (ATmega168)</string>
 			<key>upload.protocol</key>
-			<string></string>
+			<string>arduino</string>
 			<key>upload.maximum_size</key>
-			<string></string>
+			<integer>14336</integer>
 			<key>upload.speed</key>
-			<string></string>
+			<integer>19200</integer>
 			<key>bootloader.low_fuses</key>
-			<string></string>
+			<string>0xc6</string>
 			<key>bootloader.high_fuses</key>
-			<string></string>
+			<string>0xdd</string>
 			<key>bootloader.extended_fuses</key>
-			<string></string>
+			<string>0x00</string>
 			<key>bootloader.path</key>
-			<string></string>
+			<string>atmega</string>
 			<key>bootloader.file</key>
-			<string></string>
+			<string>ATmegaBOOT_168_pro_8MHz.hex</string>
 			<key>bootloader.unlock_bits</key>
-			<string></string>
+			<string>0x3F</string>
 			<key>bootloader.lock_bits</key>
-			<string></string>
+			<string>0x0F</string>
 			<key>build.mcu</key>
-			<string></string>
+			<string>atmega168</string>
 			<key>build.f_cpu</key>
-			<string></string>
+			<string>8000000L</string>
 			<key>build.core</key>
-			<string></string>
+			<string>arduino</string>
 			<key>build.variant</key>
-			<string></string>
+			<string>standard</string>
 		</dict>
 		<dict>
 			<key>short</key>
@@ -724,33 +728,33 @@
 			<key>name</key>
 			<string>Arduino NG or Older</string>
 			<key>upload.protocol</key>
-			<string></string>
+			<string>arduino</string>
 			<key>upload.maximum_size</key>
-			<string></string>
+			<integer>14336</integer>
 			<key>upload.speed</key>
-			<string></string>
+			<integer>19200</integer>
 			<key>bootloader.low_fuses</key>
-			<string></string>
+			<string>0xff</string>
 			<key>bootloader.high_fuses</key>
-			<string></string>
+			<string>0xdd</string>
 			<key>bootloader.extended_fuses</key>
-			<string></string>
+			<string>0x00</string>
 			<key>bootloader.path</key>
-			<string></string>
+			<string>atmega</string>
 			<key>bootloader.file</key>
-			<string></string>
+			<string>ATmegaBOOT_168_ng.hex</string>
 			<key>bootloader.unlock_bits</key>
-			<string></string>
+			<string>0x3F</string>
 			<key>bootloader.lock_bits</key>
-			<string></string>
+			<string>0x0F</string>
 			<key>build.mcu</key>
-			<string></string>
+			<string>atmega168</string>
 			<key>build.f_cpu</key>
-			<string></string>
+			<string>16000000L</string>
 			<key>build.core</key>
-			<string></string>
+			<string>arduino</string>
 			<key>build.variant</key>
-			<string></string>
+			<string>standard</string>
 		</dict>
 		<dict>
 			<key>short</key>
@@ -758,33 +762,31 @@
 			<key>name</key>
 			<string>Arduino NG or Older (ATmega8)</string>
 			<key>upload.protocol</key>
-			<string></string>
+			<string>arduino</string>
 			<key>upload.maximum_size</key>
-			<string></string>
+			<integer>7168</integer>
 			<key>upload.speed</key>
-			<string></string>
+			<integer>19200</integer>
 			<key>bootloader.low_fuses</key>
-			<string></string>
+			<string>0xdf</string>
 			<key>bootloader.high_fuses</key>
-			<string></string>
-			<key>bootloader.extended_fuses</key>
-			<string></string>
+			<string>0xca</string>
 			<key>bootloader.path</key>
-			<string></string>
+			<string>atmega8</string>
 			<key>bootloader.file</key>
-			<string></string>
+			<string>ATmegaBOOT.hex</string>
 			<key>bootloader.unlock_bits</key>
-			<string></string>
+			<string>0x3F</string>
 			<key>bootloader.lock_bits</key>
-			<string></string>
+			<string>0x0F</string>
 			<key>build.mcu</key>
-			<string></string>
+			<string>atmega8</string>
 			<key>build.f_cpu</key>
-			<string></string>
+			<string>16000000L</string>
 			<key>build.core</key>
-			<string></string>
+			<string>arduino</string>
 			<key>build.variant</key>
-			<string></string>
+			<string>standard</string>
 		</dict>
 	</array>
 </dict>

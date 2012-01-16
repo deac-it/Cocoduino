@@ -12,6 +12,10 @@ You can download the latest version of the application [here](DOWNLOADLINK).
 
 Make sure you have the [official IDE](http://arduino.cc/en/Main/Software) installed, because *Cocoduino* relies on tools that are shipped with it.
 
+### System Requirements:
+
+* **Mac OS X 10.7 Lion** *(64 Bit)*
+
 # Features
 
 Cocoduino offers nearly the same features as the official IDE:
