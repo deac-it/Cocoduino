@@ -66,6 +66,14 @@
     NSAssert([[NSFileManager defaultManager] fileExistsAtPath:[self inoLaunchPath]], @"Ino binary could not be found!");
     
     /*
+     Check whether the official IDE is installed.
+    */
+    
+    NSString *arduinoApplicationPath = [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:@"cc.arduino.Arduino"];
+    NSString *arduinoApplicationJavaResourcesPath = [arduinoApplicationPath stringByAppendingPathComponent:@"Contents/Resources/Java"];
+    NSAssert(arduinoApplicationPath != nil && [[NSFileManager defaultManager] fileExistsAtPath:arduinoApplicationJavaResourcesPath], @"Arduino.app could not be found!");
+    
+    /*
      Create a temporary directory where ino can perform the actual build.
     */
     
@@ -176,11 +184,11 @@
         [buildTask setStandardInput:[NSPipe pipe]];
         [buildTask setStandardOutput:[NSPipe pipe]];
         [buildTask setStandardError:[NSPipe pipe]];
-        [buildTask setArguments:[NSArray arrayWithObjects:@"build", @"--board-model", [board objectForKey:@"short"], (verbose) ? @"--verbose" : nil, nil]];
+        [buildTask setArguments:[NSArray arrayWithObjects:@"build", @"--arduino-dist", arduinoApplicationJavaResourcesPath, @"--board-model", [board objectForKey:@"short"], (verbose) ? @"--verbose" : nil, nil]];
         
         [buildTask launch];
         [buildTask waitUntilExit];
-        
+
         NSData *buildOutputData = [[(NSPipe *)[buildTask standardOutput] fileHandleForReading] readDataToEndOfFile];
         NSString *buildOutputString = (buildOutputData != nil) ? [[NSString alloc] initWithData:buildOutputData encoding:NSUTF8StringEncoding] : nil;
         NSData *buildErrorData = [[(NSPipe *)[buildTask standardError] fileHandleForReading] readDataToEndOfFile];
@@ -193,7 +201,7 @@
             */
             
             NSUInteger binarySize = 0;
-            NSString *avrSizePath = @"/Applications/Arduino.app/Contents/Resources/Java/hardware/tools/avr/bin/avr-size";
+            NSString *avrSizePath = [arduinoApplicationJavaResourcesPath stringByAppendingPathComponent:@"hardware/tools/avr/bin/avr-size"];
             NSString *firmwareHexPath = [temporaryBuildDirectory stringByAppendingPathComponent:@"firmware.hex"];
             if ([[NSFileManager defaultManager] fileExistsAtPath:avrSizePath] && [[NSFileManager defaultManager] fileExistsAtPath:firmwareHexPath]) {
                 NSTask *avrSizeTask = [[NSTask alloc] init];
@@ -239,8 +247,9 @@
                 [uploadTask setCurrentDirectoryPath:temporaryDirectory];
                 
                 [uploadTask setStandardInput:[NSPipe pipe]];
-                [buildTask setStandardOutput:[NSPipe pipe]];
-                [uploadTask setArguments:[NSArray arrayWithObjects:@"upload", @"--serial-port", [serialPort bsdPath], (verbose) ? @"--verbose" : nil, nil]];
+                [uploadTask setStandardOutput:[NSPipe pipe]];
+                [uploadTask setStandardError:[NSPipe pipe]];
+                [uploadTask setArguments:[NSArray arrayWithObjects:@"upload", @"--arduino-dist", arduinoApplicationJavaResourcesPath, @"--serial-port", [serialPort bsdPath], (verbose) ? @"--verbose" : nil, nil]];
                 
                 [uploadTask launch];
                 [uploadTask waitUntilExit];
@@ -250,7 +259,14 @@
                 NSData *uploadErrorData = [[(NSPipe *)[uploadTask standardError] fileHandleForReading] readDataToEndOfFile];
                 NSString *uploadErrorString = (uploadErrorData != nil) ? [[NSString alloc] initWithData:uploadErrorData encoding:NSUTF8StringEncoding] : nil;
                 
-                if ([uploadTask terminationStatus] == 0 && uploadErrorString.length <= 0) {
+                // TODO: REMOVE LATER WHEN THE ERROR IS FIXED
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSAlert *alert = [NSAlert alertWithMessageText:@"Upload Output" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"ARGUMENTS:\n%@\n\nOUTPUT:\n%@\n\nERROR:\n%@\n\nSERIAL:\n%@", [buildTask arguments], uploadOutputString, uploadErrorString, [serialPort bsdPath]];
+                    [alert runModal];
+                });
+                
+                BOOL success = (uploadErrorString != nil && [uploadErrorString rangeOfString:@"avrdude done.  Thank you."].location != NSNotFound);
+                if ([uploadTask terminationStatus] == 0 && success) {
                     // Upload successful
                     if (terminationHandler != NULL) {
                         dispatch_async(dispatch_get_main_queue(), ^{
@@ -301,6 +317,7 @@
 #pragma mark Preprocessing
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+// TODO: ICUPattern leaks memory!
 + (NSString *) preprocessedSourceFromString:(NSString *)source {
     /*
      Add prototypes for user-defined functions.

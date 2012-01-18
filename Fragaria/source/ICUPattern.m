@@ -79,15 +79,14 @@ unsigned const ICUUnicodeWordBoundaries = UREGEX_UWORD;
 	return [self initWithString:aPattern flags:0];
 }
 
--(void)finalize {
+-(void)dealloc {
 
-//	if(re != NULL)
-//		NSZoneFree([self zone], re);
+	if(re != NULL)
+		free(re);
 
 	if(textToSearch != NULL)
 		free(textToSearch);
 	
-	[super finalize];
 }
 
 -(NSString *)stringToSearch {

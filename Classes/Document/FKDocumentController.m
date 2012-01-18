@@ -104,7 +104,7 @@
 
 - (id) init {
     if (self = [super init]) {
-        if (![[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Arduino.app"]) {
+        if ([[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:@"cc.arduino.Arduino"] == nil) {
             NSAlert *alert = [NSAlert alertWithMessageText:@"Arduino not Installed!" defaultButton:@"OK" alternateButton:@"Install now" otherButton:nil informativeTextWithFormat:@"Arduino.app is not installed on your Mac. In order to build sketches with Cocoduino, you need to install it."];
             [alert setAlertStyle:NSCriticalAlertStyle];
             
