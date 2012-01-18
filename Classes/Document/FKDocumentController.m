@@ -25,6 +25,10 @@
 
 @interface FKDocumentController ()
 
+- (void) checkIfArduinoIsInstalled;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 - (void) reloadSketchbookMenu;
 - (void) reloadExamplesMenu;
 - (void) reloadBoardMenu;
@@ -104,16 +108,20 @@
 
 - (id) init {
     if (self = [super init]) {
-        if ([[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:@"cc.arduino.Arduino"] == nil) {
-            NSAlert *alert = [NSAlert alertWithMessageText:@"Arduino not Installed!" defaultButton:@"OK" alternateButton:@"Install now" otherButton:nil informativeTextWithFormat:@"Arduino.app is not installed on your Mac. In order to build sketches with Cocoduino, you need to install it."];
-            [alert setAlertStyle:NSCriticalAlertStyle];
-            
-            if ([alert runModal] == NSAlertAlternateReturn)
-                [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://arduino.cc/en/Main/Software"]];
-        }
+        [self checkIfArduinoIsInstalled];
     }
     
     return self;
+}
+
+- (void) checkIfArduinoIsInstalled {
+    if ([[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:@"cc.arduino.Arduino"] == nil) {
+        NSAlert *alert = [NSAlert alertWithMessageText:@"Arduino not Installed!" defaultButton:@"OK" alternateButton:@"Install now" otherButton:nil informativeTextWithFormat:@"Arduino.app is not installed on your Mac. In order to build sketches with Cocoduino, you need to install it."];
+        [alert setAlertStyle:NSCriticalAlertStyle];
+        
+        if ([alert runModal] == NSAlertAlternateReturn)
+            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://arduino.cc/en/Main/Software"]];
+    }
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -

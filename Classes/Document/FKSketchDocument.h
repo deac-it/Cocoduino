@@ -19,13 +19,11 @@
 
     NSToolbarItem *buildButton;
     NSToolbarItem *buildAndUploadButton;
-    NSProgressIndicator *progressIndicator;
-    
+    NSProgressIndicator *buildProgressIndicator;
+    NSTextField *buildProgressTextField;
+
     NSWindow *addFileSheet;
     NSTextField *addFileTextField;
-    NSWindow *buildSuccessSheet;
-    NSTextField *buildSuccessTextField;
-    NSProgressIndicator *buildSuccessProgressIndicator;
     NSWindow *buildFailedSheet;
     NSTextView *buildFailedTextView;
 
@@ -65,7 +63,6 @@
 
 - (IBAction) addFileSheetDidEnd:(id)sender;
 - (IBAction) addFileSheetDidCancel:(id)sender;
-- (IBAction) buildSuccessSheetDidEnd:(id)sender;
 - (IBAction) buildFailedSheetDidEnd:(id)sender;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -78,15 +75,13 @@
 
 @property (nonatomic, strong) IBOutlet NSToolbarItem *buildButton;
 @property (nonatomic, strong) IBOutlet NSToolbarItem *buildAndUploadButton;
-@property (nonatomic, strong) IBOutlet NSProgressIndicator *progressIndicator;
+@property (nonatomic, strong) IBOutlet NSProgressIndicator *buildProgressIndicator;
+@property (nonatomic, strong) IBOutlet  NSTextField *buildProgressTextField;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 @property (nonatomic, strong) IBOutlet NSWindow *addFileSheet;
 @property (nonatomic, strong) IBOutlet NSTextField *addFileTextField;
-@property (nonatomic, strong) IBOutlet NSWindow *buildSuccessSheet;
-@property (nonatomic, strong) IBOutlet NSTextField *buildSuccessTextField;
-@property (nonatomic, strong) IBOutlet NSProgressIndicator *buildSuccessProgressIndicator;
 @property (nonatomic, strong) IBOutlet NSWindow *buildFailedSheet;
 @property (nonatomic, strong) IBOutlet NSTextView *buildFailedTextView;
 

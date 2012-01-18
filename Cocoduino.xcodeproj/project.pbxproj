@@ -36,7 +36,6 @@
 		4B90C6B914B714D600826E6D /* AMSerialPortList.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B90C6B614B714D600826E6D /* AMSerialPortList.m */; };
 		4B90C6BB14B7154D00826E6D /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B90C6BA14B7154D00826E6D /* IOKit.framework */; };
 		4B92375214C2CDE1007A8BF4 /* NSString-FKBuildOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B92375114C2CDE1007A8BF4 /* NSString-FKBuildOutput.m */; };
-		4B92375D14C2E614007A8BF4 /* Success.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B92375B14C2E614007A8BF4 /* Success.png */; };
 		4B92375E14C2E614007A8BF4 /* Warning.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B92375C14C2E614007A8BF4 /* Warning.png */; };
 		4B92376214C2EBAB007A8BF4 /* Funk.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 4B92376014C2EBAB007A8BF4 /* Funk.aiff */; };
 		4B92376B14C2EBC6007A8BF4 /* SoftwareUpdate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B92376714C2EBC5007A8BF4 /* SoftwareUpdate.png */; };
@@ -142,7 +141,6 @@
 		4B90C6BA14B7154D00826E6D /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		4B92375014C2CDE1007A8BF4 /* NSString-FKBuildOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString-FKBuildOutput.h"; sourceTree = "<group>"; };
 		4B92375114C2CDE1007A8BF4 /* NSString-FKBuildOutput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString-FKBuildOutput.m"; sourceTree = "<group>"; };
-		4B92375B14C2E614007A8BF4 /* Success.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Success.png; sourceTree = "<group>"; };
 		4B92375C14C2E614007A8BF4 /* Warning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Warning.png; sourceTree = "<group>"; };
 		4B92376014C2EBAB007A8BF4 /* Funk.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Funk.aiff; sourceTree = "<group>"; };
 		4B92376714C2EBC5007A8BF4 /* SoftwareUpdate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SoftwareUpdate.png; sourceTree = "<group>"; };
@@ -314,7 +312,6 @@
 				4B07D85414BCA19700D7A32B /* C Header.icns */,
 				4B07D85614BCA19700D7A32B /* C Source.icns */,
 				4B07D85514BCA19700D7A32B /* C++ Source.icns */,
-				4B92375B14C2E614007A8BF4 /* Success.png */,
 				4B92375C14C2E614007A8BF4 /* Warning.png */,
 				4B07D85F14BCA1B600D7A32B /* Terminal.png */,
 				4B92376714C2EBC5007A8BF4 /* SoftwareUpdate.png */,
@@ -519,7 +516,6 @@
 				4BEEDF2E14C0D11800754579 /* LICENSE in Resources */,
 				4BFA552C14C1C7BB00089995 /* bin in Resources */,
 				4BFA552D14C1C7BB00089995 /* ino-cocoduino.egg in Resources */,
-				4B92375D14C2E614007A8BF4 /* Success.png in Resources */,
 				4B92375E14C2E614007A8BF4 /* Warning.png in Resources */,
 				4B92376214C2EBAB007A8BF4 /* Funk.aiff in Resources */,
 				4B92376B14C2EBC6007A8BF4 /* SoftwareUpdate.png in Resources */,

@@ -238,7 +238,7 @@
 					<array key="NSToolbarIBSelectableItems" id="0"/>
 				</object>
 				<nil key="NSUserInterfaceItemIdentifier"/>
-				<string key="NSWindowContentMinSize">{240, 320}</string>
+				<string key="NSWindowContentMinSize">{260, 260}</string>
 				<object class="NSView" key="NSWindowView" id="568628114">
 					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
@@ -261,8 +261,8 @@
 						</object>
 						<object class="NSTextField" id="227354430">
 							<reference key="NSNextResponder" ref="568628114"/>
-							<int key="NSvFlags">290</int>
-							<string key="NSFrame">{{17, 6}, {386, 11}}</string>
+							<int key="NSvFlags">291</int>
+							<string key="NSFrame">{{238, 6}, {180, 11}}</string>
 							<reference key="NSSuperview" ref="568628114"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView"/>
@@ -272,10 +272,10 @@
 								<int key="NSCellFlags">604110400</int>
 								<int key="NSCellFlags2">71309632</int>
 								<string key="NSContents">Board on Serial Port</string>
-								<object class="NSFont" key="NSSupport">
+								<object class="NSFont" key="NSSupport" id="22">
 									<string key="NSName">LucidaGrande</string>
 									<double key="NSSize">9</double>
-									<int key="NSfFlags">16</int>
+									<int key="NSfFlags">3614</int>
 								</object>
 								<string key="NSCellIdentifier">_NS:3944</string>
 								<reference key="NSControlView" ref="227354430"/>
@@ -317,10 +317,30 @@
 							<string key="NSFrame">{{5, 3}, {16, 16}}</string>
 							<reference key="NSSuperview" ref="568628114"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="227354430"/>
+							<reference key="NSNextKeyView" ref="738568834"/>
 							<string key="NSReuseIdentifierKey">_NS:3891</string>
 							<int key="NSpiFlags">28938</int>
 							<double key="NSMaxValue">100</double>
+						</object>
+						<object class="NSTextField" id="738568834">
+							<reference key="NSNextResponder" ref="568628114"/>
+							<int key="NSvFlags">294</int>
+							<string key="NSFrame">{{26, 6}, {204, 11}}</string>
+							<reference key="NSSuperview" ref="568628114"/>
+							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView" ref="227354430"/>
+							<string key="NSReuseIdentifierKey">_NS:3944</string>
+							<bool key="NSEnabled">YES</bool>
+							<object class="NSTextFieldCell" key="NSCell" id="21868327">
+								<int key="NSCellFlags">67239488</int>
+								<int key="NSCellFlags2">4200448</int>
+								<string key="NSContents">Building...</string>
+								<reference key="NSSupport" ref="22"/>
+								<string key="NSCellIdentifier">_NS:3944</string>
+								<reference key="NSControlView" ref="738568834"/>
+								<reference key="NSBackgroundColor" ref="123568926"/>
+								<reference key="NSTextColor" ref="401718131"/>
+							</object>
 						</object>
 					</array>
 					<string key="NSFrameSize">{420, 420}</string>
@@ -329,7 +349,7 @@
 					<reference key="NSNextKeyView" ref="498320532"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
-				<string key="NSMinSize">{240, 389}</string>
+				<string key="NSMinSize">{260, 329}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<string key="NSFrameAutosaveName">FKSketchDocumentWindow</string>
 				<bool key="NSAutorecalculatesContentBorderThicknessMinY">NO</bool>
@@ -494,8 +514,6 @@
 							<int key="NSvFlags">289</int>
 							<string key="NSFrame">{{234, 12}, {72, 32}}</string>
 							<reference key="NSSuperview" ref="747620173"/>
-							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:687</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="635301456">
@@ -526,7 +544,6 @@
 							</set>
 							<string key="NSFrame">{{136, 112}, {48, 48}}</string>
 							<reference key="NSSuperview" ref="747620173"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="32759834"/>
 							<string key="NSReuseIdentifierKey">_NS:2141</string>
 							<bool key="NSEnabled">YES</bool>
@@ -550,7 +567,6 @@
 							<int key="NSvFlags">269</int>
 							<string key="NSFrame">{{121, 85}, {73, 19}}</string>
 							<reference key="NSSuperview" ref="747620173"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="110421751"/>
 							<string key="NSReuseIdentifierKey">_NS:3944</string>
 							<bool key="NSEnabled">YES</bool>
@@ -575,7 +591,6 @@
 							<object class="NSPSMatrix" key="NSDrawMatrix"/>
 							<string key="NSFrame">{{97, 56}, {205, 20}}</string>
 							<reference key="NSSuperview" ref="747620173"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="309035063"/>
 							<string key="NSReuseIdentifierKey">_NS:2352</string>
 							<int key="NSpiFlags">16392</int>
@@ -586,7 +601,6 @@
 							<int key="NSvFlags">292</int>
 							<string key="NSFrame">{{17, 60}, {77, 17}}</string>
 							<reference key="NSSuperview" ref="747620173"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="187629045"/>
 							<string key="NSReuseIdentifierKey">_NS:3944</string>
 							<bool key="NSEnabled">YES</bool>
@@ -606,7 +620,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{96, 35}, {139, 17}}</string>
 							<reference key="NSSuperview" ref="747620173"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="591443892"/>
 							<string key="NSReuseIdentifierKey">_NS:3944</string>
 							<bool key="NSEnabled">YES</bool>
@@ -614,11 +627,7 @@
 								<int key="NSCellFlags">67239488</int>
 								<int key="NSCellFlags2">4200704</int>
 								<string key="NSContents">1.2 kB of 32.0 kB</string>
-								<object class="NSFont" key="NSSupport">
-									<string key="NSName">LucidaGrande</string>
-									<double key="NSSize">9</double>
-									<int key="NSfFlags">3614</int>
-								</object>
+								<reference key="NSSupport" ref="22"/>
 								<string key="NSCellIdentifier">_NS:3944</string>
 								<reference key="NSControlView" ref="309035063"/>
 								<reference key="NSBackgroundColor" ref="123568926"/>
@@ -628,7 +637,6 @@
 					</array>
 					<string key="NSFrameSize">{320, 180}</string>
 					<reference key="NSSuperview"/>
-					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="119905328"/>
 					<string key="NSReuseIdentifierKey">_NS:224</string>
 				</object>
@@ -719,7 +727,7 @@
 										<object class="NSTextView" id="68594908">
 											<reference key="NSNextResponder" ref="370280695"/>
 											<int key="NSvFlags">2322</int>
-											<string key="NSFrameSize">{336, 0}</string>
+											<string key="NSFrame">{{0, -14}, {336, 14}}</string>
 											<reference key="NSSuperview" ref="370280695"/>
 											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="1070924095"/>
@@ -1008,14 +1016,6 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">progressIndicator</string>
-						<reference key="source" ref="512844837"/>
-						<reference key="destination" ref="926934603"/>
-					</object>
-					<int key="connectionID">100114</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
 						<string key="label">buildFailedSheet</string>
 						<reference key="source" ref="512844837"/>
 						<reference key="destination" ref="82270294"/>
@@ -1031,14 +1031,6 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 					<int key="connectionID">100179</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">buildSuccessSheet</string>
-						<reference key="source" ref="512844837"/>
-						<reference key="destination" ref="947861986"/>
-					</object>
-					<int key="connectionID">100180</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">buildFailedSheetDidEnd:</string>
 						<reference key="source" ref="512844837"/>
@@ -1047,28 +1039,20 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 					<int key="connectionID">100181</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">buildSuccessSheetDidEnd:</string>
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">buildProgressIndicator</string>
 						<reference key="source" ref="512844837"/>
-						<reference key="destination" ref="591443892"/>
+						<reference key="destination" ref="926934603"/>
 					</object>
-					<int key="connectionID">100182</int>
+					<int key="connectionID">100213</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">buildSuccessProgressIndicator</string>
+						<string key="label">buildProgressTextField</string>
 						<reference key="source" ref="512844837"/>
-						<reference key="destination" ref="187629045"/>
+						<reference key="destination" ref="738568834"/>
 					</object>
-					<int key="connectionID">100192</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">buildSuccessTextField</string>
-						<reference key="source" ref="512844837"/>
-						<reference key="destination" ref="309035063"/>
-					</object>
-					<int key="connectionID">100195</int>
+					<int key="connectionID">100214</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -1145,10 +1129,11 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 						<int key="objectID">6</int>
 						<reference key="object" ref="568628114"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="227354430"/>
 							<reference ref="498320532"/>
 							<reference ref="13136757"/>
 							<reference ref="926934603"/>
+							<reference ref="738568834"/>
+							<reference ref="227354430"/>
 						</array>
 						<reference key="parent" ref="275939982"/>
 					</object>
@@ -1480,6 +1465,19 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 						<reference key="object" ref="358192818"/>
 						<reference key="parent" ref="309035063"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">100211</int>
+						<reference key="object" ref="738568834"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="21868327"/>
+						</array>
+						<reference key="parent" ref="568628114"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">100212</int>
+						<reference key="object" ref="21868327"/>
+						<reference key="parent" ref="738568834"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -1544,6 +1542,8 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 				<string key="100191.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="100193.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="100194.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="100211.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="100212.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="YES" key="5.IBNSWindowAutoPositionCentersHorizontal"/>
 				<boolean value="YES" key="5.IBNSWindowAutoPositionCentersVertical"/>
 				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1554,7 +1554,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">100208</int>
+			<int key="maxID">100214</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1567,7 +1567,6 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 						<string key="buildAndUploadSketch:">id</string>
 						<string key="buildFailedSheetDidEnd:">id</string>
 						<string key="buildSketch:">id</string>
-						<string key="buildSuccessSheetDidEnd:">id</string>
 						<string key="openSerialMonitor:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
@@ -1591,10 +1590,6 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 							<string key="name">buildSketch:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="buildSuccessSheetDidEnd:">
-							<string key="name">buildSuccessSheetDidEnd:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="openSerialMonitor:">
 							<string key="name">openSerialMonitor:</string>
 							<string key="candidateClassName">id</string>
@@ -1608,10 +1603,8 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 						<string key="buildButton">NSToolbarItem</string>
 						<string key="buildFailedSheet">NSWindow</string>
 						<string key="buildFailedTextView">NSTextView</string>
-						<string key="buildSuccessProgressIndicator">NSProgressIndicator</string>
-						<string key="buildSuccessSheet">NSWindow</string>
-						<string key="buildSuccessTextField">NSTextField</string>
-						<string key="progressIndicator">NSProgressIndicator</string>
+						<string key="buildProgressIndicator">NSProgressIndicator</string>
+						<string key="buildProgressTextField">NSTextField</string>
 						<string key="tabBarControl">PSMTabBarControl</string>
 						<string key="tabView">NSTabView</string>
 					</dictionary>
@@ -1644,21 +1637,13 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 							<string key="name">buildFailedTextView</string>
 							<string key="candidateClassName">NSTextView</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="buildSuccessProgressIndicator">
-							<string key="name">buildSuccessProgressIndicator</string>
+						<object class="IBToOneOutletInfo" key="buildProgressIndicator">
+							<string key="name">buildProgressIndicator</string>
 							<string key="candidateClassName">NSProgressIndicator</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="buildSuccessSheet">
-							<string key="name">buildSuccessSheet</string>
-							<string key="candidateClassName">NSWindow</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="buildSuccessTextField">
-							<string key="name">buildSuccessTextField</string>
+						<object class="IBToOneOutletInfo" key="buildProgressTextField">
+							<string key="name">buildProgressTextField</string>
 							<string key="candidateClassName">NSTextField</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="progressIndicator">
-							<string key="name">progressIndicator</string>
-							<string key="candidateClassName">NSProgressIndicator</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="tabBarControl">
 							<string key="name">tabBarControl</string>
@@ -1765,7 +1750,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 			<string key="NSGoRightTemplate">{9, 9}</string>
 			<string key="NSMenuCheckmark">{9, 8}</string>
 			<string key="NSMenuMixedState">{7, 2}</string>
-			<string key="Success">{48, 48}</string>
+			<string key="Success">{128, 128}</string>
 			<string key="Terminal">{32, 32}</string>
 			<string key="Warning">{48, 48}</string>
 		</dictionary>

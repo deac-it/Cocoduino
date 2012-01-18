@@ -317,7 +317,7 @@
 #pragma mark Preprocessing
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-// TODO: ICUPattern leaks memory!
+// TODO: ICUPattern leaks much memory!
 + (NSString *) preprocessedSourceFromString:(NSString *)source {
     /*
      Add prototypes for user-defined functions.

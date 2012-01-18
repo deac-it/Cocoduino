@@ -13,8 +13,8 @@
 
 #import "FKSketchDocument.h"
 #import "FKSketchFile.h"
-#import "FKDocumentController.h"
 #import "FKSerialMonitorWindowController.h"
+#import "FKDocumentController.h"
 #import "FKInoTool.h"
 #import "AMSerialPort.h"
 #import "NSString-FKBuildOutput.h"
@@ -26,16 +26,20 @@
 @interface FKSketchDocument ()
 
 - (void) reloadBottomTextField;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 - (NSData *) dataOfType:(NSString *)typeName error:(NSError **)outError withIndex:(NSUInteger)index;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+- (void) setBuildActionActive:(BOOL)building;
 - (void (^)(BOOL success, FKInoToolType toolType, NSUInteger binarySize, NSError *error, NSString *output)) buildToolTerminationHandler;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-- (void) didEndAddFileSheet:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo;
 - (void) didEndBuildSheet:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo;
+- (void) didEndAddFileSheet:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -49,8 +53,8 @@
 
 @implementation FKSketchDocument
 @synthesize tabView, bottomTextField, tabBarControl;
-@synthesize buildButton, buildAndUploadButton, progressIndicator;
-@synthesize addFileSheet, addFileTextField, buildSuccessSheet, buildSuccessTextField, buildSuccessProgressIndicator, buildFailedSheet, buildFailedTextView;
+@synthesize buildButton, buildAndUploadButton, buildProgressIndicator, buildProgressTextField;
+@synthesize addFileSheet, addFileTextField, buildFailedSheet, buildFailedTextView;
 @synthesize board, serialPort;
 @synthesize files;
 
@@ -108,6 +112,9 @@
     
     [self.tabView selectTabViewItemAtIndex:0];
     [self reloadBottomTextField];
+
+    [self.buildProgressTextField setStringValue:@""];
+    [self setBuildActionActive:NO];
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -453,32 +460,37 @@
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+- (void) setBuildActionActive:(BOOL)building {
+    _building = building;
+
+    if (_building) {
+        [self.buildProgressIndicator startAnimation:nil];
+        [self.buildProgressTextField setFrameOrigin:NSMakePoint(self.buildProgressIndicator.frame.origin.x + self.buildProgressIndicator.frame.size.width + 5, self.buildProgressTextField.frame.origin.y)];
+    }
+    else {
+        [self.buildProgressIndicator stopAnimation:nil];
+        [self.buildProgressTextField setFrameOrigin:NSMakePoint(self.buildProgressIndicator.frame.origin.x, self.buildProgressTextField.frame.origin.y)];
+    }
+}
+
 - (void (^)(BOOL success, FKInoToolType toolType, NSUInteger binarySize, NSError *error, NSString *output)) buildToolTerminationHandler {    
     return ^(BOOL success, FKInoToolType toolType, NSUInteger binarySize, NSError *error, NSString *output) {
-        _building = NO;
-        [self.progressIndicator stopAnimation:nil];
+        [self setBuildActionActive:NO];
         
         if (success) {
             /*
-             Update value of binary size progress indicator.
+             Update value of the build text field.
             */
             
             NSUInteger maximumBuildSize = [[self.board objectForKey:@"upload.maximum_size"] unsignedIntegerValue];
             if (binarySize > 0 && maximumBuildSize > 0) {
                 CGFloat roundedBinarySize = round(10 * (binarySize / (CGFloat)1024)) / 10;
                 CGFloat roundedMaximumSize = round(10 * (maximumBuildSize / (CGFloat)1024)) / 10;
-                [self.buildSuccessTextField setStringValue:[NSString stringWithFormat:@"%.1f kB of %.1f kB", roundedBinarySize, roundedMaximumSize]];
-                
-                [self.buildSuccessProgressIndicator setDoubleValue:100 * ((CGFloat)binarySize / (CGFloat)maximumBuildSize)];
+                [self.buildProgressTextField setStringValue:[NSString stringWithFormat:@"Done. Binary size is %.1f kB of %.1f kB.", roundedBinarySize, roundedMaximumSize]];
             }
             else
-                [self.buildSuccessProgressIndicator setDoubleValue:0];
+                 [self.buildProgressTextField setStringValue:@"Done"];
             
-            /*
-             Show Sheet and play sound.
-            */
-            
-            [NSApp beginSheet:self.buildSuccessSheet modalForWindow:[[self.windowControllers objectAtIndex:0] window] modalDelegate:self didEndSelector:@selector(didEndBuildSheet:returnCode:contextInfo:) contextInfo:NULL];
             [[NSSound soundNamed:@"Tri-Tone"] play];
         }
         else {
@@ -500,14 +512,20 @@
                     if (i < failureReasons.count - 1)
                         [[[self.buildFailedTextView textStorage] mutableString] appendString:@"\n"];
                 }
+                
+                [self.buildProgressTextField setStringValue:@"Build Failed."];
             }
             else if ([error code] == FKInoToolErrorUploadFailedError) {
                 NSString *errorString = [error localizedFailureReason];
                 [[[self.buildFailedTextView textStorage] mutableString] setString:errorString];
+                
+                [self.buildProgressTextField setStringValue:@"Upload Failed."];
             }
             else {
                 NSString *errorDescription = [error localizedDescription];
                 [[[self.buildFailedTextView textStorage] mutableString] setString:errorDescription];
+                
+                [self.buildProgressTextField setStringValue:@"Error occured."];
             }
             
             /*
@@ -548,8 +566,8 @@
     }
     
     if ([FKInoTool buildSketchWithFiles:self.files forBoard:self.board onSerialPort:nil uploadAfterBuild:NO verboseOutput:NO terminationHandler:[self buildToolTerminationHandler]]) {
-        _building = YES;
-        [self.progressIndicator startAnimation:nil];
+        [self setBuildActionActive:YES];
+        [self.buildProgressTextField setStringValue:@"Building..."];
     }
 }
 
@@ -568,13 +586,9 @@
     }
     
     if ([FKInoTool buildSketchWithFiles:self.files forBoard:self.board onSerialPort:self.serialPort uploadAfterBuild:YES verboseOutput:NO terminationHandler:[self buildToolTerminationHandler]]) {
-        _building = YES;
-        [self.progressIndicator startAnimation:nil];
+        [self setBuildActionActive:YES];
+        [self.buildProgressTextField setStringValue:@"Preparing for running..."];
     }
-}
-
-- (IBAction) buildSuccessSheetDidEnd:(id)sender {
-    [NSApp endSheet:self.buildSuccessSheet returnCode:NSOKButton];
 }
 
 - (IBAction) buildFailedSheetDidEnd:(id)sender {
@@ -583,11 +597,7 @@
 
 - (void) didEndBuildSheet:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
     [sheet orderOut:nil];
-    
-    if (sheet == self.buildSuccessSheet)
-        [self.buildSuccessTextField setStringValue:@""];
-    else
-        [[[self.buildFailedTextView textStorage] mutableString] setString:@""];
+    [[[self.buildFailedTextView textStorage] mutableString] setString:@""];
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
