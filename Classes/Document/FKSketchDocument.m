@@ -30,6 +30,10 @@
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+- (void (^)(BOOL success, FKInoToolType toolType, NSUInteger binarySize, NSError *error, NSString *output)) buildToolTerminationHandler;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 - (void) didEndAddFileSheet:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo;
 - (void) didEndBuildSheet:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo;
 
@@ -449,21 +453,16 @@
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-- (IBAction) buildSketch:(id)sender {
-    if (self.board == nil) {
-        NSAlert *alert = [NSAlert alertWithMessageText:@"Build Failed!" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"Your sketch can't be build. Please specify the board you want to build for."];
-        
-        [alert beginSheetModalForWindow:[[self.windowControllers objectAtIndex:0] window] modalDelegate:[self class] didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) contextInfo:NULL];
-        NSBeep();
-        
-        return;
-    }
-    
-    if ([FKInoTool buildSketchWithFiles:self.files forBoard:self.board onSerialPort:nil uploadAfterBuild:NO verboseOutput:NO terminationHandler:^(BOOL success, FKInoToolType toolType, NSUInteger binarySize, NSError *error, NSString *output) {
+- (void (^)(BOOL success, FKInoToolType toolType, NSUInteger binarySize, NSError *error, NSString *output)) buildToolTerminationHandler {    
+    return ^(BOOL success, FKInoToolType toolType, NSUInteger binarySize, NSError *error, NSString *output) {
         _building = NO;
         [self.progressIndicator stopAnimation:nil];
         
         if (success) {
+            /*
+             Update value of binary size progress indicator.
+            */
+            
             NSUInteger maximumBuildSize = [[self.board objectForKey:@"upload.maximum_size"] unsignedIntegerValue];
             if (binarySize > 0 && maximumBuildSize > 0) {
                 CGFloat roundedBinarySize = round(10 * (binarySize / (CGFloat)1024)) / 10;
@@ -474,29 +473,81 @@
             }
             else
                 [self.buildSuccessProgressIndicator setDoubleValue:0];
-                        
+            
+            /*
+             Show Sheet and play sound.
+            */
+            
             [NSApp beginSheet:self.buildSuccessSheet modalForWindow:[[self.windowControllers objectAtIndex:0] window] modalDelegate:self didEndSelector:@selector(didEndBuildSheet:returnCode:contextInfo:) contextInfo:NULL];
             [[NSSound soundNamed:@"Tri-Tone"] play];
         }
         else {
-            NSArray *failureReasons = [[error localizedFailureReason] failureReasonComponents];
-            for (NSUInteger i = 0; i < failureReasons.count; i++) {
-                NSDictionary *dictionary = [failureReasons objectAtIndex:i];
-                NSString *failureReason = nil;
-                if ([[dictionary objectForKey:@"Line"] integerValue] == NSNotFound)
-                    failureReason = [NSString stringWithFormat:@"In file: \"%@\": %@", [dictionary objectForKey:@"File"], [dictionary objectForKey:@"Error"], nil];
-                else
-                    failureReason = [NSString stringWithFormat:@"In file: \"%@\" on about line %d: %@", [dictionary objectForKey:@"File"], [[dictionary objectForKey:@"Line"] integerValue], [dictionary objectForKey:@"Error"], nil];
-                
-                [[[self.buildFailedTextView textStorage] mutableString] appendString:failureReason];
-                if (i < failureReasons.count - 1)
-                    [[[self.buildFailedTextView textStorage] mutableString] appendString:@"\n"];
+            /*
+             Update the error message depending on what happened.
+            */
+            
+            if ([error code] == FKInoToolErrorBuildFailedError) {
+                NSArray *failureReasons = [[error localizedFailureReason] failureReasonComponents];
+                for (NSUInteger i = 0; i < failureReasons.count; i++) {
+                    NSDictionary *dictionary = [failureReasons objectAtIndex:i];
+                    NSString *failureReason = nil;
+                    if ([[dictionary objectForKey:@"Line"] integerValue] == NSNotFound)
+                        failureReason = [NSString stringWithFormat:@"In file: \"%@\": %@", [dictionary objectForKey:@"File"], [dictionary objectForKey:@"Error"], nil];
+                    else
+                        failureReason = [NSString stringWithFormat:@"In file: \"%@\" on about line %d: %@", [dictionary objectForKey:@"File"], [[dictionary objectForKey:@"Line"] integerValue], [dictionary objectForKey:@"Error"], nil];
+                    
+                    [[[self.buildFailedTextView textStorage] mutableString] appendString:failureReason];
+                    if (i < failureReasons.count - 1)
+                        [[[self.buildFailedTextView textStorage] mutableString] appendString:@"\n"];
+                }
             }
+            else if ([error code] == FKInoToolErrorUploadFailedError) {
+                NSString *errorString = [error localizedFailureReason];
+                [[[self.buildFailedTextView textStorage] mutableString] setString:errorString];
+            }
+            else {
+                NSString *errorDescription = [error localizedDescription];
+                [[[self.buildFailedTextView textStorage] mutableString] setString:errorDescription];
+            }
+            
+            /*
+             Update the sheet's size.
+            */
+            
+            NSSize minSheetSize = [self.buildFailedSheet minSize];
+            NSSize maxSheetSize = [self.buildFailedSheet maxSize];
+            CGFloat textHeight = [[[self.buildFailedTextView textContainer] layoutManager] usedRectForTextContainer:[self.buildFailedTextView textContainer]].size.height;
+            if (textHeight > 110) {
+                CGFloat desiredSizeChange = round(textHeight - 110);
+                NSSize desiredSize = NSMakeSize(minSheetSize.width + desiredSizeChange, minSheetSize.height + desiredSizeChange);
+                [self.buildFailedSheet setFrame:NSMakeRect(0, 0, MIN(desiredSize.width, maxSheetSize.width), MIN(desiredSize.height, maxSheetSize.height)) display:YES];
+            }
+            else
+                [self.buildFailedSheet setFrame:NSMakeRect(0, 0, minSheetSize.width, minSheetSize.height) display:YES];
+            
+            /*
+             Show Sheet and play sound.
+            */
             
             [NSApp beginSheet:self.buildFailedSheet modalForWindow:[[self.windowControllers objectAtIndex:0] window] modalDelegate:self didEndSelector:@selector(didEndBuildSheet:returnCode:contextInfo:) contextInfo:NULL];
             [[NSSound soundNamed:@"Funk"] play];
         }
-    }]) {
+    };
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+- (IBAction) buildSketch:(id)sender {
+    if (self.board == nil) {
+        NSAlert *alert = [NSAlert alertWithMessageText:@"Build Failed!" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"Your sketch can't be build. Please specify the board you want to build for."];
+        
+        [alert beginSheetModalForWindow:[[self.windowControllers objectAtIndex:0] window] modalDelegate:[self class] didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) contextInfo:NULL];
+        NSBeep();
+        
+        return;
+    }
+    
+    if ([FKInoTool buildSketchWithFiles:self.files forBoard:self.board onSerialPort:nil uploadAfterBuild:NO verboseOutput:NO terminationHandler:[self buildToolTerminationHandler]]) {
         _building = YES;
         [self.progressIndicator startAnimation:nil];
     }
@@ -516,31 +567,7 @@
         return;
     }
     
-    if ([FKInoTool buildSketchWithFiles:self.files forBoard:self.board onSerialPort:self.serialPort uploadAfterBuild:YES verboseOutput:NO terminationHandler:^(BOOL success, FKInoToolType toolType, NSUInteger binarySize, NSError *error, NSString *output) {
-        _building = NO;
-        [self.progressIndicator stopAnimation:nil];
-        
-        if (success) {
-            NSUInteger maximumBuildSize = [[self.board objectForKey:@"upload.maximum_size"] unsignedIntegerValue];
-            if (binarySize > 0 && maximumBuildSize > 0) {
-                CGFloat roundedBinarySize = round(10 * (binarySize / (CGFloat)1024)) / 10;
-                CGFloat roundedMaximumSize = round(10 * (maximumBuildSize / (CGFloat)1024)) / 10;
-                [self.buildSuccessTextField setStringValue:[NSString stringWithFormat:@"%.1f kB of %.1f kB", roundedBinarySize, roundedMaximumSize]];
-                
-                [self.buildSuccessProgressIndicator setDoubleValue:100 * ((CGFloat)binarySize / (CGFloat)maximumBuildSize)];
-            }
-            else
-                [self.buildSuccessProgressIndicator setDoubleValue:0];
-            
-            [NSApp beginSheet:self.buildSuccessSheet modalForWindow:[[self.windowControllers objectAtIndex:0] window] modalDelegate:self didEndSelector:@selector(didEndBuildSheet:returnCode:contextInfo:) contextInfo:NULL];
-            [[NSSound soundNamed:@"Tri-Tone"] play];
-        }
-        else {
-            [[[self.buildFailedTextView textStorage] mutableString] setString:output];
-            [NSApp beginSheet:self.buildFailedSheet modalForWindow:[[self.windowControllers objectAtIndex:0] window] modalDelegate:self didEndSelector:@selector(didEndBuildSheet:returnCode:contextInfo:) contextInfo:NULL];
-            [[NSSound soundNamed:@"Funk"] play];
-        }
-    }]) {
+    if ([FKInoTool buildSketchWithFiles:self.files forBoard:self.board onSerialPort:self.serialPort uploadAfterBuild:YES verboseOutput:NO terminationHandler:[self buildToolTerminationHandler]]) {
         _building = YES;
         [self.progressIndicator startAnimation:nil];
     }
