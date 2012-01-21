@@ -16,8 +16,8 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
 - (void) toolbarItemDidClick:(id)sender;
 - (NSViewController <MASPreferencesViewController> *)viewControllerForIdentifier:(NSString *)identifier;
 
-@property (nonatomic, readonly, unsafe_unretained) NSArray *toolbarItemIdentifiers;
-@property (nonatomic, readwrite, unsafe_unretained) NSViewController <MASPreferencesViewController> *selectedViewController;
+@property (nonatomic, readonly) NSArray *toolbarItemIdentifiers;
+@property (nonatomic, readwrite, weak) NSViewController <MASPreferencesViewController> *selectedViewController;
 
 @end
 

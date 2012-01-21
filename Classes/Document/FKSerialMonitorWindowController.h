@@ -18,7 +18,7 @@
     NSTextView *textView;
     
     AMSerialPort *serialPort;
-    id <NSObject> __unsafe_unretained closeDelegate;
+    id <NSObject> __weak closeDelegate;
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -34,7 +34,7 @@
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 @property (nonatomic, strong) AMSerialPort *serialPort;
-@property (nonatomic, unsafe_unretained) id <NSObject> closeDelegate;
+@property (nonatomic, weak) id <NSObject> closeDelegate;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

@@ -480,8 +480,7 @@
     if (_preferencesWindowController == nil) {
         FKGeneralPreferencesViewController *generalPreferencesViewController = [[FKGeneralPreferencesViewController alloc] init];
         FKUpdatePreferencesViewController *updatePreferencesViewController = [[FKUpdatePreferencesViewController alloc] init];
-        
-        _preferencesWindowController = [[MASPreferencesWindowController alloc] initWithViewControllers:[NSArray arrayWithObjects:generalPreferencesViewController, updatePreferencesViewController, nil]];
+        _preferencesWindowController = [[MASPreferencesWindowController alloc] initWithViewControllers:[NSArray arrayWithObjects: generalPreferencesViewController, updatePreferencesViewController, nil]];
         _preferencesWindowController.closeDelegate = self;
         
         [_preferencesWindowController showWindow:nil];

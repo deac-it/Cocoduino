@@ -44,7 +44,7 @@
  */
 @interface SCEvents : NSObject 
 {
-    id <NSObject, SCEventListenerProtocol> __unsafe_unretained _delegate; 
+    id <NSObject, SCEventListenerProtocol> __weak _delegate; 
     
     BOOL                 _isWatchingPaths;
     BOOL                 _ignoreEventsFromSubDirs;
@@ -63,7 +63,7 @@
 /**
  * @property _delegate The delegate that SCEvents is to notify when events occur
  */
-@property (readwrite, unsafe_unretained, getter=delegate, setter=setDelegate:) id <NSObject, SCEventListenerProtocol> _delegate;
+@property (readwrite, weak, getter=delegate, setter=setDelegate:) id <NSObject, SCEventListenerProtocol> _delegate;
 
 /**
  * @property _isWatchingPaths Indicates whether the events stream is currently running

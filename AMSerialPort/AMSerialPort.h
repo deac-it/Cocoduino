@@ -123,8 +123,8 @@ typedef enum {
 	char *buffer;
 	NSTimeInterval readTimeout; // for public blocking read methods and doRead
 	fd_set *readfds;
-	id <AMSerialPortReadDelegate> __unsafe_unretained readDelegate;
-	id <AMSerialPortWriteDelegate> __unsafe_unretained writeDelegate;
+	id <AMSerialPortReadDelegate> __weak readDelegate;
+	id <AMSerialPortWriteDelegate> __weak writeDelegate;
 	NSLock *writeLock;
 	NSLock *readLock;
 	NSLock *closeLock;
@@ -227,8 +227,8 @@ typedef enum {
 
 
 // setting the delegate (for background reading/writing)
-@property (nonatomic, unsafe_unretained) id <AMSerialPortReadDelegate> readDelegate;
-@property (nonatomic, unsafe_unretained) id <AMSerialPortWriteDelegate> writeDelegate;
+@property (nonatomic, weak) id <AMSerialPortReadDelegate> readDelegate;
+@property (nonatomic, weak) id <AMSerialPortWriteDelegate> writeDelegate;
 
 // time out for blocking reads in seconds
 - (NSTimeInterval)readTimeout;
