@@ -158,7 +158,9 @@
 - (id) makeUntitledDocumentOfType:(NSString *)typeName error:(NSError **)outError {
     FKSketchDocument *document = [[FKSketchDocument alloc] init];
     FKSketchFile *file = [[FKSketchFile alloc] initWithFilename:@"Untitled.ino"];
-    file.string = @"//\n//  Untitled.ino\n//\n\nvoid setup() {\n\t//Your setup code goes here.\n}\n\nvoid loop() {\n\t//This will be called in an infinite loop.\n}";
+    
+    NSString *untitledTemplatePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"Templates/Untitled.ino"];
+    file.string = [NSString stringWithContentsOfFile:untitledTemplatePath encoding:NSUTF8StringEncoding error:NULL];
     
     [document.files addObject:file];
     

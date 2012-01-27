@@ -611,7 +611,7 @@
 								</object>
 								<object class="NSMenuItem" id="42288982">
 									<reference key="NSMenu" ref="147685390"/>
-									<string key="NSTitle">Add File...</string>
+									<string key="NSTitle">Add File/Class...</string>
 									<string key="NSKeyEquiv">N</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
@@ -2285,11 +2285,13 @@
 							<string>addFileSheetDidCancel:</string>
 							<string>addFileSheetDidEnd:</string>
 							<string>buildAndUploadSketch:</string>
+							<string>buildFailedSheetDidEnd:</string>
 							<string>buildSketch:</string>
 							<string>openSerialMonitor:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -2304,6 +2306,7 @@
 							<string>addFileSheetDidCancel:</string>
 							<string>addFileSheetDidEnd:</string>
 							<string>buildAndUploadSketch:</string>
+							<string>buildFailedSheetDidEnd:</string>
 							<string>buildSketch:</string>
 							<string>openSerialMonitor:</string>
 						</object>
@@ -2319,6 +2322,10 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">buildAndUploadSketch:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">buildFailedSheetDidEnd:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -2340,7 +2347,10 @@
 							<string>bottomTextField</string>
 							<string>buildAndUploadButton</string>
 							<string>buildButton</string>
-							<string>progressIndicator</string>
+							<string>buildFailedSheet</string>
+							<string>buildFailedTextView</string>
+							<string>buildProgressIndicator</string>
+							<string>buildProgressTextField</string>
 							<string>tabBarControl</string>
 							<string>tabView</string>
 						</object>
@@ -2351,7 +2361,10 @@
 							<string>NSTextField</string>
 							<string>NSToolbarItem</string>
 							<string>NSToolbarItem</string>
+							<string>NSWindow</string>
+							<string>NSTextView</string>
 							<string>NSProgressIndicator</string>
+							<string>NSTextField</string>
 							<string>PSMTabBarControl</string>
 							<string>NSTabView</string>
 						</object>
@@ -2365,7 +2378,10 @@
 							<string>bottomTextField</string>
 							<string>buildAndUploadButton</string>
 							<string>buildButton</string>
-							<string>progressIndicator</string>
+							<string>buildFailedSheet</string>
+							<string>buildFailedTextView</string>
+							<string>buildProgressIndicator</string>
+							<string>buildProgressTextField</string>
 							<string>tabBarControl</string>
 							<string>tabView</string>
 						</object>
@@ -2392,8 +2408,20 @@
 								<string key="candidateClassName">NSToolbarItem</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">progressIndicator</string>
+								<string key="name">buildFailedSheet</string>
+								<string key="candidateClassName">NSWindow</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">buildFailedTextView</string>
+								<string key="candidateClassName">NSTextView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">buildProgressIndicator</string>
 								<string key="candidateClassName">NSProgressIndicator</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">buildProgressTextField</string>
+								<string key="candidateClassName">NSTextField</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">tabBarControl</string>

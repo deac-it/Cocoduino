@@ -452,7 +452,10 @@ static PSMTabDragAssistant *sharedDragAssistant = nil;
 			
 		} else {
                 // put cell back
-			[[[self sourceTabBar] cells] insertObject:[self draggedCell] atIndex:[self draggedCellIndex]];
+			//ORIGINAL: [[[self sourceTabBar] cells] insertObject:[self draggedCell] atIndex:[self draggedCellIndex]];
+            //ALTERNATE: [[[self sourceTabBar] cells] insertObject:[self draggedCell] atIndex:[self draggedCellIndex] + 1];
+             // Put it at the end of the list
+            [[[self sourceTabBar] cells] insertObject:[self draggedCell] atIndex:[[[self sourceTabBar] cells] count] - 1];
 		}
 		
 		[[NSNotificationCenter defaultCenter] postNotificationName:PSMTabDragDidEndNotification object:nil];

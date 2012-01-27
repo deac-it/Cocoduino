@@ -143,21 +143,23 @@
         }
     }
     
-    [self.files removeObject:file];
-    [self updateChangeCount:NSChangeDone];
-    [self.tabView removeTabViewItem:tabViewItem];
-    
-    /*
-     Move the file to the trash.
-    */
-    
-    if ([self.fileURL isFileURL]) {
-        NSString *directoryPath = [[self.fileURL path] stringByDeletingLastPathComponent];
-        for (NSString *filename in [[NSFileManager defaultManager] contentsOfDirectoryAtPath:directoryPath error:NULL]) {
-            if ([filename isEqualToString:file.filename]) {
-                NSString *fullPath = [directoryPath stringByAppendingPathComponent:filename];
-                [[NSWorkspace sharedWorkspace] performFileOperation:NSWorkspaceRecycleOperation source:directoryPath destination:[@"~/.Trash" stringByExpandingTildeInPath] files:[NSArray arrayWithObject:fullPath] tag:NULL];
-                break;
+    if (tabViewItem != nil) {
+        [self.files removeObject:file];
+        [self updateChangeCount:NSChangeDone];
+        [self.tabView removeTabViewItem:tabViewItem];
+        
+        /*
+         Move the file to the trash.
+        */
+        
+        if ([self.fileURL isFileURL]) {
+            NSString *directoryPath = [[self.fileURL path] stringByDeletingLastPathComponent];
+            for (NSString *filename in [[NSFileManager defaultManager] contentsOfDirectoryAtPath:directoryPath error:NULL]) {
+                if ([filename isEqualToString:file.filename]) {
+                    NSString *fullPath = [directoryPath stringByAppendingPathComponent:filename];
+                    [[NSWorkspace sharedWorkspace] performFileOperation:NSWorkspaceRecycleOperation source:directoryPath destination:[@"~/.Trash" stringByExpandingTildeInPath] files:[NSArray arrayWithObject:fullPath] tag:NULL];
+                    break;
+                }
             }
         }
     }
@@ -644,15 +646,32 @@
 - (void) didEndAddFileSheet:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
     NSString *filename = [self.addFileTextField stringValue];
     if (returnCode == NSOKButton && filename.length > 0) {
-        // Add .ino as path extension if no other was found
+        /*
+         If the user did enter a path extension, create a file with that path extension.
+         Else, create a class and use the filename as the name of the class.
+        */
         NSString *pathExtenstion = [filename pathExtension];
-        if (!([pathExtenstion isEqualToString:@"ino"] || [pathExtenstion isEqualToString:@"pde"] || [pathExtenstion isEqualToString:@"c"] || [pathExtenstion isEqualToString:@"cpp"] || [pathExtenstion isEqualToString:@"h"]))
-            filename = [filename stringByAppendingPathExtension:@"ino"];
-        
-        FKSketchFile *file = [[FKSketchFile alloc] initWithFilename:filename];
-        file.string = [NSString stringWithFormat:@"//\n//  %@\n//", filename];
-        
-        [self addSketchFile:file];
+        if ([pathExtenstion isEqualToString:@"ino"] || [pathExtenstion isEqualToString:@"pde"] || [pathExtenstion isEqualToString:@"c"] || [pathExtenstion isEqualToString:@"cpp"] || [pathExtenstion isEqualToString:@"h"]) {
+            FKSketchFile *file = [[FKSketchFile alloc] initWithFilename:filename];
+            file.string = [NSString stringWithFormat:@"//\n//  %@\n//", filename];
+            
+            [self addSketchFile:file];
+        }
+        else {
+            FKSketchFile *headerFile = [[FKSketchFile alloc] initWithFilename:[filename stringByAppendingPathExtension:@"h"]];            
+            NSString *headerTemplatePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"Templates/Class.h"];
+            headerFile.string = [NSString stringWithContentsOfFile:headerTemplatePath encoding:NSUTF8StringEncoding error:NULL];
+            headerFile.string = [headerFile.string stringByReplacingOccurrencesOfString:@"<CLASS>" withString:filename];
+            
+            FKSketchFile *implementationFile = [[FKSketchFile alloc] initWithFilename:[filename stringByAppendingPathExtension:@"cpp"]];
+            NSString *implementationTemplatePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"Templates/Class.cpp"];
+            implementationFile.string = [NSString stringWithContentsOfFile:implementationTemplatePath encoding:NSUTF8StringEncoding error:NULL];
+            implementationFile.string = [implementationFile.string stringByReplacingOccurrencesOfString:@"<CLASS>" withString:filename];
+            
+            [self addSketchFile:headerFile];
+            [self addSketchFile:implementationFile];
+            [self.tabView selectPreviousTabViewItem:nil];
+        }
     }
     
     [self.addFileSheet orderOut:nil];
@@ -707,10 +726,11 @@
 }
 
 - (BOOL) tabView:(NSTabView *)aTabView shouldDropTabViewItem:(NSTabViewItem *)tabViewItem inTabBar:(PSMTabBarControl *)aTabBarControl {
+    NSInteger location = [[aTabBarControl cells] indexOfObject:[[PSMTabDragAssistant sharedDragAssistant] targetCell]];
     if ([[aTabBarControl cells] indexOfObject:[[PSMTabDragAssistant sharedDragAssistant] targetCell]] == 0) {
         _dragTabViewItems = nil;
         _dragTabViewItems = [[aTabView tabViewItems] copy];
-        
+                
         return YES;
     }
     else

@@ -52,6 +52,7 @@
 		4BFA552C14C1C7BB00089995 /* bin in Resources */ = {isa = PBXBuildFile; fileRef = 4BFA552A14C1C7BB00089995 /* bin */; };
 		4BFA552D14C1C7BB00089995 /* ino-cocoduino.egg in Resources */ = {isa = PBXBuildFile; fileRef = 4BFA552B14C1C7BB00089995 /* ino-cocoduino.egg */; };
 		4BFBDA7414B4A3CD00985AB9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		4BFD6B5C14D2D85D00CE9856 /* Templates in Resources */ = {isa = PBXBuildFile; fileRef = 4BFD6B5B14D2D85D00CE9856 /* Templates */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -165,6 +166,7 @@
 		4BF041EA14BCCD6600A64D1B /* FKSketchDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FKSketchDocument.m; sourceTree = "<group>"; };
 		4BFA552A14C1C7BB00089995 /* bin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = bin; path = ino/bin; sourceTree = SOURCE_ROOT; };
 		4BFA552B14C1C7BB00089995 /* ino-cocoduino.egg */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "ino-cocoduino.egg"; path = "ino/ino-cocoduino.egg"; sourceTree = SOURCE_ROOT; };
+		4BFD6B5B14D2D85D00CE9856 /* Templates */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Templates; sourceTree = "<group>"; };
 		AB648E2A11FB385700AEF7BD /* Cocoduino.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cocoduino.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -244,6 +246,7 @@
 				4B92375F14C2EB96007A8BF4 /* Sounds */,
 				4B07D83514BC9DB800D7A32B /* Interface */,
 				4BEEDEE014C073E100754579 /* Examples */,
+				4BFD6B5B14D2D85D00CE9856 /* Templates */,
 				4BFA552914C1C7AC00089995 /* ino */,
 			);
 			path = Resources;
@@ -520,6 +523,7 @@
 				4B92376214C2EBAB007A8BF4 /* Funk.aiff in Resources */,
 				4B92376B14C2EBC6007A8BF4 /* SoftwareUpdate.png in Resources */,
 				4B92376F14C2EE14007A8BF4 /* Tri-Tone.aiff in Resources */,
+				4BFD6B5C14D2D85D00CE9856 /* Templates in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
