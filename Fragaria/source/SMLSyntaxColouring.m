@@ -497,14 +497,11 @@ thirdLayoutManager, fourthLayoutManager, undoManager;
 - (void)prepareRegularExpressions
 {
 	if ([[SMLDefaults valueForKey:@"ColourMultiLineStrings"] boolValue] == NO) {
-		firstStringPattern = [[ICUPattern alloc] initWithString:[NSString stringWithFormat:@"\\W%@[^%@\\\\\\r\\n]*+(?:\\\\(?:.|$)[^%@\\\\\\r\\n]*+)*+%@", firstString, firstString, firstString, firstString]];
-		
-		secondStringPattern = [[ICUPattern alloc] initWithString:[NSString stringWithFormat:@"\\W%@[^%@\\\\\\r\\n]*+(?:\\\\(?:.|$)[^%@\\\\]*+)*+%@", secondString, secondString, secondString, secondString]];
-
+        firstStringExpression = [[NSRegularExpression alloc] initWithPattern:[NSString stringWithFormat:@"\\W%@[^%@\\\\\\r\\n]*+(?:\\\\(?:.|$)[^%@\\\\\\r\\n]*+)*+%@", firstString, firstString, firstString, firstString] options:NSRegularExpressionCaseInsensitive error:NULL];
+        secondStringExpression = [[NSRegularExpression alloc] initWithPattern:[NSString stringWithFormat:@"\\W%@[^%@\\\\\\r\\n]*+(?:\\\\(?:.|$)[^%@\\\\]*+)*+%@", secondString, secondString, secondString, secondString] options:NSRegularExpressionCaseInsensitive error:NULL];
 	} else {
-		firstStringPattern = [[ICUPattern alloc] initWithString:[NSString stringWithFormat:@"\\W%@[^%@\\\\]*+(?:\\\\(?:.|$)[^%@\\\\]*+)*+%@", firstString, firstString, firstString, firstString]];
-		
-		secondStringPattern = [[ICUPattern alloc] initWithString:[NSString stringWithFormat:@"\\W%@[^%@\\\\]*+(?:\\\\(?:.|$)[^%@\\\\]*+)*+%@", secondString, secondString, secondString, secondString]];
+        firstStringExpression = [[NSRegularExpression alloc] initWithPattern:[NSString stringWithFormat:@"\\W%@[^%@\\\\]*+(?:\\\\(?:.|$)[^%@\\\\]*+)*+%@", firstString, firstString, firstString, firstString] options:NSRegularExpressionCaseInsensitive error:NULL];
+        secondStringExpression = [[NSRegularExpression alloc] initWithPattern:[NSString stringWithFormat:@"\\W%@[^%@\\\\]*+(?:\\\\(?:.|$)[^%@\\\\]*+)*+%@", secondString, secondString, secondString, secondString] options:NSRegularExpressionCaseInsensitive error:NULL];
 	}
 }
 
@@ -880,37 +877,23 @@ thirdLayoutManager, fourthLayoutManager, undoManager;
 		// Second string, first pass
         //
 		if (![secondString isEqualToString:@""] && [[SMLDefaults valueForKey:@"ColourStrings"] boolValue] == YES) {
-			@try {
-				secondStringMatcher = [[ICUMatcher alloc] initWithPattern:secondStringPattern overString:searchString];
-			}
-			@catch (NSException *exception) {
-				return;
-			}
-
-			while ([secondStringMatcher findNext]) {
-				foundRange = [secondStringMatcher rangeOfMatch];
-				[self setColour:stringsColour range:NSMakeRange(foundRange.location + rangeLocation + 1, foundRange.length - 1)];
-			}
+            for (NSTextCheckingResult *matchResult in [secondStringExpression matchesInString:searchString options:NSMatchingWithTransparentBounds range:NSMakeRange(0, searchString.length)]) {
+                foundRange = [matchResult range];
+                [self setColour:stringsColour range:NSMakeRange(foundRange.location + rangeLocation + 1, foundRange.length - 1)];
+            }
 		}
 		
 		//
 		// First string
         //
 		if (![firstString isEqualToString:@""] && [[SMLDefaults valueForKey:@"ColourStrings"] boolValue] == YES) {
-			@try {
-				firstStringMatcher = [[ICUMatcher alloc] initWithPattern:firstStringPattern overString:searchString];
-			}
-			@catch (NSException *exception) {
-				return;
-			}
-			
-			while ([firstStringMatcher findNext]) {
-				foundRange = [firstStringMatcher rangeOfMatch];
+			for (NSTextCheckingResult *matchResult in [firstStringExpression matchesInString:searchString options:NSMatchingWithTransparentBounds range:NSMakeRange(0, searchString.length)]) {
+                foundRange = [matchResult range];
 				if ([[firstLayoutManager temporaryAttributesAtCharacterIndex:foundRange.location + rangeLocation effectiveRange:NULL] isEqualToDictionary:stringsColour]) {
 					continue;
 				}
 				[self setColour:stringsColour range:NSMakeRange(foundRange.location + rangeLocation + 1, foundRange.length - 1)];
-			}
+            }
 		}
 		
 		//
@@ -1079,20 +1062,13 @@ thirdLayoutManager, fourthLayoutManager, undoManager;
 		// Second string, second pass
         //
 		if (![secondString isEqualToString:@""] && [[SMLDefaults valueForKey:@"ColourStrings"] boolValue] == YES) {
-			@try {
-				[secondStringMatcher reset];
-			}
-			@catch (NSException *exception) {
-				return;
-			}
-			
-			while ([secondStringMatcher findNext]) {
-				foundRange = [secondStringMatcher rangeOfMatch];
-				if ([[firstLayoutManager temporaryAttributesAtCharacterIndex:foundRange.location + rangeLocation effectiveRange:NULL] isEqualToDictionary:stringsColour] || [[firstLayoutManager temporaryAttributesAtCharacterIndex:foundRange.location + rangeLocation effectiveRange:NULL] isEqualToDictionary:commentsColour]) {
+            for (NSTextCheckingResult *matchResult in [secondStringExpression matchesInString:searchString options:NSMatchingWithTransparentBounds range:NSMakeRange(0, searchString.length)]) {
+                foundRange = [matchResult range];
+                if ([[firstLayoutManager temporaryAttributesAtCharacterIndex:foundRange.location + rangeLocation effectiveRange:NULL] isEqualToDictionary:stringsColour] || [[firstLayoutManager temporaryAttributesAtCharacterIndex:foundRange.location + rangeLocation effectiveRange:NULL] isEqualToDictionary:commentsColour]) {
 					continue;
 				}
 				[self setColour:stringsColour range:NSMakeRange(foundRange.location + rangeLocation + 1, foundRange.length - 1)];
-			}
+            }
 		}
 
 	}

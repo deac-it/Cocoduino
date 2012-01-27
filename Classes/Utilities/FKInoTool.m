@@ -14,9 +14,6 @@
 #import "FKInoTool.h"
 #import "FKSketchFile.h"
 #import "AMSerialPort.h"
-#import <MGSFragaria/ICUPattern.h>
-#import <MGSFragaria/ICUMatcher.h>
-#import <MGSFragaria/NSStringICUAdditions.h>
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -259,7 +256,7 @@
                 NSData *uploadErrorData = [[(NSPipe *)[uploadTask standardError] fileHandleForReading] readDataToEndOfFile];
                 NSString *uploadErrorString = (uploadErrorData != nil) ? [[NSString alloc] initWithData:uploadErrorData encoding:NSUTF8StringEncoding] : nil;
                 
-                // TODO: REMOVE LATER WHEN THE ERROR IS FIXED
+                // TODO: REMOVE WHEN THE ERROR IS FIXED
                 dispatch_async(dispatch_get_main_queue(), ^{
                     NSAlert *alert = [NSAlert alertWithMessageText:@"Upload Output" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"ARGUMENTS:\n%@\n\nOUTPUT:\n%@\n\nERROR:\n%@\n\nSERIAL:\n%@", [buildTask arguments], uploadOutputString, uploadErrorString, [serialPort bsdPath]];
                     [alert runModal];
@@ -317,16 +314,15 @@
 #pragma mark Preprocessing
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-// TODO: ICUPattern leaks much memory!
 + (NSString *) preprocessedSourceFromString:(NSString *)source {
     /*
      Add prototypes for user-defined functions.
      Note: Line numbers in build output are getting useless now...
     */
     
-    // Strip the source from string, comments and preprocessor directives    
-    ICUPattern *stripPattern = [ICUPattern patternWithString:@"('.')|(\"(?:[^\"\\\\]|\\\\.)*\")|(//.*?$)|(/\\*[^*]*(?:\\*(?!/)[^*]*)*\\*/)|(^\\s*#.*?$)" flags:8]; // 8 = UREGEX_MULTILINE
-    NSString *strippedString = [[ICUMatcher matcherWithPattern:stripPattern overString:source] replaceAllWithString:@""];
+    // Strip the source from string, comments and preprocessor directives
+    NSRegularExpression *stripExpression = [[NSRegularExpression alloc] initWithPattern:@"('.')|(\"(?:[^\"\\\\]|\\\\.)*\")|(//.*?$)|(/\\*[^*]*(?:\\*(?!/)[^*]*)*\\*/)|(^\\s*#.*?$)" options:NSRegularExpressionAnchorsMatchLines error:NULL];
+    NSString *strippedString = [stripExpression stringByReplacingMatchesInString:source options:NSRegularExpressionCaseInsensitive range:NSMakeRange(0, source.length) withTemplate:@""];
     
     /*
      Remove the contents of all top-level curly braces.
@@ -362,9 +358,10 @@
     */
     
     NSMutableString *mutableSource = [[NSMutableString alloc] initWithString:source];
-    ICUMatcher *functionMatcher = [ICUMatcher matcherWithPattern:[ICUPattern patternWithString:@"[\\w\\[\\]\\*]+\\s+[&\\[\\]\\*\\w\\s]+\\([&,\\[\\]\\*\\w\\s]*\\)(?=\\s*\\{)"]  overString:searchString];
-    while ([functionMatcher findNext]) {
-        NSString *prototype = [NSString stringWithFormat:@"%@;\n", [functionMatcher group]];
+    NSRegularExpression *functionExpression = [[NSRegularExpression alloc] initWithPattern:@"[\\w\\[\\]\\*]+\\s+[&\\[\\]\\*\\w\\s]+\\([&,\\[\\]\\*\\w\\s]*\\)(?=\\s*\\{)" options:NSRegularExpressionCaseInsensitive error:NULL];
+    
+    for (NSTextCheckingResult *matchResult in [functionExpression matchesInString:searchString options:NSMatchingWithTransparentBounds range:NSMakeRange(0, searchString.length)]) {
+        NSString *prototype = [NSString stringWithFormat:@"%@;\n", [searchString substringWithRange:matchResult.range]];
         [mutableSource insertString:prototype atIndex:0];
     }
     

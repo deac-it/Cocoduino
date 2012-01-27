@@ -260,7 +260,6 @@
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-// TODO: -substringToIndex: sometimes causes a crash!
 - (BOOL) readFromURL:(NSURL *)url ofType:(NSString *)typeName error:(NSError **)outError {
     /*
      If the sketch was saved by Autosave, load all files from the stored array.
@@ -298,28 +297,34 @@
         NSArray *pathComponents = [[url path] pathComponents];
         if ([typeName isEqualToString:@"Arduino Sketch"] && pathComponents.count >= 2) {
             NSString *mainFileLabel = [pathComponents objectAtIndex:pathComponents.count - 1];
-            mainFileLabel = [mainFileLabel substringToIndex:[mainFileLabel rangeOfString:@"."].location];
-            NSString *directoryName = [pathComponents objectAtIndex:pathComponents.count - 2];
-            
-            // Only scan for files if the directory's name is the same as the main file's
-            if ([mainFileLabel isEqualToString:directoryName]) {
-                NSMutableArray *otherFilenames = [[NSMutableArray alloc] init];
-                NSString *directoryPath = [[url path] stringByDeletingLastPathComponent];
-                NSArray *filenames = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:directoryPath error:NULL];
-                for (NSString *filename in filenames) {
-                    NSString *fileLabel = [filename substringToIndex:[filename rangeOfString:@"."].location];
-                    if (![fileLabel isEqualToString:mainFileLabel])
-                        [otherFilenames addObject:filename];
-                }
+            NSUInteger dotLocation = [mainFileLabel rangeOfString:@"."].location;
+            if (dotLocation != NSNotFound) {
+                mainFileLabel = [mainFileLabel substringToIndex:dotLocation];
+                NSString *directoryName = [pathComponents objectAtIndex:pathComponents.count - 2];
                 
-                for (NSString *otherFilename in otherFilenames) {
-                    NSString *fileContent = [[NSString alloc] initWithContentsOfFile:[directoryPath stringByAppendingPathComponent:otherFilename] encoding:NSUTF8StringEncoding error:NULL];
-                    if (fileContent != nil) {
-                        FKSketchFile *file = [[FKSketchFile alloc] initWithFilename:otherFilename];
-                        file.string = fileContent;
-                        file.savedString = fileContent;
-                        
-                        [self.files addObject:file];
+                // Only scan for files if the directory's name is the same as the main file's
+                if ([mainFileLabel isEqualToString:directoryName]) {
+                    NSMutableArray *otherFilenames = [[NSMutableArray alloc] init];
+                    NSString *directoryPath = [[url path] stringByDeletingLastPathComponent];
+                    NSArray *filenames = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:directoryPath error:NULL];
+                    for (NSString *filename in filenames) {
+                        NSUInteger fileDotLocation = [filename rangeOfString:@"."].location;
+                        if (fileDotLocation != NSNotFound) {
+                            NSString *fileLabel = [filename substringToIndex:fileDotLocation];
+                            if (![fileLabel isEqualToString:mainFileLabel])
+                                [otherFilenames addObject:filename];
+                        }
+                    }
+                    
+                    for (NSString *otherFilename in otherFilenames) {
+                        NSString *fileContent = [[NSString alloc] initWithContentsOfFile:[directoryPath stringByAppendingPathComponent:otherFilename] encoding:NSUTF8StringEncoding error:NULL];
+                        if (fileContent != nil) {
+                            FKSketchFile *file = [[FKSketchFile alloc] initWithFilename:otherFilename];
+                            file.string = fileContent;
+                            file.savedString = fileContent;
+                            
+                            [self.files addObject:file];
+                        }
                     }
                 }
             }
@@ -369,26 +374,29 @@
         
         if ([typeName isEqualToString:@"Arduino Sketch"] && pathComponents.count >= 2) {
             NSString *mainFileLabel = [pathComponents objectAtIndex:pathComponents.count - 1];
-            mainFileLabel = [mainFileLabel substringToIndex:[mainFileLabel rangeOfString:@"."].location];
-            NSString *directoryName = [pathComponents objectAtIndex:pathComponents.count - 2];
-            
-            // Move file inside a directory
-            if (![mainFileLabel isEqualToString:directoryName]) {
-                NSString *newDirectoryPath = [[[url path] stringByDeletingLastPathComponent] stringByAppendingPathComponent:mainFileLabel];
-                if ([[NSFileManager defaultManager] createDirectoryAtPath:newDirectoryPath withIntermediateDirectories:YES attributes:nil error:outError]) {
-                    NSString *newPath = [newDirectoryPath stringByAppendingPathComponent:[pathComponents objectAtIndex:pathComponents.count - 1]];
-                    self.fileURL = [NSURL fileURLWithPath:newPath];
-                    
-                    for (NSUInteger i = 1; i < self.files.count; i++) {
-                        NSData *otherFileData = [self dataOfType:typeName error:outError withIndex:i];
-                        NSString *otherFilePath = [newDirectoryPath stringByAppendingPathComponent:[[self.files objectAtIndex:i] filename]];
-                        [otherFileData writeToFile:otherFilePath atomically:YES];
+            NSUInteger dotLocation = [mainFileLabel rangeOfString:@"."].location;
+            if (dotLocation != NSNotFound) {
+                mainFileLabel = [mainFileLabel substringToIndex:[mainFileLabel rangeOfString:@"."].location];
+                NSString *directoryName = [pathComponents objectAtIndex:pathComponents.count - 2];
+                
+                // Move file inside a directory
+                if (![mainFileLabel isEqualToString:directoryName]) {
+                    NSString *newDirectoryPath = [[[url path] stringByDeletingLastPathComponent] stringByAppendingPathComponent:mainFileLabel];
+                    if ([[NSFileManager defaultManager] createDirectoryAtPath:newDirectoryPath withIntermediateDirectories:YES attributes:nil error:outError]) {
+                        NSString *newPath = [newDirectoryPath stringByAppendingPathComponent:[pathComponents objectAtIndex:pathComponents.count - 1]];
+                        self.fileURL = [NSURL fileURLWithPath:newPath];
+                        
+                        for (NSUInteger i = 1; i < self.files.count; i++) {
+                            NSData *otherFileData = [self dataOfType:typeName error:outError withIndex:i];
+                            NSString *otherFilePath = [newDirectoryPath stringByAppendingPathComponent:[[self.files objectAtIndex:i] filename]];
+                            [otherFileData writeToFile:otherFilePath atomically:YES];
+                        }
+                        
+                        return [super saveToURL:self.fileURL ofType:typeName forSaveOperation:saveOperation error:outError];
                     }
                     
-                    return [super saveToURL:self.fileURL ofType:typeName forSaveOperation:saveOperation error:outError];
+                    return NO;
                 }
-                
-                return NO;
             }
             
             NSString *directoryPath = [[url path] stringByDeletingLastPathComponent];

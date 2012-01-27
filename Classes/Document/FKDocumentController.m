@@ -175,13 +175,16 @@
         */
         
         NSString *fileLabel = [pathComponents objectAtIndex:pathComponents.count - 1];
-        fileLabel = [fileLabel substringToIndex:[fileLabel rangeOfString:@"."].location];
-        NSString *directoryName = [pathComponents objectAtIndex:pathComponents.count - 2];
-        
-        if (![fileLabel isEqualToString:directoryName]) {
-            NSAlert *alert = [NSAlert alertWithMessageText:@"Warning!" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"Your sketch should be located inside a directory named \"%@\".", fileLabel];
-            [alert setAlertStyle:NSInformationalAlertStyle];
-            [alert runModal];
+        NSUInteger dotLocation = [fileLabel rangeOfString:@"."].location;
+        if (dotLocation != NSNotFound) {
+            fileLabel = [fileLabel substringToIndex:dotLocation];
+            NSString *directoryName = [pathComponents objectAtIndex:pathComponents.count - 2];
+            
+            if (![fileLabel isEqualToString:directoryName]) {
+                NSAlert *alert = [NSAlert alertWithMessageText:@"Warning!" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"Your sketch should be located inside a directory named \"%@\".", fileLabel];
+                [alert setAlertStyle:NSInformationalAlertStyle];
+                [alert runModal];
+            }
         }
     }
     

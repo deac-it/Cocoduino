@@ -21,8 +21,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 @class SMLTextView;
 @class SMLLayoutManager;
-@class ICUPattern;
-@class ICUMatcher;
 
 @interface SMLSyntaxColouring : NSObject <NSTextStorageDelegate, NSTextViewDelegate> {
 	
@@ -65,10 +63,8 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	NSCharacterSet *endVariable;
 	NSCharacterSet *letterCharacterSet, *keywordStartCharacterSet, *keywordEndCharacterSet;
 	
-	ICUPattern *firstStringPattern;
-	ICUPattern *secondStringPattern;	
-	ICUMatcher *firstStringMatcher;
-	ICUMatcher *secondStringMatcher;
+	NSRegularExpression *firstStringExpression;
+	NSRegularExpression *secondStringExpression;	
 	
 	NSTimer *liveUpdatePreviewTimer;
 	NSTimer *autocompleteWordsTimer;

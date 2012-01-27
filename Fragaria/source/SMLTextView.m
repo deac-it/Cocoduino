@@ -284,7 +284,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	
 	return menu;
 	
-	// TODO: consider what menu behaviour is appropriate
 	/*
 	 NSArray *array = [menu itemArray];
 	 for (id oldMenuItem in array) {
@@ -623,9 +622,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 			[self didChangeText];
             
 			NSUndoManager *undoManager = [self undoManager];
-			
-			// TODO: this doesn't seem to be having the desired effect
-			[undoManager setActionName:NSLocalizedString(@"Content Change", @"undo content change")];
+            [undoManager setActionName:NSLocalizedString(@"Content Change", @"undo content change")];
 			
 		}
 	} else {
