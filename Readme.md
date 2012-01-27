@@ -56,9 +56,9 @@ Last but not least, there is also:
 
 # On the List…
 
-* **Clean up Fragaria**
-* **Improve Ino Build Process**
-* **More advanced code completion**
+* **Improve Ino build process** (Multiple files is not working at the moment!)
+* **Clean up the syntax coloring library**
+* **More advanced code completion** (Ino is ignoring the *keywords.txt* files!)
 
 # F.A.Q
 
