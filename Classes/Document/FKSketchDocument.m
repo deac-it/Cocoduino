@@ -726,7 +726,6 @@
 }
 
 - (BOOL) tabView:(NSTabView *)aTabView shouldDropTabViewItem:(NSTabViewItem *)tabViewItem inTabBar:(PSMTabBarControl *)aTabBarControl {
-    NSInteger location = [[aTabBarControl cells] indexOfObject:[[PSMTabDragAssistant sharedDragAssistant] targetCell]];
     if ([[aTabBarControl cells] indexOfObject:[[PSMTabDragAssistant sharedDragAssistant] targetCell]] == 0) {
         _dragTabViewItems = nil;
         _dragTabViewItems = [[aTabView tabViewItems] copy];
