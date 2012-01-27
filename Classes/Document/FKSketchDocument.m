@@ -210,7 +210,7 @@
 
 - (void) importLibraryWithPath:(NSString *)libraryPath {    
     NSString *libraryName = [libraryPath lastPathComponent];
-    NSString *headerPath = [[libraryPath stringByAppendingString:libraryName] stringByAppendingPathExtension:@"h"];
+    NSString *headerPath = [[libraryPath stringByAppendingPathComponent:libraryName] stringByAppendingPathExtension:@"h"];
     if ([[NSFileManager defaultManager] fileExistsAtPath:headerPath]) {
         /*
          Libraries are always added to the main file!
