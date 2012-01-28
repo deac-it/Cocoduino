@@ -19,10 +19,6 @@
 		4B07D83F14BC9DCC00D7A32B /* FKSketchDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B07D83914BC9DCC00D7A32B /* FKSketchDocument.xib */; };
 		4B07D84014BC9DCC00D7A32B /* FKUpdatePreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B07D83A14BC9DCC00D7A32B /* FKUpdatePreferencesViewController.xib */; };
 		4B07D84114BC9DCC00D7A32B /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B07D83B14BC9DCC00D7A32B /* MainMenu.xib */; };
-		4B07D85914BCA19800D7A32B /* Archive.icns in Resources */ = {isa = PBXBuildFile; fileRef = 4B07D85314BCA19700D7A32B /* Archive.icns */; };
-		4B07D85A14BCA19800D7A32B /* C Header.icns in Resources */ = {isa = PBXBuildFile; fileRef = 4B07D85414BCA19700D7A32B /* C Header.icns */; };
-		4B07D85B14BCA19800D7A32B /* C++ Source.icns in Resources */ = {isa = PBXBuildFile; fileRef = 4B07D85514BCA19700D7A32B /* C++ Source.icns */; };
-		4B07D85C14BCA19800D7A32B /* C Source.icns in Resources */ = {isa = PBXBuildFile; fileRef = 4B07D85614BCA19700D7A32B /* C Source.icns */; };
 		4B07D85D14BCA19800D7A32B /* Sketch.icns in Resources */ = {isa = PBXBuildFile; fileRef = 4B07D85714BCA19700D7A32B /* Sketch.icns */; };
 		4B07D86014BCA1B600D7A32B /* Terminal.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B07D85F14BCA1B600D7A32B /* Terminal.png */; };
 		4B0F412A14B72B8B003D1F31 /* AMSerialPortAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0F412914B72B8B003D1F31 /* AMSerialPortAdditions.m */; };
@@ -120,10 +116,6 @@
 		4B07D83A14BC9DCC00D7A32B /* FKUpdatePreferencesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FKUpdatePreferencesViewController.xib; sourceTree = "<group>"; };
 		4B07D83B14BC9DCC00D7A32B /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		4B07D84214BC9DFF00D7A32B /* Cocoduino-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Cocoduino-Info.plist"; sourceTree = SOURCE_ROOT; };
-		4B07D85314BCA19700D7A32B /* Archive.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Archive.icns; sourceTree = "<group>"; };
-		4B07D85414BCA19700D7A32B /* C Header.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = "C Header.icns"; sourceTree = "<group>"; };
-		4B07D85514BCA19700D7A32B /* C++ Source.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = "C++ Source.icns"; sourceTree = "<group>"; };
-		4B07D85614BCA19700D7A32B /* C Source.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = "C Source.icns"; sourceTree = "<group>"; };
 		4B07D85714BCA19700D7A32B /* Sketch.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Sketch.icns; sourceTree = "<group>"; };
 		4B07D85F14BCA1B600D7A32B /* Terminal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Terminal.png; sourceTree = "<group>"; };
 		4B0F412814B72B8B003D1F31 /* AMSerialPortAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMSerialPortAdditions.h; sourceTree = "<group>"; };
@@ -311,10 +303,6 @@
 			isa = PBXGroup;
 			children = (
 				4B07D85714BCA19700D7A32B /* Sketch.icns */,
-				4B07D85314BCA19700D7A32B /* Archive.icns */,
-				4B07D85414BCA19700D7A32B /* C Header.icns */,
-				4B07D85614BCA19700D7A32B /* C Source.icns */,
-				4B07D85514BCA19700D7A32B /* C++ Source.icns */,
 				4B92375C14C2E614007A8BF4 /* Warning.png */,
 				4B07D85F14BCA1B600D7A32B /* Terminal.png */,
 				4B92376714C2EBC5007A8BF4 /* SoftwareUpdate.png */,
@@ -509,10 +497,6 @@
 				4B07D83F14BC9DCC00D7A32B /* FKSketchDocument.xib in Resources */,
 				4B07D84014BC9DCC00D7A32B /* FKUpdatePreferencesViewController.xib in Resources */,
 				4B07D84114BC9DCC00D7A32B /* MainMenu.xib in Resources */,
-				4B07D85914BCA19800D7A32B /* Archive.icns in Resources */,
-				4B07D85A14BCA19800D7A32B /* C Header.icns in Resources */,
-				4B07D85B14BCA19800D7A32B /* C++ Source.icns in Resources */,
-				4B07D85C14BCA19800D7A32B /* C Source.icns in Resources */,
 				4B07D85D14BCA19800D7A32B /* Sketch.icns in Resources */,
 				4B07D86014BCA1B600D7A32B /* Terminal.png in Resources */,
 				4BEEDEE114C073E100754579 /* Examples in Resources */,

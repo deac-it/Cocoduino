@@ -10,23 +10,6 @@
 			<key>CFBundleTypeExtensions</key>
 			<array>
 				<string>ino</string>
-			</array>
-			<key>CFBundleTypeIconFile</key>
-			<string>Sketch</string>
-			<key>CFBundleTypeMIMETypes</key>
-			<array>
-				<string>text/x-c</string>
-			</array>
-			<key>CFBundleTypeName</key>
-			<string>Arduino Sketch</string>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>NSDocumentClass</key>
-			<string>FKSketchDocument</string>
-		</dict>
-		<dict>
-			<key>CFBundleTypeExtensions</key>
-			<array>
 				<string>pde</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
@@ -37,8 +20,16 @@
 			</array>
 			<key>CFBundleTypeName</key>
 			<string>Arduino Sketch</string>
+			<key>CFBundleTypeOSTypes</key>
+			<array>
+				<string>????</string>
+			</array>
 			<key>CFBundleTypeRole</key>
-			<string>Viewer</string>
+			<string>Editor</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.arduino-source</string>
+			</array>
 			<key>NSDocumentClass</key>
 			<string>FKSketchDocument</string>
 		</dict>
@@ -49,10 +40,22 @@
 			</array>
 			<key>CFBundleTypeIconFile</key>
 			<string>Archive</string>
+			<key>CFBundleTypeMIMETypes</key>
+			<array>
+				<string>application/octet-stream</string>
+			</array>
 			<key>CFBundleTypeName</key>
 			<string>Cocoduino Archive</string>
+			<key>CFBundleTypeOSTypes</key>
+			<array>
+				<string>????</string>
+			</array>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>com.fabian-kreiser.cocoduino-archive</string>
+			</array>
 			<key>NSDocumentClass</key>
 			<string>FKSketchDocument</string>
 		</dict>
@@ -66,9 +69,17 @@
 				<string>text/x-c</string>
 			</array>
 			<key>CFBundleTypeName</key>
-			<string>C Implementation File</string>
+			<string>C Source</string>
+			<key>CFBundleTypeOSTypes</key>
+			<array>
+				<string>????</string>
+			</array>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.c-source</string>
+			</array>
 			<key>NSDocumentClass</key>
 			<string>FKSketchDocument</string>
 		</dict>
@@ -82,9 +93,17 @@
 				<string>text/x-c</string>
 			</array>
 			<key>CFBundleTypeName</key>
-			<string>C++ Implementation File</string>
+			<string>C++ Source</string>
+			<key>CFBundleTypeOSTypes</key>
+			<array>
+				<string>????</string>
+			</array>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.c-plus-plus-source</string>
+			</array>
 			<key>NSDocumentClass</key>
 			<string>FKSketchDocument</string>
 		</dict>
@@ -98,9 +117,17 @@
 				<string>text/x-c</string>
 			</array>
 			<key>CFBundleTypeName</key>
-			<string>C Header File</string>
+			<string>C Header Source</string>
+			<key>CFBundleTypeOSTypes</key>
+			<array>
+				<string>????</string>
+			</array>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.c-header</string>
+			</array>
 			<key>NSDocumentClass</key>
 			<string>FKSketchDocument</string>
 		</dict>
@@ -133,9 +160,204 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>NSSupportsAutomaticTermination</key>
+	<true/>
+	<key>NSSupportsSuddenTermination</key>
+	<true/>
 	<key>SUFeedURL</key>
 	<string>http://fabian-kreiser.com/sparkle/cocoduino.xml</string>
 	<key>SUPublicDSAKeyFile</key>
 	<string>dsa_pub.pem</string>
+	<key>UTExportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.source-code</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Arduino Source File</string>
+			<key>UTTypeIconFile</key>
+			<string>Sketch</string>
+			<key>UTTypeIdentifier</key>
+			<string>public.arduino-source</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>com.apple.ostype</key>
+				<array>
+					<string>????</string>
+				</array>
+				<key>public.filename-extension</key>
+				<array>
+					<string>ino</string>
+					<string>pde</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>text/x-c</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Cocoduino Archive</string>
+			<key>UTTypeIconFile</key>
+			<string>Sketch</string>
+			<key>UTTypeIdentifier</key>
+			<string>com.fabian-kreiser.cocoduino-archive</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>com.apple.ostype</key>
+				<array>
+					<string>????</string>
+				</array>
+				<key>public.filename-extension</key>
+				<array>
+					<string>cdar</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/octet-stream</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.source-code</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>C Source</string>
+			<key>UTTypeIdentifier</key>
+			<string>public.c-source</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>com.apple.ostype</key>
+				<array>
+					<string>????</string>
+				</array>
+				<key>public.filename-extension</key>
+				<array>
+					<string>c</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>text/x-c</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.source-code</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>C++ Source</string>
+			<key>UTTypeIdentifier</key>
+			<string>public.c-plus-plus-source</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>com.apple.ostype</key>
+				<array>
+					<string>????</string>
+				</array>
+				<key>public.filename-extension</key>
+				<array>
+					<string>cpp</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>text/x-c</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.source-code</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>C Header Source</string>
+			<key>UTTypeIdentifier</key>
+			<string>public.c-header</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>com.apple.ostype</key>
+				<array>
+					<string>????</string>
+				</array>
+				<key>public.filename-extension</key>
+				<array>
+					<string>h</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>text/x-c</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
+	<key>UTImportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.source-code</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Arduino Source File</string>
+			<key>UTTypeIconFile</key>
+			<string>Sketch</string>
+			<key>UTTypeIdentifier</key>
+			<string>public.arduino-source</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>com.apple.ostype</key>
+				<array>
+					<string>????</string>
+				</array>
+				<key>public.filename-extension</key>
+				<array>
+					<string>ino</string>
+					<string>pde</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>text/x-c</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Cocoduino Archive</string>
+			<key>UTTypeIconFile</key>
+			<string>Sketch</string>
+			<key>UTTypeIdentifier</key>
+			<string>com.fabian-kreiser.cocoduino-archive</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>com.apple.ostype</key>
+				<array>
+					<string>????</string>
+				</array>
+				<key>public.filename-extension</key>
+				<array>
+					<string>ccdar</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/octet-stream</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
 </dict>
 </plist>
