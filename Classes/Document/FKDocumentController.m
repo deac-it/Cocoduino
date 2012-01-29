@@ -430,6 +430,10 @@
 
 - (void) serialPortsDidChange:(NSNotification *)notification {
     [self reloadSerialPortMenu];
+    for (FKSketchDocument *document in self.documents) {
+        if (document.serialPort == nil)
+            [document setSerialPort:[[self class] defaultSerialPort]];
+    }
 }
 
 - (void) pathWatcher:(SCEvents *)pathWatcher eventOccurred:(SCEvent *)event {
