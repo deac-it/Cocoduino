@@ -393,6 +393,15 @@
                             [otherFileData writeToFile:otherFilePath atomically:YES];
                         }
                         
+                        /*
+                         This fixes a bug in NSDocument and NSWindow where the proxy icon would not be updated when the path of the document changes.
+                        */
+                        
+                        for (NSWindowController *windowController in self.windowControllers) {
+                            [[windowController.window standardWindowButton:NSWindowDocumentIconButton] setImage:[NSImage imageNamed:@"Sketch.icns"]];
+                            
+                        }
+                        
                         return [super saveToURL:self.fileURL ofType:typeName forSaveOperation:saveOperation error:outError];
                     }
                     
