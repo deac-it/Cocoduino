@@ -75,6 +75,8 @@
     } 
 }
 
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 + (NSDictionary *) defaultBoard {
     NSDictionary *defaultBoard = nil;
     NSString *boardShortName = [[NSUserDefaults standardUserDefaults] objectForKey:@"Default Board"];
@@ -167,12 +169,12 @@
     return document;
 }
 
-- (id) openDocumentWithContentsOfURL:(NSURL *)url display:(BOOL)displayDocument error:(NSError **)outError {
+- (void) openDocumentWithContentsOfURL:(NSURL *)url display:(BOOL)displayDocument completionHandler:(void (^)(NSDocument *document, BOOL documentWasAlreadyOpen, NSError *error))completionHandler {
     NSArray *pathComponents = [[url path] pathComponents];
     if (([[[url path] pathExtension] isEqualToString:@"ino"] || [[[url path] pathExtension] isEqualToString:@"pde"]) && pathComponents.count >= 2) {
         /*
          For compatibility reasons warn the user, if the sketch is not located inside a correctly named directory
-        */
+         */
         
         NSString *fileLabel = [pathComponents objectAtIndex:pathComponents.count - 1];
         NSUInteger dotLocation = [fileLabel rangeOfString:@"."].location;
@@ -188,7 +190,7 @@
         }
     }
     
-    return [super openDocumentWithContentsOfURL:url display:displayDocument error:outError];
+    [super openDocumentWithContentsOfURL:url display:displayDocument completionHandler:completionHandler];
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
