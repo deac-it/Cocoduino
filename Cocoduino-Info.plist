@@ -39,7 +39,7 @@
 				<string>ccdar</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>Archive</string>
+			<string>Sketch</string>
 			<key>CFBundleTypeMIMETypes</key>
 			<array>
 				<string>application/octet-stream</string>
@@ -217,7 +217,7 @@
 				</array>
 				<key>public.filename-extension</key>
 				<array>
-					<string>cdar</string>
+					<string>ccdar</string>
 				</array>
 				<key>public.mime-type</key>
 				<array>
