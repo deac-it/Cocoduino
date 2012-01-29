@@ -51,8 +51,7 @@
                 NSInteger lineNumber = [lineString integerValue];
                 remainingString = [remainingString substringFromIndex:lineLocation + 1];
                 
-                // Reduce line number by one, because Arduino.h is included at the top of the file
-                [failureReasonDictionary setObject:[NSNumber numberWithInteger:lineNumber - 1] forKey:@"Line"];
+                [failureReasonDictionary setObject:[NSNumber numberWithInteger:lineNumber] forKey:@"Line"];
             }
             else
                 [failureReasonDictionary setObject:[NSNumber numberWithInteger:NSNotFound] forKey:@"Line"];

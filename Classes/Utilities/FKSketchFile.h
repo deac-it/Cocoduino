@@ -13,6 +13,7 @@
 
 @interface FKSketchFile : NSObject <NSCoding> {
     BOOL embedded;
+    NSUInteger addedLines;
     
     NSString *string;
     NSString *savedString;
@@ -28,8 +29,12 @@
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-// Used by FKSketchDocument only!
+/*
+ To be used by FKSketchDocument and FKInoTool only!
+*/
+
 @property (nonatomic, assign) BOOL embedded;
+@property (nonatomic, assign) NSUInteger addedLines;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

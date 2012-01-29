@@ -24,7 +24,7 @@
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-+ (NSString *) preprocessedSourceFromString:(NSString *)source;
++ (NSString *) preprocessedSourceFromString:(NSString *)source addedLines:(NSUInteger *)addedLines;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -40,12 +40,12 @@
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 + (NSString *) inoLaunchPath {
-    return [[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"bin"] stringByAppendingPathComponent:@"ino-cocoduino"];
+    return [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"bin/ino-cocoduino"];
 }
 
 + (NSString *) cachedBuildDirectoryPath {
     NSString *cachesDirectory = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    NSString *cachedBuildPath = [[cachesDirectory stringByAppendingPathComponent:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"]] stringByAppendingPathComponent:@"Latest Build"];
+    NSString *cachedBuildPath = [[cachesDirectory stringByAppendingPathComponent:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"]] stringByAppendingPathComponent:@"Cached Build"];
     
     if (![[NSFileManager defaultManager] fileExistsAtPath:cachedBuildPath])
         [[NSFileManager defaultManager] createDirectoryAtPath:cachedBuildPath withIntermediateDirectories:YES attributes:nil error:NULL];
@@ -128,8 +128,12 @@
     // Write save files to the src directory
     NSUInteger savedFiles = 0;
     for (FKSketchFile *file in files) {
-        NSData *fileData = [[self preprocessedSourceFromString:file.string] dataUsingEncoding:NSUTF8StringEncoding];
-        savedFiles += (fileData != nil && [fileData writeToFile:[temporarySrcDirectory stringByAppendingPathComponent:file.filename] atomically:YES]) ? 1 : 0;
+        NSUInteger addedLines = 0;
+        NSData *fileData = [[self preprocessedSourceFromString:file.string addedLines:&addedLines] dataUsingEncoding:NSUTF8StringEncoding];
+        if (fileData != nil && [fileData writeToFile:[temporarySrcDirectory stringByAppendingPathComponent:file.filename] atomically:YES]) {
+            file.addedLines = addedLines;
+            savedFiles++;
+        }
     }
     
     if (savedFiles != files.count) {
@@ -314,7 +318,7 @@
 #pragma mark Preprocessing
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-+ (NSString *) preprocessedSourceFromString:(NSString *)source {
++ (NSString *) preprocessedSourceFromString:(NSString *)source addedLines:(NSUInteger *)addedLines {
     /*
      Add prototypes for user-defined functions.
      Note: Line numbers in build output are getting useless now...
@@ -360,10 +364,15 @@
     NSMutableString *mutableSource = [[NSMutableString alloc] initWithString:source];
     NSRegularExpression *functionExpression = [[NSRegularExpression alloc] initWithPattern:@"[\\w\\[\\]\\*]+\\s+[&\\[\\]\\*\\w\\s]+\\([&,\\[\\]\\*\\w\\s]*\\)(?=\\s*\\{)" options:NSRegularExpressionCaseInsensitive error:NULL];
     
-    for (NSTextCheckingResult *matchResult in [functionExpression matchesInString:searchString options:NSMatchingWithTransparentBounds range:NSMakeRange(0, searchString.length)]) {
+    NSArray *functionMatches = [functionExpression matchesInString:searchString options:NSMatchingWithTransparentBounds range:NSMakeRange(0, searchString.length)];
+    for (NSTextCheckingResult *matchResult in functionMatches) {
         NSString *prototype = [NSString stringWithFormat:@"%@;\n", [searchString substringWithRange:matchResult.range]];
         [mutableSource insertString:prototype atIndex:0];
     }
+    
+    // Function prototypes and "#include <Arduino.h>" are added at the top of the file
+    if (addedLines != NULL)
+        *addedLines = functionMatches.count + 1;
     
     return [mutableSource copy];
 }

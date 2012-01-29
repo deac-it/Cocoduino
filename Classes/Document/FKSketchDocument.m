@@ -34,6 +34,7 @@
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 - (void) setBuildActionActive:(BOOL)building;
+- (FKSketchFile *) sketchFileWithFilename:(NSString *)filename;
 - (void (^)(BOOL success, FKInoToolType toolType, NSUInteger binarySize, NSError *error, NSString *output)) buildToolTerminationHandler;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -483,6 +484,16 @@
     }
 }
 
+- (FKSketchFile *) sketchFileWithFilename:(NSString *)filename {
+    NSString *filenameWithoutExtension = [filename stringByDeletingPathExtension];
+    for (FKSketchFile *file in self.files) {
+        if ([[file.filename stringByDeletingPathExtension] isEqualToString:filenameWithoutExtension])
+            return file;
+    }
+    
+    return nil;
+}
+
 - (void (^)(BOOL success, FKInoToolType toolType, NSUInteger binarySize, NSError *error, NSString *output)) buildToolTerminationHandler {    
     return ^(BOOL success, FKInoToolType toolType, NSUInteger binarySize, NSError *error, NSString *output) {
         [self setBuildActionActive:NO];
@@ -515,8 +526,10 @@
                     NSString *failureReason = nil;
                     if ([[dictionary objectForKey:@"Line"] integerValue] == NSNotFound)
                         failureReason = [NSString stringWithFormat:@"In file: \"%@\": %@", [dictionary objectForKey:@"File"], [dictionary objectForKey:@"Error"], nil];
-                    else
-                        failureReason = [NSString stringWithFormat:@"In file: \"%@\" on about line %d: %@", [dictionary objectForKey:@"File"], [[dictionary objectForKey:@"Line"] integerValue], [dictionary objectForKey:@"Error"], nil];
+                    else {
+                        NSUInteger addedLines = [[self sketchFileWithFilename:[dictionary objectForKey:@"File"]] addedLines];
+                        failureReason = [NSString stringWithFormat:@"In file: \"%@\" on line %d: %@", [dictionary objectForKey:@"File"], [[dictionary objectForKey:@"Line"] integerValue] - addedLines, [dictionary objectForKey:@"Error"], nil];
+                    }
                     
                     [[[self.buildFailedTextView textStorage] mutableString] appendString:failureReason];
                     if (i < failureReasons.count - 1)

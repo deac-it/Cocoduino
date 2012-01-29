@@ -16,7 +16,7 @@
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 @implementation FKSketchFile
-@synthesize embedded;
+@synthesize embedded, addedLines;
 @synthesize string, savedString, filename;
 @synthesize editorView, fragaria;
 
