@@ -1,0 +1,11 @@
+Metadata-Version: 1.0
+Name: ino-cocoduino
+Version: 0.3.2
+Summary: Modified version of ino for Cocoduino.
+Home-page: http://inotool.org
+Author: Amperka, Fabian Kreiser
+Author-email: UNKNOWN
+License: MIT
+Description: UNKNOWN
+Keywords: arduino build system
+Platform: UNKNOWN

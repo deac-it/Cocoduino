@@ -14,9 +14,9 @@ ino_package_data = gen_data_files('ino', 'make') + gen_data_files('ino', 'packag
 
 setup(
     name='ino-cocoduino',
-    version='0.3.1',
-    description='Port of Ino for Cocoduino.',
-    author='Amperka Team, Fabian Kreiser',
+    version='0.3.2',
+    description='Modified version of ino for Cocoduino.',
+    author='Amperka, Fabian Kreiser',
     license='MIT',
     keywords="arduino build system",
     url='http://inotool.org',
