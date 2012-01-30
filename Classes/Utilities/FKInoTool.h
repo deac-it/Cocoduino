@@ -38,8 +38,10 @@ typedef NSInteger FKInoToolError;
 }
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-// Returns YES if ino was launched successfully
+// YES if ino was launched successfully
 + (BOOL) buildSketchWithFiles:(NSArray *)files forBoard:(NSDictionary *)board onSerialPort:(AMSerialPort *)serialPort uploadAfterBuild:(BOOL)shouldUpload verboseOutput:(BOOL)verbose terminationHandler:(void (^)(BOOL success, FKInoToolType toolType, NSUInteger binarySize, NSError *error, NSString *output))terminationHandler;
+
++ (void) cleanCachedBuild;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

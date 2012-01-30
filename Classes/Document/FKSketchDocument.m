@@ -587,6 +587,14 @@
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+- (IBAction) cleanSketch:(id)sender {
+    if (_building)
+        return;
+    
+    [FKInoTool cleanCachedBuild];
+    [self.buildProgressTextField setStringValue:@"Cleaned."];
+}
+
 - (IBAction) buildSketch:(id)sender {
     if (self.board == nil) {
         NSAlert *alert = [NSAlert alertWithMessageText:@"Build Failed!" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"Your sketch can't be build. Please specify the board you want to build for."];
@@ -596,6 +604,8 @@
         
         return;
     }
+    else if (_building)
+        return;
     
     if ([FKInoTool buildSketchWithFiles:self.files forBoard:self.board onSerialPort:nil uploadAfterBuild:NO verboseOutput:NO terminationHandler:[self buildToolTerminationHandler]]) {
         [self setBuildActionActive:YES];
@@ -616,6 +626,8 @@
         
         return;
     }
+    else if (_building)
+        return;
     
     if ([FKInoTool buildSketchWithFiles:self.files forBoard:self.board onSerialPort:self.serialPort uploadAfterBuild:YES verboseOutput:NO terminationHandler:[self buildToolTerminationHandler]]) {
         [self setBuildActionActive:YES];

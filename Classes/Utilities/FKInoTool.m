@@ -313,6 +313,10 @@
     return YES;
 }
 
++ (void) cleanCachedBuild {
+    [[NSFileManager defaultManager] removeItemAtPath:[self cachedBuildDirectoryPath] error:NULL];
+}
+
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 #pragma mark -
 #pragma mark Preprocessing

@@ -55,6 +55,7 @@
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+- (IBAction) cleanSketch:(id)sender;
 - (IBAction) buildSketch:(id)sender;
 - (IBAction) buildAndUploadSketch:(id)sender;
 - (IBAction) openSerialMonitor:(id)sender;
