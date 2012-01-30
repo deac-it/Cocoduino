@@ -1,0 +1,22 @@
+
+{% from 'Makefile.common.jinja' import transform_sketches with context %}
+
+{#
+ #   sketches -> *.cpp
+ #}
+{% set sketch_cpps = SpaceList() %}
+{{ transform_sketches(src_dir, sketch_cpps) }}
+
+{#
+ #   *.c *.cpp -> dependencies file
+ #}
+{{ output_filepath }} : {{ sketch_cpps.paths() + (src_dir|glob('*.c', '*.cpp')).paths() }}
+	@mkdir -p {{ output_filepath|dirname }}
+	@echo {{ ('Scanning dependencies of ' ~ src_dir|basename)|colorize('cyan') }}
+	{{v}}{{ e.cc }} {{ e.cflags }} {{ inc_flags }} -MM $^ > $@;
+
+all: {{ output_filepath }}
+
+{#
+vim:noexpandtab filetype=jinja
+#}
