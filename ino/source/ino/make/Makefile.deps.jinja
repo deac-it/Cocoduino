@@ -1,21 +1,38 @@
 
-{% from 'Makefile.common.jinja' import transform_sketches with context %}
+{% from "Makefile.common.jinja" import iquote with context %}
+
+{% set src_build_dir = e.build_dir|pjoin(src_dir|basename) %}
 
 {#
- #   sketches -> *.cpp
+ #   *.c *.cpp -> *.d
  #}
-{% set sketch_cpps = SpaceList() %}
-{{ transform_sketches(src_dir, sketch_cpps) }}
+
+{% if src_dir == e.src_dir %}
+	{% set cpp = (src_dir|glob('*.c', '*.cpp') + src_build_dir|glob('*.cpp'))|filemap(src_build_dir, e.names.deps) %}
+{% else %}
+	{% set cpp = src_dir|glob('*.c', '*.cpp')|filemap(src_build_dir, e.names.deps) %}
+{% endif %}
+
+{% for source, target in cpp.items() %}
+{{ target.path }} : {{ source.path }}
+	@mkdir -p {{ target.path|dirname }}
+	{{v}}{{ e.cc }} {{ e.cflags }} {{ inc_flags }} {{ iquote(source) }} -MM $^ > $@
+	{# prepend build path to a target in the generated file and 
+	   add .d file itself as a target so that changes in a header file would rebuild dependency files
+	   See: http://make.paulandlesley.org/autodep.html #}
+	@echo -n "{{ target.path }} {{ target.path|dirname }}{{ slash }}" | cat - $@ > $@~ && mv $@~ $@
+{% endfor %}
 
 {#
- #   *.c *.cpp -> dependencies file
+ #   *.d -> united output
  #}
-{{ output_filepath }} : {{ sketch_cpps.paths() + (src_dir|glob('*.c', '*.cpp')).paths() }}
-	@mkdir -p {{ output_filepath|dirname }}
+{{ output_filepath }} : {{ cpp.target_paths() }}
 	@echo {{ ('Scanning dependencies of ' ~ src_dir|basename)|colorize('cyan') }}
-	{{v}}{{ e.cc }} {{ e.cflags }} {{ inc_flags }} -MM $^ > $@;
+	@mkdir -p {{ output_filepath|dirname }}
+	{{v}}cat $^ > $@;
 
-all: {{ output_filepath }}
+all : {{ output_filepath }}
+	@true
 
 {#
 vim:noexpandtab filetype=jinja

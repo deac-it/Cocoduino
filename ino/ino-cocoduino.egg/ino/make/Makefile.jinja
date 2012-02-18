@@ -1,66 +1,41 @@
 
-{% from 'Makefile.common.jinja' import transform_sketches with context %}
-{% set src_build_dir = e.build_dir|pjoin(e.src_dir|basename) %}
-
+{% from "Makefile.common.jinja" import iquote, src_build_dir with context %}
 
 {#
  #   Macros to transform *.c and *.cpp -> *.o
  #}
 {% macro compile(filemap, compiler) %}
-{% for source, target in filemap %}
+{% for source, target in filemap.items() %}
 {{ target.path }} : {{ source.path }}
 	@echo {{ (source.dirname|basename|pjoin(source.filename))|colorize('yellow') }}
 	@mkdir -p {{ target.path|dirname }}
-	{{v}}{{ compiler }} -o $@ -c $^
+	{{v}}{{ compiler }} {{ iquote(source) }} -o $@ -c {{ source.path }}
+include {{ target.path|depsname }}
 {% endfor %}
 {% endmacro %}
 
-{% macro compile_c(filemap, warning=True) %}
-{{ compile(filemap, e.cc ~ ' ' ~ e.cflags ~ ('' if warning else ' -w')) }}
+{% macro compile_c(filemap) %}
+{{ compile(filemap, e.cc ~ ' ' ~ e.cflags) }}
 {% endmacro %}
 
-{% macro compile_cpp(filemap, warning=True) %}
-{{ compile(filemap, e.cxx ~ ' ' ~ e.cflags ~ ' ' ~ e.cxxflags ~ ('' if warning else ' -w')) }}
+{% macro compile_cpp(filemap) %}
+{{ compile(filemap, e.cxx ~ ' ' ~ e.cflags ~ ' ' ~ e.cxxflags) }}
 {% endmacro %}
-
-
-{#
- #   Macro to build an AVR library
- #       source_dir - dir where *.c and *.cpp are
- #       name       - desired library name without suffix and prefix,
- #                    e.g. Ethernet
- #       add_to     - list where result path should be added
- #}
-{% macro build_library(source_dir, name, add_to) %}
-{% set libdir = e.build_dir|pjoin(name) %}
-{% set c = source_dir|glob('*.c')|filemap(libdir, e.names.obj) %}
-{% set cpp = (source_dir|glob('*.cpp'))|filemap(libdir, e.names.obj) %}
-{% set libpath = libdir|pjoin(name|libname) %}
-{% set libobjs = c.target_paths() + cpp.target_paths() %}
-{{ compile_c(c, warning=False) }}
-{{ compile_cpp(cpp, warning=False) }}
-{{ libpath }} : {{ libobjs }}
-	@echo {{ ('Linking ' ~ name|libname) |colorize('green') }}
-	{{v}}{{ e.ar }} rcs $@ $^
-{% do add_to.insert(0, libpath) %}
-{% endmacro %}
-
 
 {#
  #   library sources -> *.a
  #}
-{% set libs = SpaceList() %}
-{{ build_library(e.arduino_core_dir, 'core', add_to=libs) }}
-{% for libdir in e.extra_libs %}
-{{ build_library(libdir, libdir|basename, add_to=libs) }}
+{% set libs = e.used_libs|libmap(e.build_dir) %}
+{% for source_dir, target in libs.items() %}
+{% set c = source_dir|glob('*.c')|filemap(target.dirname, e.names.obj) %}
+{% set cpp = (source_dir|glob('*.cpp'))|filemap(target.dirname, e.names.obj) %}
+{% set libobjs = c.target_paths() + cpp.target_paths() %}
+{{ compile_c(c) }}
+{{ compile_cpp(cpp) }}
+{{ target.path }} : {{ libobjs }}
+	@echo {{ ('Linking ' ~ target.filename|basename)|colorize('green') }}
+	{{v}}{{ e.ar }} rcs $@ $^
 {% endfor %}
-
-
-{#
- #   sketches -> *.cpp
- #}
-{% set sketch_cpps = SpaceList() %}
-{{ transform_sketches(e.src_dir, sketch_cpps) }}
 
 {#
  #   *.c -> *.o
@@ -71,18 +46,17 @@
 {#
  #   *.cpp -> *.o
  #}
-{% set cpp = (e.src_dir|glob('*.cpp') + sketch_cpps)|filemap(src_build_dir, e.names.obj) %}
+{% set cpp = (e.src_dir|glob('*.cpp') + src_build_dir|glob('*.cpp'))|filemap(src_build_dir, e.names.obj) %}
 {{ compile_cpp(cpp) }}
 
 {#
  #   *.o -> elf
  #}
-{% set objs = c.target_paths() + cpp.target_paths() + libs %}
+{% set objs = c.target_paths() + cpp.target_paths() + libs.target_paths() %}
 {% set elf = e.build_dir|pjoin('firmware.elf') %}
 {{ elf }} : {{ objs }}
 	@echo {{ 'Linking firmware.elf'|colorize('green') }}
 	{{v}}{{ e.cc }} {{ e.elfflags }} -o $@ $^ -lm
-
 
 {#
  #   elf -> hex
@@ -94,6 +68,7 @@
 include {{ e.deps }}
 
 all : {{ e.hex_path }}
+	@true
 
 {#
 vim:noexpandtab filetype=jinja

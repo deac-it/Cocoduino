@@ -12,6 +12,7 @@ ino/commands/base.py
 ino/commands/build.py
 ino/commands/clean.py
 ino/commands/listmodels.py
+ino/commands/preproc.py
 ino/commands/serial.py
 ino/commands/upload.py
 ino_cocoduino.egg-info/PKG-INFO

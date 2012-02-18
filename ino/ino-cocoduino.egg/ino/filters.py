@@ -36,6 +36,9 @@ def glob(dir, *patterns, **kwargs):
 
     result = SpaceList()
     scan_dir = os.path.join(dir, subdir)
+    if not os.path.isdir(scan_dir):
+        return result
+
     for entry in os.listdir(scan_dir):
         path = os.path.join(scan_dir, entry)
         if os.path.isdir(path) and recursive:
@@ -69,14 +72,28 @@ def libname(filepath):
     return xname(filepath, 'lib%s.a')
 
 
+@filter
+def depsname(filepath):
+    return xname(filepath, '%s.d')
+
+
 basename = filter(os.path.basename)
 dirname = filter(os.path.dirname)
+relative_to = filter(os.path.relpath)
 
 
 @filter
 def filemap(sources, target_dir, rename_rule):
     return FileMap((source, GlobFile(xname(source, rename_rule), target_dir)) 
                    for source in sources)
+
+@filter
+def libmap(source_dirs, target_dir):
+    return FileMap((
+        source_dir, 
+        GlobFile(libname(basename(source_dir)), 
+                 pjoin(target_dir, basename(source_dir))))
+        for source_dir in source_dirs)
 
 
 @filter

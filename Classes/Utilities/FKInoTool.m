@@ -324,11 +324,14 @@
 
 + (NSString *) preprocessedSourceFromString:(NSString *)source addedLines:(NSUInteger *)addedLines {
     /*
-     Add prototypes for user-defined functions.
-     Note: Line numbers in build output are getting useless now...
+     As of ino-cocoduino 0.5.1 preprocessing is not required anymore.
+     Unforunately, it doesn't do preprocessing correctly and we'll need to do it manually.
     */
     
-    // Strip the source from string, comments and preprocessor directives
+    /*
+     Strip the source from strings, comments and preprocessor directives.
+    */
+    
     NSRegularExpression *stripExpression = [[NSRegularExpression alloc] initWithPattern:@"('.')|(\"(?:[^\"\\\\]|\\\\.)*\")|(//.*?$)|(/\\*[^*]*(?:\\*(?!/)[^*]*)*\\*/)|(^\\s*#.*?$)" options:NSRegularExpressionAnchorsMatchLines error:NULL];
     NSString *strippedString = [stripExpression stringByReplacingMatchesInString:source options:NSRegularExpressionCaseInsensitive range:NSMakeRange(0, source.length) withTemplate:@""];
     
@@ -367,8 +370,8 @@
     
     NSMutableString *mutableSource = [[NSMutableString alloc] initWithString:source];
     NSRegularExpression *functionExpression = [[NSRegularExpression alloc] initWithPattern:@"[\\w\\[\\]\\*]+\\s+[&\\[\\]\\*\\w\\s]+\\([&,\\[\\]\\*\\w\\s]*\\)(?=\\s*\\{)" options:NSRegularExpressionCaseInsensitive error:NULL];
-    
     NSArray *functionMatches = [functionExpression matchesInString:searchString options:NSMatchingWithTransparentBounds range:NSMakeRange(0, searchString.length)];
+    
     for (NSTextCheckingResult *matchResult in functionMatches) {
         NSString *prototype = [NSString stringWithFormat:@"%@;\n", [searchString substringWithRange:matchResult.range]];
         [mutableSource insertString:prototype atIndex:0];

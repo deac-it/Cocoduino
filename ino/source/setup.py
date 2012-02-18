@@ -14,7 +14,7 @@ ino_package_data = gen_data_files('ino', 'make') + gen_data_files('ino', 'packag
 
 setup(
     name='ino-cocoduino',
-    version='0.5',
+    version='0.5.1',
     description='Modified version of ino for Cocoduino.',
     author='Amperka, Fabian Kreiser',
     license='MIT',

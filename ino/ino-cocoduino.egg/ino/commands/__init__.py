@@ -1,5 +1,6 @@
 # -*- coding: utf-8; -*-
 
+from ino.commands.preproc import Preprocess
 from ino.commands.build import Build
 from ino.commands.clean import Clean
 from ino.commands.upload import Upload

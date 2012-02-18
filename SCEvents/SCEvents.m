@@ -366,13 +366,12 @@ static void _events_callback(ConstFSEventStreamRef streamRef,
 			// If present remove the path's trailing slash
             if (CFStringHasSuffix(eventPath, CFSTR("/"))) {
                 CFStringRef stripped = CFStringCreateWithSubstring(kCFAllocatorDefault, eventPath, CFRangeMake(0, (CFStringGetLength(eventPath) - 1)));
-                CFRelease(eventPath);
+                CFRelease(eventPath); // This release is needed, ignore clang warning!
                 eventPath = stripped;
             }
             
             SCEvent *event = [SCEvent eventWithEventId:(NSUInteger)eventIds[i] eventDate:[NSDate date] eventPath:(__bridge NSString *)eventPath eventFlags:(SCEventFlags)eventFlags[i]];
-			
-			CFRelease(eventPath);
+			CFRelease(eventPath); // This release is needed, ignore clang warning!
 			
             if ([[pathWatcher delegate] conformsToProtocol:@protocol(SCEventListenerProtocol)]) {
                 [[pathWatcher delegate] pathWatcher:pathWatcher eventOccurred:event];

@@ -3,6 +3,12 @@
 import os.path
 import itertools
 
+import sys
+import os.path as path
+sys.path.append(path.join(path.dirname(__file__),'./packages/ordereddict-1.1-py2.7.egg'))
+
+from ordereddict import OrderedDict
+
 
 class SpaceList(list):
     def __add__(self, other):
@@ -15,9 +21,7 @@ class SpaceList(list):
         return SpaceList(getattr(x, 'path', x) for x in self)
 
 
-class FileMap(dict):
-    __iter__ = dict.iteritems
-
+class FileMap(OrderedDict):
     def sources(self):
         return SpaceList(self.iterkeys())
 
@@ -25,7 +29,7 @@ class FileMap(dict):
         return SpaceList(self.itervalues())
 
     def iterpaths(self):
-        for source, target in self:
+        for source, target in self.iteritems():
             yield (source.path, target.path)
 
     def target_paths(self):
