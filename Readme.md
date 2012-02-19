@@ -1,8 +1,8 @@
 # About
 
-*Cocoduino* is an IDE for the Arduino written in native Cocoa. It's designed to be simple and easy to use and is a replacement for the official IDE.
+*Cocoduino* is an IDE for the Arduino platform written in native Cocoa. It's designed to be simple and easy to use and is a replacement for the official Arduino IDE.
 
-*Cocoduino* plays perfectly well together with the official IDE and there are no compatibility problems.
+Cocoduino plays perfectly well together with the official Arduino IDE without any compatibility problems.
 
 ![Cocoduino](http://fabian-kreiser.com/downloads/cocoduino.png)
 
@@ -10,7 +10,7 @@
 
 You can download the latest version of the application [here](DOWNLOADLINK).
 
-Make sure you have the [official IDE](http://arduino.cc/en/Main/Software) installed, because *Cocoduino* relies on tools that are shipped with it.
+Make sure you have the [official Arduino IDE](http://arduino.cc/en/Main/Software) installed, because Cocoduino relies on tools that are shipped with it.
 
 ### System Requirements:
 
@@ -18,7 +18,7 @@ Make sure you have the [official IDE](http://arduino.cc/en/Main/Software) instal
 
 # Features
 
-Cocoduino offers nearly the same features as the official IDE:
+Cocoduino offers nearly the same features as the official Arduino IDE:
 
 * **Sketchbook**
 * **Serial Monitor**
@@ -41,14 +41,14 @@ Last but not least, there is also:
 
 1. **Build Process**
     
-    As there is no official `CLI` interface for the Arduino build process, I can't guarantee that Cocoduino can compile all sketches that work with the official IDE.  
-    For example there might be some problems with more complex sketches.
+    As there is no official `CLI` interface for the Arduino build process, there is no guarantee that Cocoduino can compile all sketches that work with the official Arduino IDE.  
+*There might be problems with more complex sketches.*
 
 2. **File Architecture**
     
-    The official IDE does use plain text files for the sketches with the path extension `.ino`. Those sketches need to be located inside of a directory with the same name as the main sketch file.  
+    The official Arduino IDE uses plain text files for sketches with a path extension of `.ino`. Those sketches need to be located inside a directory with the same name as the main sketch file's name.  
     When using `NSDocument`, you'd actually want to use a binary data file which is far more powerful, because you can store additional metadata within the file. Or store multiple files in a single one, etc.  
-    In order to preserve full compatibility to the official IDE, Cocoduino uses some hacks to use the same file architecture as the official IDE. There are some disadvantages when doing this: *Autosave* doesn't work without additional work and *Versions* is buggy. All in all, I think this was the right decision.
+    In order to preserve full compatibility to the official Arduino IDE, Cocoduino uses some hacks in order to support the same file architecture as the official Arduino IDE. There are some disadvantages when doing this: *Autosave* doesn't work without additional work and *Versions* is buggy. All in all, I think this was the right decision.
 
 3. **Upload using Programmers**
 
@@ -56,9 +56,8 @@ Last but not least, there is also:
 
 # On the List…
 
-* **Improve Ino build process** (Multiple files is not working at the moment!)
 * **Clean up the syntax coloring library**
-* **More advanced code completion** (Ino is ignoring the *keywords.txt* files!)
+* **More advanced code completion** (Cocoduino is ignoring the *keywords.txt* files!)
 
 # F.A.Q
 
@@ -85,6 +84,6 @@ Cocoduino uses *(modified)* versions of the following third party libraries:
 * [PSMTabBarControl](http://www.positivespinmedia.com/dev/PSMTabBarControl.html)
 * [Fragaria](https://github.com/mugginsoft/Fragaria)
 
-The tool used for the actual build process is *(strongly modified and with some preprocessing)*:
+The tool used for the actual build process is *(modified and with additional preprocessing)*:
 
 * [Ino](http://inotool.org/)
