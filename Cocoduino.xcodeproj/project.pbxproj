@@ -22,6 +22,7 @@
 		4B07D85D14BCA19800D7A32B /* Sketch.icns in Resources */ = {isa = PBXBuildFile; fileRef = 4B07D85714BCA19700D7A32B /* Sketch.icns */; };
 		4B07D86014BCA1B600D7A32B /* Terminal.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B07D85F14BCA1B600D7A32B /* Terminal.png */; };
 		4B0F412A14B72B8B003D1F31 /* AMSerialPortAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0F412914B72B8B003D1F31 /* AMSerialPortAdditions.m */; };
+		4B26E6BC14FE9066006F97AF /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 4B26E6BB14FE9066006F97AF /* Icon.icns */; };
 		4B884ED014BB46FE00209EBF /* PSMTabBarControl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B884ECD14BB46DA00209EBF /* PSMTabBarControl.framework */; };
 		4B884ED114BB470300209EBF /* PSMTabBarControl.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 4B884ECD14BB46DA00209EBF /* PSMTabBarControl.framework */; };
 		4B884F8414BB5F1600209EBF /* MGSFragaria.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 4B884F8114BB5F0700209EBF /* MGSFragaria.framework */; };
@@ -120,6 +121,7 @@
 		4B07D85F14BCA1B600D7A32B /* Terminal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Terminal.png; sourceTree = "<group>"; };
 		4B0F412814B72B8B003D1F31 /* AMSerialPortAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMSerialPortAdditions.h; sourceTree = "<group>"; };
 		4B0F412914B72B8B003D1F31 /* AMSerialPortAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMSerialPortAdditions.m; sourceTree = "<group>"; };
+		4B26E6BB14FE9066006F97AF /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
 		4B884EC514BB46DA00209EBF /* PSMTabBarControl.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PSMTabBarControl.xcodeproj; path = PSMTabBarControl/PSMTabBarControl.xcodeproj; sourceTree = "<group>"; };
 		4B884F7914BB5F0700209EBF /* Fragaria.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Fragaria.xcodeproj; path = Fragaria/Fragaria.xcodeproj; sourceTree = "<group>"; };
 		4B8D9F8014B7770800C3E002 /* MASPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASPreferencesViewController.h; sourceTree = "<group>"; };
@@ -302,6 +304,7 @@
 		4B07D85214BCA15B00D7A32B /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				4B26E6BB14FE9066006F97AF /* Icon.icns */,
 				4B07D85714BCA19700D7A32B /* Sketch.icns */,
 				4B92375C14C2E614007A8BF4 /* Warning.png */,
 				4B07D85F14BCA1B600D7A32B /* Terminal.png */,
@@ -508,6 +511,7 @@
 				4B92376F14C2EE14007A8BF4 /* Tri-Tone.aiff in Resources */,
 				4BFD6B5C14D2D85D00CE9856 /* Templates in Resources */,
 				4BFC078C14D565CB003254F3 /* ino-cocoduino.egg in Resources */,
+				4B26E6BC14FE9066006F97AF /* Icon.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -590,7 +594,7 @@
 				INSTALL_PATH = /Applications;
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = Cocoduino;
-				PROVISIONING_PROFILE = "A60825C7-27F1-4269-A559-57CEAABF40D9";
+				PROVISIONING_PROFILE = "B48D8936-811B-4B36-B64E-8F2CDA920735";
 			};
 			name = Debug;
 		};
@@ -613,7 +617,7 @@
 				INSTALL_PATH = /Applications;
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = Cocoduino;
-				PROVISIONING_PROFILE = "A60825C7-27F1-4269-A559-57CEAABF40D9";
+				PROVISIONING_PROFILE = "B48D8936-811B-4B36-B64E-8F2CDA920735";
 				ZERO_LINK = NO;
 			};
 			name = Release;
