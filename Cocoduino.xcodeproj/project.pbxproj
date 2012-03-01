@@ -658,6 +658,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SDKROOT = macosx;
+				SKIP_INSTALL = NO;
 				WARNING_CFLAGS = "";
 			};
 			name = Debug;
@@ -694,6 +695,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SDKROOT = macosx;
+				SKIP_INSTALL = NO;
 				WARNING_CFLAGS = "";
 			};
 			name = Release;

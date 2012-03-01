@@ -368,6 +368,7 @@
 					0xb0000000,
 				);
 				PRODUCT_NAME = PSMTabBarControl;
+				SKIP_INSTALL = YES;
 				ZERO_LINK = NO;
 			};
 			name = Debug;
@@ -392,6 +393,7 @@
 					0xb0000000,
 				);
 				PRODUCT_NAME = PSMTabBarControl;
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};

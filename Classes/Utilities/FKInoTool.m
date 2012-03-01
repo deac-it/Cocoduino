@@ -260,11 +260,12 @@
                 NSData *uploadErrorData = [[(NSPipe *)[uploadTask standardError] fileHandleForReading] readDataToEndOfFile];
                 NSString *uploadErrorString = (uploadErrorData != nil) ? [[NSString alloc] initWithData:uploadErrorData encoding:NSUTF8StringEncoding] : nil;
                 
-                // TODO: REMOVE WHEN THE ERROR IS FIXED
+                /* NOTE: UNCOMMENT TO SEE UPLOAD OUTPUT
                 dispatch_async(dispatch_get_main_queue(), ^{
                     NSAlert *alert = [NSAlert alertWithMessageText:@"Upload Output" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"ARGUMENTS:\n%@\n\nOUTPUT:\n%@\n\nERROR:\n%@\n\nSERIAL:\n%@", [buildTask arguments], uploadOutputString, uploadErrorString, [serialPort bsdPath]];
                     [alert runModal];
                 });
+                */
                 
                 BOOL success = (uploadErrorString != nil && [uploadErrorString rangeOfString:@"avrdude done.  Thank you."].location != NSNotFound);
                 if ([uploadTask terminationStatus] == 0 && success) {

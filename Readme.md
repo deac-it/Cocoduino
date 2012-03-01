@@ -4,11 +4,11 @@
 
 Cocoduino plays perfectly well together with the official Arduino IDE without any compatibility problems.
 
-![Cocoduino](http://fabian-kreiser.com/downloads/cocoduino.png)
+![Cocoduino](http://fabian-kreiser.com/cocoduino/cocoduino-screenshot.png)
 
 # Download
 
-You can download the latest version of the application [here](DOWNLOADLINK).
+You can download the latest version of the application [here](http://fabian-kreiser.com/cocoduino/cocoduino.zip).
 
 Make sure you have the [official Arduino IDE](http://arduino.cc/en/Main/Software) installed, because Cocoduino relies on tools that are shipped with it.
 
