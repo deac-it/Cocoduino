@@ -579,7 +579,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer: Fabian Kreiser (D89MC943VY)";
+				CODE_SIGN_IDENTITY = "Developer ID Application: Fabian Kreiser";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -592,9 +592,10 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Cocoduino-Info.plist";
 				INSTALL_PATH = /Applications;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = Cocoduino;
-				PROVISIONING_PROFILE = "B48D8936-811B-4B36-B64E-8F2CDA920735";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -603,7 +604,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer: Fabian Kreiser (D89MC943VY)";
+				CODE_SIGN_IDENTITY = "Developer ID Application: Fabian Kreiser";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -615,9 +616,10 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Cocoduino-Info.plist";
 				INSTALL_PATH = /Applications;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = Cocoduino;
-				PROVISIONING_PROFILE = "B48D8936-811B-4B36-B64E-8F2CDA920735";
+				PROVISIONING_PROFILE = "";
 				ZERO_LINK = NO;
 			};
 			name = Release;
