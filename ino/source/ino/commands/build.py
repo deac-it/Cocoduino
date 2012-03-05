@@ -142,7 +142,8 @@ class Build(Command):
 
     def make(self, makefile, **kwargs):
         makefile = self.render_template(makefile + '.jinja', makefile, **kwargs)
-        ret = subprocess.call(['make', '-f', makefile, 'all'])
+        self.e.find_arduino_tool('make', ['hardware', 'tools', 'avr', 'bin'])
+        ret = subprocess.call([self.e['make'], '-f', makefile, 'all'])
         if ret != 0:
             raise Abort("Make failed with code %s" % ret)
 

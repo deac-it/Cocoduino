@@ -267,7 +267,7 @@
                 });
                 */
                 
-                BOOL success = (uploadErrorString != nil && [uploadErrorString rangeOfString:@"avrdude done.  Thank you."].location != NSNotFound);
+                BOOL success = (uploadErrorString != nil && [uploadErrorString rangeOfString:@"bytes of flash verified"].location != NSNotFound && [uploadErrorString rangeOfString:@"avrdude done.  Thank you."].location != NSNotFound);
                 if ([uploadTask terminationStatus] == 0 && success) {
                     // Upload successful
                     if (terminationHandler != NULL) {
