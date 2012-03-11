@@ -14,6 +14,7 @@
 #import "FKDocumentController.h"
 #import "FKSketchDocument.h"
 #import "FKSketchFile.h"
+#import "FKInoTool.h"
 #import "AMSerialPort.h"
 #import "AMSerialPortList.h"
 #import "SCEvents.h"
@@ -366,7 +367,7 @@
         for (FKSketchDocument *document in self.documents)
             [document setBoard:nil];
         
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Default Bord"];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Default Board"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     else {
@@ -380,6 +381,8 @@
         [[NSUserDefaults standardUserDefaults] setObject:[board objectForKey:@"short"] forKey:@"Default Board"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
+    
+    [FKInoTool cleanCachedBuild];
 }
 
 - (void) didSelectSerialPort:(id)sender {
