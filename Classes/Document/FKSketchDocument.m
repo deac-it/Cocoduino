@@ -25,7 +25,7 @@
 
 @interface FKSketchDocument ()
 
-- (void) reloadBottomTextField;
+- (void) updateBottomTextField;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -112,7 +112,7 @@
     }
     
     [self.tabView selectTabViewItemAtIndex:0];
-    [self reloadBottomTextField];
+    [self updateBottomTextField];
 
     [self.buildProgressTextField setStringValue:@""];
     [self setBuildActionActive:NO];
@@ -184,7 +184,7 @@
     if (board != dictionary) {
         board = dictionary;
         
-        [self reloadBottomTextField];
+        [self updateBottomTextField];
     }
 }
 
@@ -192,11 +192,11 @@
     if (serialPort != port) {
         serialPort = port;
         
-        [self reloadBottomTextField];
+        [self updateBottomTextField];
     }
 }
 
-- (void) reloadBottomTextField {
+- (void) updateBottomTextField {
     if (self.board != nil && self.serialPort != nil)
         [self.bottomTextField setStringValue:[NSString stringWithFormat:@"%@ on %@", [self.board objectForKey:@"name"], self.serialPort.name]];
     else if (self.board != nil && self.serialPort == nil)
