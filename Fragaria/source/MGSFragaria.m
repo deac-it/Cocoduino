@@ -294,7 +294,14 @@ static MGSFragaria *_currentInstance;
 	
 	// update line numbers
 	[[_docSpec valueForKey:ro_MGSFOLineNumbers] updateLineNumbersForClipView:[[_docSpec valueForKey:ro_MGSFOScrollView] contentView] checkWidth:NO recolour:YES];
-	
+    
+    
+	/*
+     10.8 fix for embedding.
+    */
+    
+    [textScrollView setFrame:NSMakeRect(gutterWidth, 0, contentView.bounds.size.width - gutterWidth, contentView.bounds.size.height)];
+    [gutterScrollView setFrame:NSMakeRect(0, 0, gutterWidth, contentSize.height)];
 }
 
 #pragma mark -
