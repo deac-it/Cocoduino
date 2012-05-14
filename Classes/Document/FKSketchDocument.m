@@ -468,7 +468,7 @@
     else if (action == @selector(openSerialMonitor:))
         return (self.serialPort != nil);
     else
-        return YES;
+        return [super validateMenuItem:item];
 }
 
 - (BOOL) validateToolbarItem:(NSToolbarItem *)toolbarItem {
